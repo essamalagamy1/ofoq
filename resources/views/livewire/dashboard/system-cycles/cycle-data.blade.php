@@ -18,6 +18,7 @@
                     <tr class="bg-base-200/50">
                         <th class="py-3 px-4">#</th>
                         <th class="py-3 px-4">{{ __('lang.name') ?? 'الاسم' }}</th>
+                        <th class="py-3 px-4 text-center">{{ __('lang.active_week') ?? 'الأسبوع النشط' }}</th>
                         <th class="py-3 px-4 text-center">{{ __('lang.status') ?? 'الحالة' }}</th>
                         <th class="py-3 px-4 text-center">{{ __('lang.action') ?? 'الإجراءات' }}</th>
                     </tr>
@@ -27,6 +28,7 @@
                         <tr class="hover:bg-base-100/80 transition-colors border-b border-base-100 last:border-0">
                             <td class="py-3 px-4">{{ $cycle->id }}</td>
                             <td class="py-3 px-4 font-semibold">{{ $cycle->name }}</td>
+                            <td class="py-3 px-4 text-center font-bold text-primary">{{ $cycle->active_week ?? 1 }}</td>
                             <td class="py-3 px-4 text-center">
                                 <x-toggle wire:model.live="cycles.{{ $loop->index }}.is_active" wire:click="toggleActive({{ $cycle->id }})" />
                                 @if($cycle->is_active)
@@ -44,7 +46,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="py-8 text-center text-gray-500">
+                            <td colspan="5" class="py-8 text-center text-gray-500">
                                 {{ __('lang.no_data') ?? 'لا توجد بيانات متاحة' }}
                             </td>
                         </tr>

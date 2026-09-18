@@ -13,7 +13,6 @@
                 <x-checkbox label="{{ __('lang.can_share_opinion') ?? 'السماح بالمشاركة بالرأي' }}" wire:model="can_share_opinion" />
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
                 <x-phone-input 
                     phoneProperty="parent_mobile_1" 
                     keyProperty="parent_mobile_1_key" 
@@ -29,7 +28,6 @@
                     keyProperty="parent_mobile_3_key" 
                     label="{{ __('lang.parent_mobile_3') ?? 'هاتف ولي الأمر 3' }}" 
                 />
-            </div>
 
             <x-slot:actions>
                 <x-button label="{{ __('lang.cancel') ?? 'إلغاء' }}" @click="$wire.create_modal = false" />

@@ -24,12 +24,19 @@ class CreateSuggestion extends Component
     public string $option_d = '';
     public string $correct_option = '';
 
+    public function mount(): void
+    {
+        $activeCycle = AcademicCycle::where('is_active', true)->first();
+        if ($activeCycle) {
+            $this->week = $activeCycle->active_week ?? 1;
+        }
+    }
+
     public function rules(): array
     {
         return [
             'subject' => 'required|string|in:science,math,arabic',
             'grade' => 'required|integer|between:3,6',
-            'week' => 'required|integer|between:1,12',
             'content' => 'required|string',
             'option_a' => 'required|string|max:255',
             'option_b' => 'required|string|max:255',
@@ -50,6 +57,7 @@ class CreateSuggestion extends Component
         }
 
         $validated['cycle_id'] = $activeCycle->id;
+        $validated['week'] = $activeCycle->active_week ?? 1;
         $validated['user_id'] = auth()->id();
         $validated['status'] = 'pending';
         $validated['is_parent_suggestion'] = true;

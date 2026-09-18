@@ -1,9 +1,7 @@
 @php use App\Services\FileService; @endphp
 <div>
 	<x-card title="{{ __('lang.personal_info') }}" shadow separator class="mb-3">
-		<div class="mb-3">
-			<img src="{{auth()->user()->getFirstMediaUrl('image')}}" alt="img" class="!rounded-lg !w-20 " style="width: 150px;margin: auto">
-		</div>
+
 		<form wire:submit.prevent="updateProfile" class="flex flex-col gap-4">
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
 				<x-input label="{{__('lang.name')}}" wire:model="name"/>
@@ -14,10 +12,7 @@
                     label="{{ __('lang.mobile_number') ?? 'رقم الجوال' }}" 
                 />
 
-				<div>
-					<x-file wire:model="image" label="{{__('lang.image')}}" accept="image/*"/>
-					<x-progress class="progress-primary h-0.5" indeterminate wire:loading wire:target="image"/>
-				</div>
+
 
 			</div>
 			<div class="text-center">

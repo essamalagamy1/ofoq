@@ -160,6 +160,20 @@
                 const dialCode = '+' + iti.getSelectedCountryData().dialCode;
                 $wire.set('{{ $keyProperty }}', dialCode);
             });
+            
+            // 5. الاستماع لتحديثات Livewire (مثل عند فتح نافذة التعديل)
+            $wire.$watch('{{ $phoneProperty }}', (value) => {
+                // تحديث القيمة فقط إذا لم يكن الحقل نشطاً (أي المستخدم لا يكتب حالياً)
+                if (document.activeElement !== input) {
+                    const key = $wire.get('{{ $keyProperty }}') || '';
+                    if (value) {
+                        iti.setNumber(key + value);
+                    } else {
+                        iti.setNumber('');
+                        input.value = '';
+                    }
+                }
+            });
         "
         @tel-reset.window="
             if(iti) {

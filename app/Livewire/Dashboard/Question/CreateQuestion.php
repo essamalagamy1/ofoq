@@ -32,6 +32,12 @@ class CreateQuestion extends Component
             'subject', 'grade', 'week', 'content', 
             'option_a', 'option_b', 'option_c', 'option_d', 'correct_option'
         ]);
+        
+        $activeCycle = AcademicCycle::where('is_active', true)->first();
+        if ($activeCycle) {
+            $this->week = $activeCycle->active_week ?? 1;
+        }
+
         $this->create_modal = true;
     }
 
@@ -40,7 +46,6 @@ class CreateQuestion extends Component
         return [
             'subject' => 'required|string|in:science,math,arabic',
             'grade' => 'required|integer|between:3,6',
-            'week' => 'required|integer|between:1,12',
             'content' => 'required|string',
             'option_a' => 'required|string|max:255',
             'option_b' => 'required|string|max:255',
@@ -61,6 +66,7 @@ class CreateQuestion extends Component
         }
 
         $validated['cycle_id'] = $activeCycle->id;
+        $validated['week'] = $activeCycle->active_week ?? 1;
         $validated['user_id'] = auth()->id();
         $validated['status'] = 'approved';
         $validated['is_parent_suggestion'] = false; // Because created from dashboard by teacher/admin

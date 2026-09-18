@@ -16,6 +16,7 @@ class AcademicCycle extends Model
     {
         return [
             'is_active' => 'boolean',
+            'active_week' => 'integer',
         ];
     }
 

@@ -9,6 +9,10 @@
         <x-menu-item title="{{ __('lang.teachers') ?? 'المعلمين' }}" icon-classes="text-primary" icon="o-academic-cap" link="{{ route('admin.teachers') }}" />
         
         <x-menu-separator />
+        <x-menu-title title="{{ __('lang.academic_content') ?? 'المحتوى الأكاديمي' }}" />
+        <x-menu-item title="{{ __('lang.questions') ?? 'بنك الأسئلة' }}" icon-classes="text-primary" icon="o-document-text" link="{{ route('admin.questions') }}" />
+
+        <x-menu-separator />
         <x-menu-title title="{{ __('lang.system_settings') ?? 'الإعدادات' }}" />
         <x-menu-item title="{{ __('lang.badges') ?? 'الشارات' }}" icon-classes="text-primary" icon="o-star" link="{{ route('admin.badges') }}" />
         <x-menu-item title="{{ __('lang.cycles') ?? 'الدورات' }}" icon-classes="text-primary" icon="o-arrow-path" link="{{ route('admin.cycles') }}" />

@@ -16,14 +16,12 @@
                     wire:model="can_share_opinion" />
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
-                <x-phone-input phoneProperty="parent_mobile_1" keyProperty="parent_mobile_1_key"
-                    label="{{ __('lang.parent_mobile_1') ?? 'هاتف ولي الأمر 1' }}" />
-                <x-phone-input phoneProperty="parent_mobile_2" keyProperty="parent_mobile_2_key"
-                    label="{{ __('lang.parent_mobile_2') ?? 'هاتف ولي الأمر 2' }}" />
-                <x-phone-input phoneProperty="parent_mobile_3" keyProperty="parent_mobile_3_key"
-                    label="{{ __('lang.parent_mobile_3') ?? 'هاتف ولي الأمر 3' }}" />
-            </div>
+            <x-phone-input phoneProperty="parent_mobile_1" keyProperty="parent_mobile_1_key"
+                label="{{ __('lang.parent_mobile_1') ?? 'هاتف ولي الأمر 1' }}" />
+            <x-phone-input phoneProperty="parent_mobile_2" keyProperty="parent_mobile_2_key"
+                label="{{ __('lang.parent_mobile_2') ?? 'هاتف ولي الأمر 2' }}" />
+            <x-phone-input phoneProperty="parent_mobile_3" keyProperty="parent_mobile_3_key"
+                label="{{ __('lang.parent_mobile_3') ?? 'هاتف ولي الأمر 3' }}" />
 
             <x-slot:actions>
                 <x-button label="{{ __('lang.cancel') ?? 'إلغاء' }}" @click="$wire.update_modal = false" />

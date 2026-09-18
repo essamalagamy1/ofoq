@@ -12,13 +12,11 @@ use Mary\Traits\Toast;
 #[Title('profile')]
 class Profile extends Component
 {
-    use Toast, WithFileUploads;
+    use Toast;
 
     public $name;
     public $phone_key;
     public $phone;
-
-    public $image;
 
     public $old_password;
 
@@ -53,18 +51,13 @@ class Profile extends Component
     {
         $this->validate([
             'name' => 'required|string|max:255',
-            'phone_key' => 'nullable|string|max:10',
             'phone' => 'nullable|string|max:20|unique:users,phone,' . auth()->id(),
-            'image' => 'nullable|image|max:5000',
         ]);
         auth()->user()->update([
             'name' => $this->name,
-            'phone_key' => $this->phone_key,
             'phone' => $this->phone,
+            'phone_key' => $this->phone_key,
         ]);
-        if ($this->image) {
-            auth()->user()->addMedia($this->image->getRealPath())->toMediaCollection('image');
-        }
         $this->success(__('lang.profile_updated_successfully'));
     }
 

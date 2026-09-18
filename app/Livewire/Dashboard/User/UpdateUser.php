@@ -19,7 +19,6 @@ class UpdateUser extends Component
 
     public $name;
 
-    public $email;
 
     public $password;
 
@@ -35,7 +34,6 @@ class UpdateUser extends Component
     {
 
         $this->name = $this->user->name;
-        $this->email = $this->user->email;
         $this->phone = $this->user->phone;
         $this->phone_key = $this->user->phone_key;
     }
@@ -44,7 +42,6 @@ class UpdateUser extends Component
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email:filter|max:255|unique:users,email,'.$this->user->id,
             'phone' => 'nullable|string|max:20|unique:users,phone,'.$this->user->id,
             'phone_key' => 'nullable|string|max:10',
             'password' => 'nullable|string|min:8|confirmed',
@@ -58,7 +55,6 @@ class UpdateUser extends Component
         $this->validate();
         $this->user->update([
             'name' => $this->name,
-            'email' => $this->email,
             'phone' => $this->phone,
             'phone_key' => $this->phone_key,
         ]);

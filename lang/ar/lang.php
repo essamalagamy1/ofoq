@@ -798,7 +798,7 @@ return [
     'next_question' => 'السؤال التالي',
     'projector_ready' => 'البروجيكتور جاهز',
     'select_options_to_start' => 'الرجاء تحديد الدورة والمادة والصف والأسبوع للبدء بعرض الأسئلة.',
-    
+
     'parent_suggestions' => 'مقترحات أولياء الأمور',
     'all_statuses' => 'كل الحالات',
     'parent' => 'ولي الأمر',
@@ -811,13 +811,13 @@ return [
     'suggestion_approved' => 'تم قبول الاقتراح وإضافته لبنك الأسئلة.',
     'suggestion_rejected' => 'تم رفض الاقتراح.',
     'rejection_reason_required' => 'يجب كتابة سبب الرفض في التعليق.',
-    
+
     'my_children' => 'أبنائي',
     'welcome_parent' => 'مرحباً بك في لوحة متابعة أبنائك',
     'suggest_question' => 'اقتراح أسئلة',
     'no_children_found' => 'لا يوجد أبناء مسجلين برقم الجوال الخاص بك.',
     'contact_school' => 'يرجى التواصل مع إدارة المدرسة لتحديث بياناتك.',
-    
+
     'my_suggestions' => 'مقترحاتي للأسئلة',
     'my_suggestions_hint' => 'ساهم في بنك الأسئلة باقتراح أسئلة جديدة',
     'suggest_new_question' => 'اقتراح سؤال جديد',
@@ -831,4 +831,33 @@ return [
     'select_correct_option' => 'اختر الإجابة الصحيحة...',
     'submit_suggestion' => 'إرسال المقترح',
     'suggestion_submitted' => 'تم تقديم مقترحك بنجاح وسنقوم بمراجعته.',
+
+    // Missing Keys Added
+    'week' => 'الأسبوع',
+    'all_weeks' => 'كل الأسابيع',
+    'all_grades' => 'كل الصفوف',
+    'all_cycles' => 'كل الدورات',
+    'all_teachers' => 'كل المعلمين',
+    'all_subjects' => 'كل المواد',
+    'all_statuses' => 'كل الحالات',
+    'overview_of_platform' => 'نظرة عامة على إحصائيات المنصة',
+    'total_students' => 'إجمالي الطلاب',
+    'total_teachers' => 'إجمالي المعلمين',
+    'total_questions' => 'إجمالي الأسئلة',
+    'recent_questions' => 'أحدث الأسئلة',
+    'unknown' => 'غير معروف',
+    'no_questions_in_cycle' => 'لا توجد أسئلة مضافة في هذه الدورة حتى الآن.',
+    'view_answers' => 'عرض الإجابات',
+    'import_students' => 'استيراد الطلاب',
+    'select_excel_file' => 'اختر ملف Excel',
+    'search_by_question' => 'بحث في السؤال',
+    'search_by_id' => 'بحث بالرقم',
+    'search_by_name' => 'بحث بالاسم',
+    'search_mobile' => 'بحث برقم الجوال',
+    'subject' => 'المادة',
+    
+    // Login Flow
+    'enter_phone_number_login' => 'أدخل رقم جوالك لتسجيل الدخول',
+    'continue' => 'متابعة',
+    'edit' => 'تعديل',
 ];

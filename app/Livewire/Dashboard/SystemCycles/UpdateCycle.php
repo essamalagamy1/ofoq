@@ -17,6 +17,7 @@ class UpdateCycle extends Component
 
     public string $name = '';
     public bool $is_active = false;
+    public int $active_week = 1;
 
     #[On('open-update-modal')]
     public function openModal(AcademicCycle $cycle): void
@@ -24,6 +25,7 @@ class UpdateCycle extends Component
         $this->cycle = $cycle;
         $this->name = $cycle->name;
         $this->is_active = $cycle->is_active;
+        $this->active_week = $cycle->active_week ?? 1;
         
         $this->update_modal = true;
     }
@@ -33,6 +35,7 @@ class UpdateCycle extends Component
         return [
             'name' => 'required|string|max:255',
             'is_active' => 'boolean',
+            'active_week' => 'required|integer|between:1,12',
         ];
     }
 

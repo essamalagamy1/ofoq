@@ -20,7 +20,7 @@
                     ['id' => 6, 'name' => '6'],
                 ]" option-value="id" option-label="name" placeholder="{{ __('lang.select_grade') ?? 'اختر الصف...' }}" required />
                 
-                <x-select label="{{ __('lang.week') ?? 'الأسبوع' }}" wire:model="week" :options="collect(range(1, 12))->map(fn($w) => ['id' => $w, 'name' => $w])->toArray()" option-value="id" option-label="name" placeholder="{{ __('lang.select_week') ?? 'اختر الأسبوع...' }}" required />
+                <x-input type="number" label="{{ __('lang.week') ?? 'الأسبوع' }}" wire:model="week" readonly hint="يتم تحديد الأسبوع تلقائياً من قبل الإدارة" />
             </div>
 
             <x-textarea label="{{ __('lang.question_content') ?? 'نص السؤال' }}" wire:model="content" placeholder="{{ __('lang.question_content_hint') ?? 'اكتب نص السؤال هنا بدقة...' }}" rows="3" required />
