@@ -1,56 +1,67 @@
 <div>
     <x-header title="{{ __('lang.questions') ?? 'بنك الأسئلة' }}" separator>
         <x-slot:actions>
-            <div class="flex flex-wrap items-center gap-4">
-                <x-input wire:model.live.debounce.500ms="search_content" placeholder="{{ __('lang.search_by_question') ?? 'بحث في السؤال' }}" icon="o-magnifying-glass" clearable class="w-48" />
-                
-                <x-select 
-                    wire:model.live="filter_cycle_id" 
-                    :options="$all_cycles" 
-                    option-value="id" 
-                    option-label="name" 
-                    placeholder="{{ __('lang.all_cycles') ?? 'كل الدورات' }}" 
-                    class="w-32"
-                />
-
-                @if(!auth()->user()->hasRole('teacher'))
-                    <x-select 
-                        wire:model.live="filter_teacher" 
-                        :options="$all_teachers" 
-                        option-value="id" 
-                        option-label="name" 
-                        placeholder="{{ __('lang.all_teachers') ?? 'كل المعلمين' }}" 
-                        class="w-32"
-                    />
-                @endif
-
-                <x-select 
-                    wire:model.live="filter_subject" 
-                    :options="collect(\App\Enums\SubjectEnum::getInstances())->map(fn($e) => ['value' => $e->value, 'title' => $e->title()])" 
-                    option-value="value" 
-                    option-label="title" 
-                    placeholder="{{ __('lang.all_subjects') ?? 'كل المواد' }}" 
-                    class="w-32"
-                />
-
-                <x-select 
-                    wire:model.live="filter_grade" 
-                    :options="[
-                        ['id' => 3, 'name' => '3'],
-                        ['id' => 4, 'name' => '4'],
-                        ['id' => 5, 'name' => '5'],
-                        ['id' => 6, 'name' => '6'],
-                    ]"
-                    option-value="id" 
-                    option-label="name" 
-                    placeholder="{{ __('lang.all_grades') ?? 'كل الصفوف' }}" 
-                    class="w-32"
-                />
-
-                <x-button icon="o-plus" class="btn-primary" wire:click="checkActiveCycleAndOpenCreateModal">{{ __('lang.add') ?? 'إضافة' }}</x-button>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <x-button icon="o-plus" class="btn-primary btn-sm sm:btn-md" wire:click="checkActiveCycleAndOpenCreateModal">{{ __('lang.add') ?? 'إضافة' }}</x-button>
             </div>
         </x-slot:actions>
     </x-header>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-4">
+        <x-input wire:model.live.debounce.500ms="search_content" placeholder="{{ __('lang.search_by_question') ?? 'بحث في السؤال' }}" icon="o-magnifying-glass" clearable class="w-full" />
+        
+        <x-select 
+            wire:model.live="filter_cycle_id" 
+            :options="$all_cycles" 
+            option-value="id" 
+            option-label="name" 
+            placeholder="{{ __('lang.all_cycles') ?? 'كل الدورات' }}" 
+            class="w-full"
+        />
+
+        @if(!auth()->user()->hasRole('teacher'))
+            <x-select 
+                wire:model.live="filter_teacher" 
+                :options="$all_teachers" 
+                option-value="id" 
+                option-label="name" 
+                placeholder="{{ __('lang.all_teachers') ?? 'كل المعلمين' }}" 
+                class="w-full"
+            />
+        @endif
+
+        <x-select 
+            wire:model.live="filter_subject" 
+            :options="collect(\App\Enums\SubjectEnum::getInstances())->map(fn($e) => ['value' => $e->value, 'title' => $e->title()])" 
+            option-value="value" 
+            option-label="title" 
+            placeholder="{{ __('lang.all_subjects') ?? 'كل المواد' }}" 
+            class="w-full"
+        />
+
+        <x-select 
+            wire:model.live="filter_grade" 
+            :options="[
+                ['id' => 3, 'name' => '3'],
+                ['id' => 4, 'name' => '4'],
+                ['id' => 5, 'name' => '5'],
+                ['id' => 6, 'name' => '6'],
+            ]"
+            option-value="id" 
+            option-label="name" 
+            placeholder="{{ __('lang.all_grades') ?? 'كل الصفوف' }}" 
+            class="w-full"
+        />
+
+        <x-select 
+            wire:model.live="filter_week" 
+            :options="collect(range(1, 12))->map(fn($w) => ['id' => $w, 'name' => __('lang.week') . ' ' . $w])->toArray()"
+            option-value="id" 
+            option-label="name" 
+            placeholder="{{ __('lang.all_weeks') ?? 'كل الأسابيع' }}" 
+            class="w-full"
+        />
+    </div>
 
     <div class="bg-base-100 rounded-lg shadow-sm border border-base-200">
         <div class="overflow-x-auto">
@@ -83,7 +94,7 @@
                                 <td class="py-3 px-4 text-sm text-gray-600">{{ $question->creator->name ?? '-' }}</td>
                             @endif
                             <td class="py-3 px-4">
-                                <span class="badge badge-outline badge-primary">
+                                <span class="badge badge-primary text-white">
                                     {{ \App\Enums\SubjectEnum::coerce($question->subject)?->title() ?? $question->subject }}
                                 </span>
                             </td>

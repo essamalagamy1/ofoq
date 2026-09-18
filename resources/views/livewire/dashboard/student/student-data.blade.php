@@ -1,14 +1,17 @@
 <div>
     <x-header title="{{ __('lang.students') ?? 'الطلاب' }}" separator>
         <x-slot:actions>
-            <div class="flex items-center gap-4">
-                <x-input wire:model.live.debounce.500ms="search_student_id" placeholder="{{ __('lang.search_by_id') ?? 'بحث بالرقم' }}" icon="o-magnifying-glass" clearable class="w-32" />
-                <x-input wire:model.live.debounce.500ms="search_name" placeholder="{{ __('lang.search_by_name') ?? 'بحث بالاسم' }}" icon="o-magnifying-glass" clearable class="w-48" />
-                <x-button icon="o-arrow-up-tray" class="btn-success" wire:click="$set('import_modal', true)">{{ __('lang.import') ?? 'استيراد' }}</x-button>
-                <x-button icon="o-plus" class="btn-primary" wire:click="$dispatch('open-create-modal')">{{ __('lang.add') ?? 'إضافة' }}</x-button>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <x-button icon="o-arrow-up-tray" class="btn-success btn-sm sm:btn-md" wire:click="$set('import_modal', true)">{{ __('lang.import') ?? 'استيراد' }}</x-button>
+                <x-button icon="o-plus" class="btn-primary btn-sm sm:btn-md" wire:click="$dispatch('open-create-modal')">{{ __('lang.add') ?? 'إضافة' }}</x-button>
             </div>
         </x-slot:actions>
     </x-header>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
+        <x-input wire:model.live.debounce.500ms="search_student_id" placeholder="{{ __('lang.search_by_id') ?? 'بحث بالرقم' }}" icon="o-magnifying-glass" clearable class="w-full" />
+        <x-input wire:model.live.debounce.500ms="search_name" placeholder="{{ __('lang.search_by_name') ?? 'بحث بالاسم' }}" icon="o-magnifying-glass" clearable class="w-full" />
+    </div>
 
     <div class="bg-base-100 rounded-lg shadow-sm border border-base-200">
         <div class="overflow-x-auto">
@@ -29,7 +32,7 @@
                             <td class="py-3 px-4">{{ $student->id }}</td>
                             <td class="py-3 px-4 font-semibold">{{ $student->name }}</td>
                             <td class="py-3 px-4">
-                                <span class="badge badge-outline badge-primary">{{ $student->grade }}</span>
+                                <span class="badge badge-primary text-white">{{ $student->grade }}</span>
                             </td>
                             <td class="py-3 px-4">{{ $student->semester }}</td>
                             <td class="py-3 px-4" dir="ltr">

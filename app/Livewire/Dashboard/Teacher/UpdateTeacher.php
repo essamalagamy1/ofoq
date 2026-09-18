@@ -58,8 +58,6 @@ class UpdateTeacher extends Component
             $validated['password'] = Hash::make($this->password);
         }
 
-        $validated['email'] = $this->phone.'@ofoq.test';
-
         $this->teacher->update($validated);
 
         $this->success(__('lang.updated_successfully', ['attribute' => __('lang.teacher') ?? 'المعلم']));

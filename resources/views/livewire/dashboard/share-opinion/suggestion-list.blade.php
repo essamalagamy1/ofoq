@@ -30,7 +30,7 @@
                                 </div>
                             </td>
                             <td class="py-3 px-4 text-center">
-                                <span class="badge badge-outline badge-primary">
+                                <span class="badge badge-primary text-white">
                                     {{ \App\Enums\SubjectEnum::coerce($suggestion->subject)?->title() ?? $suggestion->subject }}
                                 </span>
                             </td>

@@ -57,11 +57,7 @@ class Dashboard extends Component
         return User::whereHas('roles', fn($q) => $q->where('name', 'teacher'))->count();
     }
 
-    #[Computed]
-    public function totalParents(): int
-    {
-        return User::whereHas('roles', fn($q) => $q->where('name', 'parent'))->count();
-    }
+
 
     #[Computed]
     public function totalQuestions(): int

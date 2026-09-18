@@ -1,12 +1,15 @@
 <div>
     <x-header title="{{ __('lang.cycles') ?? 'الدورات الأكاديمية' }}" separator>
         <x-slot:actions>
-            <div class="flex items-center gap-4">
-                <x-input wire:model.live.debounce.500ms="search_name" placeholder="{{ __('lang.search_by_name') ?? 'بحث بالاسم' }}" icon="o-magnifying-glass" clearable class="w-48" />
-                <x-button icon="o-plus" class="btn-primary" wire:click="$dispatch('open-create-modal')">{{ __('lang.add') ?? 'إضافة' }}</x-button>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <x-button icon="o-plus" class="btn-primary btn-sm sm:btn-md" wire:click="$dispatch('open-create-modal')">{{ __('lang.add') ?? 'إضافة' }}</x-button>
             </div>
         </x-slot:actions>
     </x-header>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
+        <x-input wire:model.live.debounce.500ms="search_name" placeholder="{{ __('lang.search_by_name') ?? 'بحث بالاسم' }}" icon="o-magnifying-glass" clearable class="w-full" />
+    </div>
 
     <div class="bg-base-100 rounded-lg shadow-sm border border-base-200">
         <div class="overflow-x-auto">

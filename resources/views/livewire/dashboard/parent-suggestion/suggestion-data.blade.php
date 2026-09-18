@@ -1,18 +1,17 @@
 <div>
     <x-header title="{{ __('lang.parent_suggestions') ?? 'مقترحات أولياء الأمور' }}" separator>
-        <x-slot:actions>
-            <div class="flex items-center gap-4">
-                <x-select 
-                    wire:model.live="filter_status" 
-                    :options="collect(\App\Enums\SuggestionStatusEnum::getInstances())->map(fn($e) => ['value' => $e->value, 'title' => $e->title()])" 
-                    option-value="value" 
-                    option-label="title" 
-                    placeholder="{{ __('lang.all_statuses') ?? 'كل الحالات' }}" 
-                    class="w-40"
-                />
-            </div>
-        </x-slot:actions>
     </x-header>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
+        <x-select 
+            wire:model.live="filter_status" 
+            :options="collect(\App\Enums\SuggestionStatusEnum::getInstances())->map(fn($e) => ['value' => $e->value, 'title' => $e->title()])" 
+            option-value="value" 
+            option-label="title" 
+            placeholder="{{ __('lang.all_statuses') ?? 'كل الحالات' }}" 
+            class="w-full"
+        />
+    </div>
 
     <div class="bg-base-100 rounded-lg shadow-sm border border-base-200">
         <div class="overflow-x-auto">

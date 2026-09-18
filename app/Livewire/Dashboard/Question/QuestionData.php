@@ -29,6 +29,11 @@ class QuestionData extends Component
     public $filter_subject;
     public $filter_grade;
     public $filter_teacher;
+    public $filter_week;
+
+    public bool $view_answers_modal = false;
+    public $selected_question = null;
+    public $student_answers = [];
     
     public $all_cycles = [];
     public $all_teachers = [];
@@ -58,7 +63,8 @@ class QuestionData extends Component
             ->when($this->search_content, fn (Builder $q) => $q->where('content', 'like', "%{$this->search_content}%"))
             ->when($this->filter_cycle_id, fn (Builder $q) => $q->where('cycle_id', $this->filter_cycle_id))
             ->when($this->filter_subject, fn (Builder $q) => $q->where('subject', $this->filter_subject))
-            ->when($this->filter_grade, fn (Builder $q) => $q->where('grade', $this->filter_grade));
+            ->when($this->filter_grade, fn (Builder $q) => $q->where('grade', $this->filter_grade))
+            ->when($this->filter_week, fn (Builder $q) => $q->where('week', $this->filter_week));
 
         if (auth()->user()->hasRole('teacher')) {
             $query->where('user_id', auth()->id());
@@ -75,6 +81,16 @@ class QuestionData extends Component
     {
         $question->delete();
         $this->success(__('lang.deleted_successfully', ['attribute' => __('lang.question') ?? 'السؤال']));
+    }
+    
+    public function viewAnswers(Question $question): void
+    {
+        $this->selected_question = $question;
+        $this->student_answers = \App\Models\StudentAnswer::where('question_id', $question->id)
+            ->with('student')
+            ->latest()
+            ->get();
+        $this->view_answers_modal = true;
     }
     
     public function checkActiveCycleAndOpenCreateModal(): void

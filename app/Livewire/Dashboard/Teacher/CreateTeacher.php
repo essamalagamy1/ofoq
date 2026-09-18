@@ -52,7 +52,6 @@ class CreateTeacher extends Component
 
         $user = clone User::create([
             'name' => $this->name,
-            'email' => $this->phone.'@ofoq.test',
             'password' => Hash::make($this->password),
             'phone_key' => $this->phone_key,
             'phone' => $this->phone,

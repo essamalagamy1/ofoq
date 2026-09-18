@@ -3,12 +3,12 @@
         <x-form wire:submit="create">
             <x-input label="{{ __('lang.name') ?? 'الاسم' }}" wire:model="name" />
             
-            <div class="grid grid-cols-2 gap-4 mt-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                 <x-input label="{{ __('lang.nationality') ?? 'الجنسية' }}" wire:model="nationality" />
                 <x-input type="number" label="{{ __('lang.grade') ?? 'الصف (3-6)' }}" wire:model="grade" min="3" max="6" />
             </div>
 
-            <div class="grid grid-cols-2 gap-4 mt-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                 <x-input type="number" label="{{ __('lang.semester') ?? 'الفصل الدراسي (1-3)' }}" wire:model="semester" min="1" max="3" />
                 <x-checkbox label="{{ __('lang.can_share_opinion') ?? 'السماح بالمشاركة بالرأي' }}" wire:model="can_share_opinion" />
             </div>

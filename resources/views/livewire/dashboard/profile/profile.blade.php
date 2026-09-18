@@ -6,7 +6,6 @@
 		</div>
 		<form wire:submit.prevent="updateProfile" class="flex flex-col gap-4">
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-				<x-input type="email" label="{{__('lang.email')}}" value="{{auth()->user()->email}}" readonly disabled/>
 				<x-input label="{{__('lang.name')}}" wire:model="name"/>
 				
                 <x-phone-input 
