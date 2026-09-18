@@ -3,8 +3,6 @@
         <x-form wire:submit="create">
             <x-input label="{{ __('lang.name') ?? 'الاسم' }}" wire:model="name" required />
             
-            <x-input type="email" label="{{ __('lang.email') ?? 'البريد الإلكتروني' }}" wire:model="email" required />
-            
             <x-input type="password" label="{{ __('lang.password') ?? 'كلمة المرور' }}" wire:model="password" required />
 
             <div class="mt-4">

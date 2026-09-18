@@ -37,6 +37,7 @@
                             </td>
                             <td class="py-3 px-4 text-center">
                                 <div class="flex items-center justify-center gap-2">
+                                    <x-button icon="o-star" class="btn-sm btn-ghost text-warning" wire:click="$dispatch('open-student-progress-modal', { student: {{ $student->id }} })" tooltip="{{ __('lang.track_badges') ?? 'تتبع الشارات' }}" />
                                     <x-button icon="o-pencil" class="btn-sm btn-ghost text-info" wire:click="$dispatch('open-update-modal', { student: {{ $student->id }} })" />
                                     <x-button icon="o-trash" class="btn-sm btn-ghost text-error" wire:click="delete({{ $student->id }})" wire:confirm="{{ __('lang.confirm_delete') ?? 'هل أنت متأكد من الحذف؟' }}" />
                                 </div>
@@ -62,6 +63,7 @@
 
     @livewire('dashboard.student.create-student')
     @livewire('dashboard.student.update-student')
+    @livewire('dashboard.student.student-progress')
 
     <!-- Import Modal -->
     <x-modal wire:model="import_modal" title="{{ __('lang.import_students') ?? 'استيراد الطلاب' }}" separator>

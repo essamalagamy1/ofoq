@@ -17,7 +17,6 @@ class UpdateTeacher extends Component
     public ?User $teacher = null;
 
     public string $name = '';
-    public string $email = '';
     public string $password = '';
     public string $phone_key = '+966';
     public string $mobile_number = '';
@@ -28,7 +27,6 @@ class UpdateTeacher extends Component
     {
         $this->teacher = $teacher;
         $this->name = $teacher->name;
-        $this->email = $teacher->email;
         $this->password = ''; // empty unless they want to change it
         $this->phone_key = $teacher->phone_key ?? '+966';
         $this->mobile_number = $teacher->mobile_number ?? '';
@@ -41,10 +39,8 @@ class UpdateTeacher extends Component
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $this->teacher?->id,
-            'password' => 'nullable|string|min:8',
             'phone_key' => 'nullable|string|max:10',
-            'mobile_number' => 'nullable|string|max:20|unique:users,mobile_number,' . $this->teacher?->id,
+            'mobile_number' => 'required|string|max:20|unique:users,mobile_number,' . $this->teacher->id,
             'assigned_subject' => 'required|string|in:science,math,arabic',
         ];
     }
@@ -53,19 +49,13 @@ class UpdateTeacher extends Component
     {
         $validated = $this->validate();
 
-        $data = [
-            'name' => $this->name,
-            'email' => $this->email,
-            'phone_key' => $this->phone_key,
-            'mobile_number' => $this->mobile_number,
-            'assigned_subject' => $this->assigned_subject,
-        ];
-
-        if (!empty($this->password)) {
-            $data['password'] = Hash::make($this->password);
+        if ($this->password) {
+            $validated['password'] = Hash::make($this->password);
         }
 
-        $this->teacher->update($data);
+        $validated['email'] = $this->mobile_number . '@ofoq.test';
+
+        $this->teacher->update($validated);
 
         $this->success(__('lang.updated_successfully', ['attribute' => __('lang.teacher') ?? 'المعلم']));
         

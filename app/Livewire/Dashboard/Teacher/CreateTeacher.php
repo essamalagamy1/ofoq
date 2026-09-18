@@ -16,7 +16,6 @@ class CreateTeacher extends Component
     public bool $create_modal = false;
 
     public string $name = '';
-    public string $email = '';
     public string $password = '';
     public string $phone_key = '+966';
     public string $mobile_number = '';
@@ -26,7 +25,7 @@ class CreateTeacher extends Component
     public function openModal(): void
     {
         $this->reset([
-            'name', 'email', 'password', 'mobile_number', 'assigned_subject'
+            'name', 'password', 'mobile_number', 'assigned_subject'
         ]);
         $this->phone_key = '+966';
         $this->create_modal = true;
@@ -36,10 +35,9 @@ class CreateTeacher extends Component
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
             'phone_key' => 'nullable|string|max:10',
-            'mobile_number' => 'nullable|string|max:20|unique:users,mobile_number',
+            'mobile_number' => 'required|string|max:20|unique:users,mobile_number',
             'assigned_subject' => 'required|string|in:science,math,arabic',
         ];
     }
@@ -50,7 +48,7 @@ class CreateTeacher extends Component
 
         $user = clone User::create([
             'name' => $this->name,
-            'email' => $this->email,
+            'email' => $this->mobile_number . '@ofoq.test',
             'password' => Hash::make($this->password),
             'phone_key' => $this->phone_key,
             'mobile_number' => $this->mobile_number,

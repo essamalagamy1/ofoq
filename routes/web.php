@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\LanguageController;
-use App\Livewire\Dashboard\BadgeSetting\BadgeSettingData;
+use App\Livewire\Dashboard\Badge\BadgeData;
 use App\Livewire\Dashboard\Dashboard;
 use App\Livewire\Dashboard\ParentDashboard\ChildrenList;
 use App\Livewire\Dashboard\ParentSuggestion\SuggestionData;
 use App\Livewire\Dashboard\ProjectorMode\ProjectorBoard;
-use App\Livewire\Dashboard\QuestionBank\QuestionData;
+use App\Livewire\Dashboard\Question\QuestionData;
 use App\Livewire\Dashboard\ShareOpinion\CreateSuggestion as ParentCreateSuggestion;
 use App\Livewire\Dashboard\ShareOpinion\SuggestionList as ParentSuggestionList;
 use App\Livewire\Dashboard\Student\StudentData;
@@ -28,7 +28,8 @@ Route::middleware(['web-language'])->group(function () {
         Route::livewire('dashboard', Dashboard::class)->name('dashboard');
         Route::livewire('students', StudentData::class)->name('students');
         Route::livewire('teachers', TeacherData::class)->name('teachers');
-        Route::livewire('badges', BadgeSettingData::class)->name('badges');
+        Route::livewire('badges', BadgeData::class)->name('badges');
+        Route::livewire('questions', QuestionData::class)->name('questions');
         Route::livewire('cycles', CycleData::class)->name('cycles');
     });
 

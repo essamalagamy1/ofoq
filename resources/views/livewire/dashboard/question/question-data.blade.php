@@ -10,7 +10,16 @@
                     option-value="id" 
                     option-label="name" 
                     placeholder="{{ __('lang.all_cycles') ?? 'كل الدورات' }}" 
-                    class="w-40"
+                    class="w-32"
+                />
+
+                <x-select 
+                    wire:model.live="filter_teacher" 
+                    :options="$all_teachers" 
+                    option-value="id" 
+                    option-label="name" 
+                    placeholder="{{ __('lang.all_teachers') ?? 'كل المعلمين' }}" 
+                    class="w-32"
                 />
 
                 <x-select 
@@ -49,6 +58,7 @@
                         <th class="py-3 px-4">#</th>
                         <th class="py-3 px-4">{{ __('lang.question') ?? 'السؤال' }}</th>
                         <th class="py-3 px-4">{{ __('lang.cycle') ?? 'الدورة' }}</th>
+                        <th class="py-3 px-4">{{ __('lang.teacher') ?? 'المعلم' }}</th>
                         <th class="py-3 px-4">{{ __('lang.subject') ?? 'المادة' }}</th>
                         <th class="py-3 px-4 text-center">{{ __('lang.grade') ?? 'الصف' }}</th>
                         <th class="py-3 px-4 text-center">{{ __('lang.week') ?? 'الأسبوع' }}</th>
@@ -65,6 +75,7 @@
                                 </div>
                             </td>
                             <td class="py-3 px-4 text-sm text-gray-600">{{ $question->cycle->name ?? '-' }}</td>
+                            <td class="py-3 px-4 text-sm text-gray-600">{{ $question->creator->name ?? '-' }}</td>
                             <td class="py-3 px-4">
                                 <span class="badge badge-outline badge-primary">
                                     {{ \App\Enums\SubjectEnum::tryFrom($question->subject)?->title() ?? $question->subject }}
@@ -74,6 +85,7 @@
                             <td class="py-3 px-4 text-center">{{ $question->week }}</td>
                             <td class="py-3 px-4 text-center">
                                 <div class="flex items-center justify-center gap-2">
+                                    <x-button icon="o-eye" class="btn-sm btn-ghost text-success" wire:click="$dispatch('open-show-answers-modal', { question: {{ $question->id }} })" tooltip="{{ __('lang.view_answers') ?? 'عرض الإجابات' }}" />
                                     <x-button icon="o-pencil" class="btn-sm btn-ghost text-info" wire:click="$dispatch('open-update-modal', { question: {{ $question->id }} })" />
                                     <x-button icon="o-trash" class="btn-sm btn-ghost text-error" wire:click="delete({{ $question->id }})" wire:confirm="{{ __('lang.confirm_delete') ?? 'هل أنت متأكد من الحذف؟' }}" />
                                 </div>
@@ -81,7 +93,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="py-8 text-center text-gray-500">
+                            <td colspan="8" class="py-8 text-center text-gray-500">
                                 {{ __('lang.no_data') ?? 'لا توجد بيانات متاحة' }}
                             </td>
                         </tr>
@@ -99,4 +111,5 @@
 
     @livewire('dashboard.question.create-question')
     @livewire('dashboard.question.update-question')
+    @livewire('dashboard.question.show-question-answers')
 </div>

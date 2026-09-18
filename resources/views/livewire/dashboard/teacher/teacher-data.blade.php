@@ -16,7 +16,6 @@
                     <tr class="bg-base-200/50">
                         <th class="py-3 px-4">#</th>
                         <th class="py-3 px-4">{{ __('lang.name') ?? 'الاسم' }}</th>
-                        <th class="py-3 px-4">{{ __('lang.email') ?? 'البريد الإلكتروني' }}</th>
                         <th class="py-3 px-4">{{ __('lang.mobile_number') ?? 'رقم الجوال' }}</th>
                         <th class="py-3 px-4">{{ __('lang.assigned_subject') ?? 'المادة الدراسية' }}</th>
                         <th class="py-3 px-4 text-center">{{ __('lang.action') ?? 'الإجراءات' }}</th>
@@ -27,7 +26,6 @@
                         <tr class="hover:bg-base-100/80 transition-colors border-b border-base-100 last:border-0">
                             <td class="py-3 px-4">{{ $teacher->id }}</td>
                             <td class="py-3 px-4 font-semibold">{{ $teacher->name }}</td>
-                            <td class="py-3 px-4">{{ $teacher->email }}</td>
                             <td class="py-3 px-4" dir="ltr">
                                 {{ $teacher->phone_key }}{{ $teacher->mobile_number ?? '-' }}
                             </td>
@@ -45,7 +43,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="py-8 text-center text-gray-500">
+                            <td colspan="5" class="py-8 text-center text-gray-500">
                                 {{ __('lang.no_data') ?? 'لا توجد بيانات متاحة' }}
                             </td>
                         </tr>

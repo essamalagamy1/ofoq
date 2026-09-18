@@ -28,12 +28,15 @@ class QuestionData extends Component
     public $filter_cycle_id;
     public $filter_subject;
     public $filter_grade;
+    public $filter_teacher;
     
     public $all_cycles = [];
+    public $all_teachers = [];
 
     public function mount(): void
     {
         $this->all_cycles = AcademicCycle::orderBy('id', 'desc')->get()->map(fn($c) => ['id' => $c->id, 'name' => $c->name])->toArray();
+        $this->all_teachers = \App\Models\User::where('type', 'teacher')->get(['id', 'name'])->toArray();
         view()->share('breadcrumbs', $this->breadcrumbs());
     }
 
@@ -50,14 +53,20 @@ class QuestionData extends Component
     #[On('render')]
     public function render(): View
     {
-        $data['questions'] = Question::query()
+        $query = Question::query()
             ->with(['cycle', 'creator'])
-            ->when($this->search_content, fn (Builder $query) => $query->where('content', 'like', "%{$this->search_content}%"))
-            ->when($this->filter_cycle_id, fn (Builder $query) => $query->where('cycle_id', $this->filter_cycle_id))
-            ->when($this->filter_subject, fn (Builder $query) => $query->where('subject', $this->filter_subject))
-            ->when($this->filter_grade, fn (Builder $query) => $query->where('grade', $this->filter_grade))
-            ->latest()
-            ->paginate(20);
+            ->when($this->search_content, fn (Builder $q) => $q->where('content', 'like', "%{$this->search_content}%"))
+            ->when($this->filter_cycle_id, fn (Builder $q) => $q->where('cycle_id', $this->filter_cycle_id))
+            ->when($this->filter_subject, fn (Builder $q) => $q->where('subject', $this->filter_subject))
+            ->when($this->filter_grade, fn (Builder $q) => $q->where('grade', $this->filter_grade));
+
+        if (auth()->user()->hasRole('teacher')) {
+            $query->where('user_id', auth()->id());
+        } else {
+            $query->when($this->filter_teacher, fn (Builder $q) => $q->where('user_id', $this->filter_teacher));
+        }
+
+        $data['questions'] = $query->latest()->paginate(20);
 
         return view('livewire.dashboard.question.question-data', $data);
     }
