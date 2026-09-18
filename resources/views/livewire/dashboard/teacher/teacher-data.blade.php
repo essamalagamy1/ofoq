@@ -27,7 +27,7 @@
                             <td class="py-3 px-4">{{ $teacher->id }}</td>
                             <td class="py-3 px-4 font-semibold">{{ $teacher->name }}</td>
                             <td class="py-3 px-4" dir="ltr">
-                                {{ $teacher->phone_key }}{{ $teacher->mobile_number ?? '-' }}
+                                {{ $teacher->phone_key }}{{ $teacher->phone ?? '-' }}
                             </td>
                             <td class="py-3 px-4">
                                 <span class="badge badge-outline badge-primary">

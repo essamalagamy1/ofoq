@@ -21,11 +21,7 @@ return new class extends Migration
             $table->string('phone_key')->nullable();
             $table->string('phone')->nullable();
             $table->string('verification_code')->nullable();
-            $table->string('fcm_token')->nullable();
             $table->string('language')->default('en');
-            $table->string('provider')->nullable();
-            $table->string('provider_id')->nullable();
-            $table->string('provider_token')->nullable();
             $table->string('status')->default(Status::Active);
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

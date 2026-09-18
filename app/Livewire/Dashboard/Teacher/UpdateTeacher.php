@@ -14,12 +14,17 @@ class UpdateTeacher extends Component
     use Toast;
 
     public bool $update_modal = false;
+
     public ?User $teacher = null;
 
     public string $name = '';
+
     public string $password = '';
+
     public string $phone_key = '+966';
-    public string $mobile_number = '';
+
+    public string $phone = '';
+
     public string $assigned_subject = '';
 
     #[On('open-update-modal')]
@@ -29,9 +34,9 @@ class UpdateTeacher extends Component
         $this->name = $teacher->name;
         $this->password = ''; // empty unless they want to change it
         $this->phone_key = $teacher->phone_key ?? '+966';
-        $this->mobile_number = $teacher->mobile_number ?? '';
+        $this->phone = $teacher->phone ?? '';
         $this->assigned_subject = $teacher->assigned_subject ?? '';
-        
+
         $this->update_modal = true;
     }
 
@@ -40,7 +45,7 @@ class UpdateTeacher extends Component
         return [
             'name' => 'required|string|max:255',
             'phone_key' => 'nullable|string|max:10',
-            'mobile_number' => 'required|string|max:20|unique:users,mobile_number,' . $this->teacher->id,
+            'phone' => 'required|string|max:20|unique:users,phone,'.$this->teacher->id,
             'assigned_subject' => 'required|string|in:science,math,arabic',
         ];
     }
@@ -53,14 +58,14 @@ class UpdateTeacher extends Component
             $validated['password'] = Hash::make($this->password);
         }
 
-        $validated['email'] = $this->mobile_number . '@ofoq.test';
+        $validated['email'] = $this->phone.'@ofoq.test';
 
         $this->teacher->update($validated);
 
         $this->success(__('lang.updated_successfully', ['attribute' => __('lang.teacher') ?? 'المعلم']));
-        
+
         $this->update_modal = false;
-        
+
         $this->dispatch('render')->to(TeacherData::class);
     }
 

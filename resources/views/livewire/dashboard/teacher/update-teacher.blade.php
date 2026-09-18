@@ -7,7 +7,7 @@
 
             <div class="mt-4">
                 <x-phone-input 
-                    phoneProperty="mobile_number" 
+                    phoneProperty="phone" 
                     keyProperty="phone_key" 
                     label="{{ __('lang.mobile_number') ?? 'رقم الجوال' }}" 
                 />

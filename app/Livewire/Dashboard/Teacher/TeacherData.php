@@ -47,7 +47,7 @@ class TeacherData extends Component
         $data['teachers'] = User::query()
             ->where('type', 'teacher')
             ->when($this->search_name, fn (Builder $query) => $query->where('name', 'like', "%{$this->search_name}%"))
-            ->when($this->search_mobile, fn (Builder $query) => $query->where('mobile_number', 'like', "%{$this->search_mobile}%"))
+            ->when($this->search_mobile, fn (Builder $query) => $query->where('phone', 'like', "%{$this->search_mobile}%"))
             ->latest()
             ->paginate(20);
 

@@ -15,9 +15,9 @@ class CheckParentEligibility
         
         // Check if any of the parent's children have can_share_opinion = true
         $eligible = Student::where(function ($query) use ($user) {
-            $query->where('parent_mobile_1', $user->mobile_number)
-                  ->orWhere('parent_mobile_2', $user->mobile_number)
-                  ->orWhere('parent_mobile_3', $user->mobile_number);
+            $query->where('parent_mobile_1', $user->phone)
+                  ->orWhere('parent_mobile_2', $user->phone)
+                  ->orWhere('parent_mobile_3', $user->phone);
         })->where('can_share_opinion', true)->exists();
 
         if (!$eligible) {
