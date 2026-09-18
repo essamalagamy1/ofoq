@@ -15,6 +15,8 @@ class Profile extends Component
     use Toast, WithFileUploads;
 
     public $name;
+    public $phone_key;
+    public $mobile_number;
 
     public $image;
 
@@ -27,6 +29,8 @@ class Profile extends Component
     public function mount(): void
     {
         $this->name = auth()->user()->name;
+        $this->phone_key = auth()->user()->phone_key ?? '+966';
+        $this->mobile_number = auth()->user()->mobile_number;
         view()->share('breadcrumbs', $this->breadcrumbs());
     }
 
@@ -49,9 +53,15 @@ class Profile extends Component
     {
         $this->validate([
             'name' => 'required|string|max:255',
+            'phone_key' => 'nullable|string|max:10',
+            'mobile_number' => 'nullable|string|max:20|unique:users,mobile_number,' . auth()->id(),
             'image' => 'nullable|image|max:5000',
         ]);
-        auth()->user()->update(['name' => $this->name]);
+        auth()->user()->update([
+            'name' => $this->name,
+            'phone_key' => $this->phone_key,
+            'mobile_number' => $this->mobile_number,
+        ]);
         if ($this->image) {
             auth()->user()->addMedia($this->image->getRealPath())->toMediaCollection('image');
         }

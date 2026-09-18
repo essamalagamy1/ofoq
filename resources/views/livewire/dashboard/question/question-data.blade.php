@@ -13,14 +13,16 @@
                     class="w-32"
                 />
 
-                <x-select 
-                    wire:model.live="filter_teacher" 
-                    :options="$all_teachers" 
-                    option-value="id" 
-                    option-label="name" 
-                    placeholder="{{ __('lang.all_teachers') ?? 'كل المعلمين' }}" 
-                    class="w-32"
-                />
+                @if(!auth()->user()->hasRole('teacher'))
+                    <x-select 
+                        wire:model.live="filter_teacher" 
+                        :options="$all_teachers" 
+                        option-value="id" 
+                        option-label="name" 
+                        placeholder="{{ __('lang.all_teachers') ?? 'كل المعلمين' }}" 
+                        class="w-32"
+                    />
+                @endif
 
                 <x-select 
                     wire:model.live="filter_subject" 
@@ -58,7 +60,9 @@
                         <th class="py-3 px-4">#</th>
                         <th class="py-3 px-4">{{ __('lang.question') ?? 'السؤال' }}</th>
                         <th class="py-3 px-4">{{ __('lang.cycle') ?? 'الدورة' }}</th>
-                        <th class="py-3 px-4">{{ __('lang.teacher') ?? 'المعلم' }}</th>
+                        @if(!auth()->user()->hasRole('teacher'))
+                            <th class="py-3 px-4">{{ __('lang.teacher') ?? 'المعلم' }}</th>
+                        @endif
                         <th class="py-3 px-4">{{ __('lang.subject') ?? 'المادة' }}</th>
                         <th class="py-3 px-4 text-center">{{ __('lang.grade') ?? 'الصف' }}</th>
                         <th class="py-3 px-4 text-center">{{ __('lang.week') ?? 'الأسبوع' }}</th>
@@ -75,10 +79,12 @@
                                 </div>
                             </td>
                             <td class="py-3 px-4 text-sm text-gray-600">{{ $question->cycle->name ?? '-' }}</td>
-                            <td class="py-3 px-4 text-sm text-gray-600">{{ $question->creator->name ?? '-' }}</td>
+                            @if(!auth()->user()->hasRole('teacher'))
+                                <td class="py-3 px-4 text-sm text-gray-600">{{ $question->creator->name ?? '-' }}</td>
+                            @endif
                             <td class="py-3 px-4">
                                 <span class="badge badge-outline badge-primary">
-                                    {{ \App\Enums\SubjectEnum::tryFrom($question->subject)?->title() ?? $question->subject }}
+                                    {{ \App\Enums\SubjectEnum::coerce($question->subject)?->title() ?? $question->subject }}
                                 </span>
                             </td>
                             <td class="py-3 px-4 text-center">{{ $question->grade }}</td>

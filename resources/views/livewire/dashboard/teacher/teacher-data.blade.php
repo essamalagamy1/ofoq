@@ -31,7 +31,7 @@
                             </td>
                             <td class="py-3 px-4">
                                 <span class="badge badge-outline badge-primary">
-                                    {{ \App\Enums\SubjectEnum::tryFrom($teacher->assigned_subject)?->title() ?? $teacher->assigned_subject }}
+                                    {{ \App\Enums\SubjectEnum::coerce($teacher->assigned_subject)?->title() ?? $teacher->assigned_subject }}
                                 </span>
                             </td>
                             <td class="py-3 px-4 text-center">
