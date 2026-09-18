@@ -732,4 +732,26 @@ return [
     'science' => 'علوم',
     'math' => 'رياضيات',
     'arabic' => 'لغة عربية',
+
+    // Academic Cycle CRUD Translations
+    'add_cycle' => 'إضافة دورة',
+    'update_cycle' => 'تعديل دورة',
+    'cycle' => 'الدورة',
+    'status' => 'الحالة',
+    'active' => 'نشط',
+    'inactive' => 'غير نشط',
+    'is_active' => 'تفعيل الدورة؟',
+    'is_active_hint' => 'عند تفعيل هذه الدورة، سيتم تعطيل باقي الدورات تلقائياً.',
+    'cycle_name_example' => 'مثال: الفصل الدراسي الأول 2026',
+    'cycle_activated' => 'تم تفعيل الدورة، وتم تعطيل باقي الدورات',
+    'cycle_deactivated' => 'تم تعطيل الدورة',
+
+    // Badge Settings CRUD Translations
+    'add_badge' => 'إضافة شارة',
+    'update_badge' => 'تعديل شارة',
+    'badge' => 'الشارة',
+    'min_percentage' => 'أقل نسبة',
+    'max_percentage' => 'أعلى نسبة',
+    'color' => 'اللون',
+    'max_percentage_error' => 'النسبة العليا يجب أن تكون أكبر من أو تساوي النسبة الدنيا.',
 ];
