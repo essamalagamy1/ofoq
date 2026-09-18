@@ -1,0 +1,16 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - phpstan-baseline.neon
+
+parameters:
+    paths:
+        - app/
+
+    level: 10
+
+    ignoreErrors:
+        - '#has no value type specified in iterable type#'
+        - '#with no value type specified in iterable type#'
+        - '#has no return type specified#'
+        - '#has parameter \$[a-zA-Z0-9_]+ with no type specified#'
+        - '#has no type specified#'

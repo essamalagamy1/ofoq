@@ -1,0 +1,1135 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Class App\\Enums\\Status extends generic class BenSampo\\Enum\\Enum but does not specify its types\: TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Enums/Status.php
+
+		-
+			message: '#^Cannot call method currentPage\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Exceptions/ApiExceptionHandlerException.php
+
+		-
+			message: '#^Cannot call method lastPage\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Exceptions/ApiExceptionHandlerException.php
+
+		-
+			message: '#^Cannot call method perPage\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Exceptions/ApiExceptionHandlerException.php
+
+		-
+			message: '#^Parameter \#2 \$status of method App\\Exceptions\\ApiExceptionHandlerException\:\:jsonResponse\(\) expects int, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Exceptions/ApiExceptionHandlerException.php
+
+		-
+			message: '#^Parameter \#3 \$message of method App\\Exceptions\\ApiExceptionHandlerException\:\:jsonResponse\(\) expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 3
+			path: app/Exceptions/ApiExceptionHandlerException.php
+
+		-
+			message: '#^Cannot call method where\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Helpers/CacheHelpers.php
+
+		-
+			message: '#^Binary operation "\." between ''https\://freeipapi…'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: app/Helpers/helpers.php
+
+		-
+			message: '#^Cannot access offset 0 on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Helpers/helpers.php
+
+		-
+			message: '#^Function getTimezoneByIP\(\) should return string\|null but returns mixed\.$#'
+			identifier: return.type
+			count: 2
+			path: app/Helpers/helpers.php
+
+		-
+			message: '#^Parameter \#1 \$time of static method Carbon\\Carbon\:\:parse\(\) expects Carbon\\Month\|Carbon\\WeekDay\|DateTimeInterface\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Helpers/helpers.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_key_exists expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Helpers/helpers.php
+
+		-
+			message: '#^Cannot access property \$unreadNotifications on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: app/Http/Controllers/Api/NotificationController.php
+
+		-
+			message: '#^Cannot call method delete\(\) on Illuminate\\Notifications\\DatabaseNotification\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/Api/NotificationController.php
+
+		-
+			message: '#^Cannot call method markAsRead\(\) on Illuminate\\Notifications\\DatabaseNotification\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/Api/NotificationController.php
+
+		-
+			message: '#^Cannot call method notifications\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 3
+			path: app/Http/Controllers/Api/NotificationController.php
+
+		-
+			message: '#^Cannot call method addMedia\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/Api/ProfileController.php
+
+		-
+			message: '#^Cannot call method delete\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/Api/ProfileController.php
+
+		-
+			message: '#^Cannot call method tokens\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/Api/ProfileController.php
+
+		-
+			message: '#^Cannot call method update\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 3
+			path: app/Http/Controllers/Api/ProfileController.php
+
+		-
+			message: '#^Cannot call method hasVerifiedEmail\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/Auth/VerifyEmailController.php
+
+		-
+			message: '#^Cannot call method markEmailAsVerified\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Controllers/Auth/VerifyEmailController.php
+
+		-
+			message: '#^Parameter \#1 \$locale of static method Carbon\\Carbon\:\:setLocale\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Middleware/LanguageMiddleware.php
+
+		-
+			message: '#^Parameter \#1 \$locale of static method Illuminate\\Support\\Facades\\App\:\:setLocale\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Middleware/LanguageMiddleware.php
+
+		-
+			message: '#^Cannot access property \$password on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Http/Requests/Api/ChangePasswordRequest.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Facades\\Hash\:\:check\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Requests/Api/ChangePasswordRequest.php
+
+		-
+			message: '#^Cannot call method hasVerifiedEmail\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Requests/Api/LoginRequest.php
+
+		-
+			message: '#^Cannot call method add\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Requests/Api/VerifyCodeRequest.php
+
+		-
+			message: '#^Cannot call method after\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Requests/Api/VerifyCodeRequest.php
+
+		-
+			message: '#^Cannot call method errors\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Http/Requests/Api/VerifyCodeRequest.php
+
+		-
+			message: '#^Cannot access offset string on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: app/Http/Resources/NotificationResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\:\:delete\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Livewire/Dashboard/Admin/AdminData.php
+
+		-
+			message: '#^Cannot call method select\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Admin/AdminData.php
+
+		-
+			message: '#^Cannot call method component\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Admin/CreateAdmin.php
+
+		-
+			message: '#^Cannot call method getRealPath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Admin/CreateAdmin.php
+
+		-
+			message: '#^Parameter \#1 \$file of method App\\Models\\User\:\:addMedia\(\) expects string\|Symfony\\Component\\HttpFoundation\\File\\UploadedFile, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/Admin/CreateAdmin.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Facades\\Hash\:\:make\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/Admin/CreateAdmin.php
+
+		-
+			message: '#^Cannot call method component\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Admin/UpdateAdmin.php
+
+		-
+			message: '#^Cannot call method getRealPath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Admin/UpdateAdmin.php
+
+		-
+			message: '#^Parameter \#1 \$file of method App\\Models\\User\:\:addMedia\(\) expects string\|Symfony\\Component\\HttpFoundation\\File\\UploadedFile, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/Admin/UpdateAdmin.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Facades\\Hash\:\:make\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/Admin/UpdateAdmin.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\Banner\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Banner\>\:\:clearMediaCollection\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Livewire/Dashboard/Banner/BannerData.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\Banner\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Banner\>\:\:delete\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Livewire/Dashboard/Banner/BannerData.php
+
+		-
+			message: '#^Cannot call method component\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Banner/CreateBanner.php
+
+		-
+			message: '#^Cannot call method getRealPath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Banner/CreateBanner.php
+
+		-
+			message: '#^Parameter \#1 \$file of method App\\Models\\Banner\:\:addMedia\(\) expects string\|Symfony\\Component\\HttpFoundation\\File\\UploadedFile, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/Banner/CreateBanner.php
+
+		-
+			message: '#^Cannot call method component\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Banner/UpdateBanner.php
+
+		-
+			message: '#^Cannot call method getRealPath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Banner/UpdateBanner.php
+
+		-
+			message: '#^Parameter \#1 \$file of method App\\Models\\Banner\:\:addMedia\(\) expects string\|Symfony\\Component\\HttpFoundation\\File\\UploadedFile, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/Banner/UpdateBanner.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\Category\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Category\>\:\:clearMediaCollection\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Livewire/Dashboard/Category/CategoryData.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\Category\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Category\>\:\:delete\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Livewire/Dashboard/Category/CategoryData.php
+
+		-
+			message: '#^Cannot call method component\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Category/CreateCategory.php
+
+		-
+			message: '#^Cannot call method getRealPath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Category/CreateCategory.php
+
+		-
+			message: '#^Parameter \#1 \$file of method App\\Models\\Category\:\:addMedia\(\) expects string\|Symfony\\Component\\HttpFoundation\\File\\UploadedFile, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/Category/CreateCategory.php
+
+		-
+			message: '#^Cannot call method component\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Category/UpdateCategory.php
+
+		-
+			message: '#^Cannot call method getRealPath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Category/UpdateCategory.php
+
+		-
+			message: '#^Parameter \#1 \$file of method App\\Models\\Category\:\:addMedia\(\) expects string\|Symfony\\Component\\HttpFoundation\\File\\UploadedFile, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/Category/UpdateCategory.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\Coupon\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Coupon\>\:\:delete\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Livewire/Dashboard/Coupon/CouponData.php
+
+		-
+			message: '#^Cannot call method component\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Coupon/CreateCoupon.php
+
+		-
+			message: '#^Cannot call method component\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Coupon/UpdateCoupon.php
+
+		-
+			message: '#^Cannot call method component\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Faq/CreateFaq.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\Faq\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Faq\>\:\:delete\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Livewire/Dashboard/Faq/FaqData.php
+
+		-
+			message: '#^Cannot call method component\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Faq/UpdateFaq.php
+
+		-
+			message: '#^Cannot call method component\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Instructor/CreateInstructor.php
+
+		-
+			message: '#^Cannot call method getRealPath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Instructor/CreateInstructor.php
+
+		-
+			message: '#^Parameter \#1 \$file of method App\\Models\\User\:\:addMedia\(\) expects string\|Symfony\\Component\\HttpFoundation\\File\\UploadedFile, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/Instructor/CreateInstructor.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Facades\\Hash\:\:make\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/Instructor/CreateInstructor.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\:\:delete\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Livewire/Dashboard/Instructor/InstructorData.php
+
+		-
+			message: '#^Cannot call method component\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Instructor/UpdateInstructor.php
+
+		-
+			message: '#^Cannot call method getRealPath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Instructor/UpdateInstructor.php
+
+		-
+			message: '#^Parameter \#1 \$file of method App\\Models\\User\:\:addMedia\(\) expects string\|Symfony\\Component\\HttpFoundation\\File\\UploadedFile, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/Instructor/UpdateInstructor.php
+
+		-
+			message: '#^Cannot access an offset on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Livewire/Dashboard/PaymentGateway/CreatePaymentGateway.php
+
+		-
+			message: '#^Cannot access offset mixed on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Livewire/Dashboard/PaymentGateway/CreatePaymentGateway.php
+
+		-
+			message: '#^Cannot call method getRealPath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/PaymentGateway/CreatePaymentGateway.php
+
+		-
+			message: '#^Parameter \#1 \$array of function array_values expects array\<T\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/PaymentGateway/CreatePaymentGateway.php
+
+		-
+			message: '#^Parameter \#1 \$file of method App\\Models\\PaymentGateway\:\:addMedia\(\) expects string\|Symfony\\Component\\HttpFoundation\\File\\UploadedFile, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/PaymentGateway/CreatePaymentGateway.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\PaymentGateway\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\PaymentGateway\>\:\:\$is_active\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Livewire/Dashboard/PaymentGateway/PaymentGatewayData.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\PaymentGateway\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\PaymentGateway\>\:\:delete\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Livewire/Dashboard/PaymentGateway/PaymentGatewayData.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\PaymentGateway\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\PaymentGateway\>\:\:update\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Livewire/Dashboard/PaymentGateway/PaymentGatewayData.php
+
+		-
+			message: '#^Part \$this\-\>search \(mixed\) of encapsed string cannot be cast to string\.$#'
+			identifier: encapsedStringPart.nonString
+			count: 1
+			path: app/Livewire/Dashboard/PaymentGateway/PaymentGatewayData.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: app/Livewire/Dashboard/PaymentGateway/UpdatePaymentGateway.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getRealPath\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Livewire/Dashboard/PaymentGateway/UpdatePaymentGateway.php
+
+		-
+			message: '#^Cannot access an offset on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Livewire/Dashboard/PaymentGateway/UpdatePaymentGateway.php
+
+		-
+			message: '#^Cannot access offset ''key'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Livewire/Dashboard/PaymentGateway/UpdatePaymentGateway.php
+
+		-
+			message: '#^Cannot access offset ''value'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Livewire/Dashboard/PaymentGateway/UpdatePaymentGateway.php
+
+		-
+			message: '#^Cannot access offset mixed on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Livewire/Dashboard/PaymentGateway/UpdatePaymentGateway.php
+
+		-
+			message: '#^Parameter \#1 \$array of function array_values expects array\<T\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/PaymentGateway/UpdatePaymentGateway.php
+
+		-
+			message: '#^Parameter \#1 \$file of method App\\Models\\PaymentGateway\:\:addMedia\(\) expects string\|Symfony\\Component\\HttpFoundation\\File\\UploadedFile, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/PaymentGateway/UpdatePaymentGateway.php
+
+		-
+			message: '#^Possibly invalid array key type mixed\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: app/Livewire/Dashboard/PaymentGateway/UpdatePaymentGateway.php
+
+		-
+			message: '#^Cannot access property \$name on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Profile/Profile.php
+
+		-
+			message: '#^Cannot access property \$password on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Profile/Profile.php
+
+		-
+			message: '#^Cannot call method addMedia\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Profile/Profile.php
+
+		-
+			message: '#^Cannot call method getRealPath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/Profile/Profile.php
+
+		-
+			message: '#^Cannot call method update\(\) on App\\Models\\User\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Livewire/Dashboard/Profile/Profile.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Facades\\Hash\:\:check\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/Profile/Profile.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Facades\\Hash\:\:make\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/Profile/Profile.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Collection\<int, Spatie\\Permission\\Models\\Role\>\|Spatie\\Permission\\Models\\Role\:\:delete\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Livewire/Dashboard/Role/RoleData.php
+
+		-
+			message: '#^Cannot access property \$color_accent on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/SiteSetting/UpdateSiteSetting.php
+
+		-
+			message: '#^Cannot access property \$color_primary on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/SiteSetting/UpdateSiteSetting.php
+
+		-
+			message: '#^Cannot access property \$color_secondary on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/SiteSetting/UpdateSiteSetting.php
+
+		-
+			message: '#^Cannot access property \$email on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/SiteSetting/UpdateSiteSetting.php
+
+		-
+			message: '#^Cannot access property \$exists on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/SiteSetting/UpdateSiteSetting.php
+
+		-
+			message: '#^Cannot access property \$google_client_id on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/SiteSetting/UpdateSiteSetting.php
+
+		-
+			message: '#^Cannot access property \$google_client_secret on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/SiteSetting/UpdateSiteSetting.php
+
+		-
+			message: '#^Cannot access property \$google_redirect_uri on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/SiteSetting/UpdateSiteSetting.php
+
+		-
+			message: '#^Cannot access property \$phone on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/SiteSetting/UpdateSiteSetting.php
+
+		-
+			message: '#^Cannot access property \$theme on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/SiteSetting/UpdateSiteSetting.php
+
+		-
+			message: '#^Cannot call method addMedia\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 3
+			path: app/Livewire/Dashboard/SiteSetting/UpdateSiteSetting.php
+
+		-
+			message: '#^Cannot call method getRealPath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 6
+			path: app/Livewire/Dashboard/SiteSetting/UpdateSiteSetting.php
+
+		-
+			message: '#^Cannot call method getTranslation\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 18
+			path: app/Livewire/Dashboard/SiteSetting/UpdateSiteSetting.php
+
+		-
+			message: '#^Cannot call method toMediaCollection\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 3
+			path: app/Livewire/Dashboard/SiteSetting/UpdateSiteSetting.php
+
+		-
+			message: '#^Cannot call method update\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/SiteSetting/UpdateSiteSetting.php
+
+		-
+			message: '#^Parameter \#1 \$file of method App\\Models\\SiteSetting\:\:addMedia\(\) expects string\|Symfony\\Component\\HttpFoundation\\File\\UploadedFile, mixed given\.$#'
+			identifier: argument.type
+			count: 3
+			path: app/Livewire/Dashboard/SiteSetting/UpdateSiteSetting.php
+
+		-
+			message: '#^Cannot call method component\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/SubCategory/CreateSubCategory.php
+
+		-
+			message: '#^Cannot call method getRealPath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/SubCategory/CreateSubCategory.php
+
+		-
+			message: '#^Parameter \#1 \$file of method App\\Models\\Category\:\:addMedia\(\) expects string\|Symfony\\Component\\HttpFoundation\\File\\UploadedFile, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/SubCategory/CreateSubCategory.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\Category\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Category\>\:\:clearMediaCollection\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Livewire/Dashboard/SubCategory/SubCategoryData.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\Category\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Category\>\:\:delete\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Livewire/Dashboard/SubCategory/SubCategoryData.php
+
+		-
+			message: '#^Cannot call method component\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/SubCategory/UpdateSubCategory.php
+
+		-
+			message: '#^Cannot call method getRealPath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/SubCategory/UpdateSubCategory.php
+
+		-
+			message: '#^Parameter \#1 \$file of method App\\Models\\Category\:\:addMedia\(\) expects string\|Symfony\\Component\\HttpFoundation\\File\\UploadedFile, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/SubCategory/UpdateSubCategory.php
+
+		-
+			message: '#^Cannot call method component\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/University/CreateUniversity.php
+
+		-
+			message: '#^Cannot call method getRealPath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/University/CreateUniversity.php
+
+		-
+			message: '#^Parameter \#1 \$file of method App\\Models\\University\:\:addMedia\(\) expects string\|Symfony\\Component\\HttpFoundation\\File\\UploadedFile, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/University/CreateUniversity.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\University\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\University\>\:\:clearMediaCollection\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Livewire/Dashboard/University/UniversityData.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\University\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\University\>\:\:delete\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Livewire/Dashboard/University/UniversityData.php
+
+		-
+			message: '#^Cannot call method component\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/University/UpdateUniversity.php
+
+		-
+			message: '#^Cannot call method getRealPath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/University/UpdateUniversity.php
+
+		-
+			message: '#^Parameter \#1 \$file of method App\\Models\\University\:\:addMedia\(\) expects string\|Symfony\\Component\\HttpFoundation\\File\\UploadedFile, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/University/UpdateUniversity.php
+
+		-
+			message: '#^Cannot call method component\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/User/CreateUser.php
+
+		-
+			message: '#^Cannot call method getRealPath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/User/CreateUser.php
+
+		-
+			message: '#^Parameter \#1 \$file of method App\\Models\\User\:\:addMedia\(\) expects string\|Symfony\\Component\\HttpFoundation\\File\\UploadedFile, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/User/CreateUser.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Facades\\Hash\:\:make\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/User/CreateUser.php
+
+		-
+			message: '#^Cannot call method component\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/User/UpdateUser.php
+
+		-
+			message: '#^Cannot call method getRealPath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Livewire/Dashboard/User/UpdateUser.php
+
+		-
+			message: '#^Parameter \#1 \$file of method App\\Models\\User\:\:addMedia\(\) expects string\|Symfony\\Component\\HttpFoundation\\File\\UploadedFile, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/User/UpdateUser.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Support\\Facades\\Hash\:\:make\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Livewire/Dashboard/User/UpdateUser.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\:\:delete\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Livewire/Dashboard/User/UserData.php
+
+		-
+			message: '#^Cannot call method clearModelCache\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 3
+			path: app/Models/Banner.php
+
+		-
+			message: '#^Cannot call method where\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Models/Banner.php
+
+		-
+			message: '#^Class App\\Models\\Banner uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Banner.php
+
+		-
+			message: '#^Parameter \#1 \$key of static method Illuminate\\Cache\\Repository\:\:forget\(\) expects array\|string\|UnitEnum, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Models/Banner.php
+
+		-
+			message: '#^Cannot call method clearModelCache\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 3
+			path: app/Models/Category.php
+
+		-
+			message: '#^Cannot call method where\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Models/Category.php
+
+		-
+			message: '#^Cannot call method whereNotNull\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Models/Category.php
+
+		-
+			message: '#^Class App\\Models\\Category uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Category.php
+
+		-
+			message: '#^Method App\\Models\\Category\:\:children\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Category.php
+
+		-
+			message: '#^Method App\\Models\\Category\:\:parent\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Category.php
+
+		-
+			message: '#^Parameter \#1 \$key of static method Illuminate\\Cache\\Repository\:\:forget\(\) expects array\|string\|UnitEnum, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Models/Category.php
+
+		-
+			message: '#^Class App\\Models\\Coupon uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Coupon.php
+
+		-
+			message: '#^Class App\\Models\\Faq uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Faq.php
+
+		-
+			message: '#^Cannot call method where\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Models/PaymentGateway.php
+
+		-
+			message: '#^Class App\\Models\\PaymentGateway uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PaymentGateway.php
+
+		-
+			message: '#^Cannot call method clearModelCache\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 3
+			path: app/Models/SiteSetting.php
+
+		-
+			message: '#^Class App\\Models\\SiteSetting uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/SiteSetting.php
+
+		-
+			message: '#^Cannot call method clearModelCache\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 3
+			path: app/Models/University.php
+
+		-
+			message: '#^Cannot call method where\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Models/University.php
+
+		-
+			message: '#^Class App\\Models\\University uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/University.php
+
+		-
+			message: '#^Method App\\Models\\University\:\:users\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/University.php
+
+		-
+			message: '#^Parameter \#1 \$key of static method Illuminate\\Cache\\Repository\:\:forget\(\) expects array\|string\|UnitEnum, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Models/University.php
+
+		-
+			message: '#^Class App\\Models\\User uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:university\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Cannot call method currentPage\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Providers/ApiResponseServiceProvider.php
+
+		-
+			message: '#^Cannot call method errors\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Providers/ApiResponseServiceProvider.php
+
+		-
+			message: '#^Cannot call method first\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Providers/ApiResponseServiceProvider.php
+
+		-
+			message: '#^Cannot call method lastPage\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Providers/ApiResponseServiceProvider.php
+
+		-
+			message: '#^Cannot call method perPage\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Providers/ApiResponseServiceProvider.php
+
+		-
+			message: '#^Parameter \#3 \$message of static method Illuminate\\Routing\\ResponseFactory\:\:api\(\) expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Providers/ApiResponseServiceProvider.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Providers/AppServiceProvider.php
+
+		-
+			message: '#^Binary operation "\." between ''auth\.passwords\.'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: app/Providers/AppServiceProvider.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getEmailForPasswordReset\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Providers/AppServiceProvider.php
+
+		-
+			message: '#^Cannot access property \$email on App\\Models\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Providers/AppServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$callback of static method Illuminate\\Auth\\Notifications\\ResetPassword\:\:toMailUsing\(\) expects Closure\(mixed, string\)\: \(Illuminate\\Contracts\\Mail\\Mailable\|Illuminate\\Notifications\\Messages\\MailMessage\), Closure\(object, string\)\: Illuminate\\Notifications\\Messages\\MailMessage given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Providers/AppServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$callback of static method Illuminate\\Auth\\Notifications\\VerifyEmail\:\:toMailUsing\(\) expects Closure\(mixed, string\)\: \(Illuminate\\Contracts\\Mail\\Mailable\|Illuminate\\Notifications\\Messages\\MailMessage\), Closure\(object, string\)\: Illuminate\\Notifications\\Messages\\MailMessage given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Providers/AppServiceProvider.php
+
+		-
+			message: '#^Parameter \#2 \$replace of function __ expects array\<string, bool\|float\|int\|string\|null\>, array\<string, mixed\> given\.$#'
+			identifier: argument.type
+			count: 3
+			path: app/Providers/AppServiceProvider.php
+
+		-
+			message: '#^Method App\\Services\\FileService\:\:save\(\) should return string\|null but returns bool\|string\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Services/FileService.php
+
+		-
+			message: '#^Method App\\Services\\FileService\:\:update\(\) should return string but returns bool\|string\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Services/FileService.php
+
+		-
+			message: '#^Parameter \#1 \$originalPath of static method App\\Services\\ImageConversionService\:\:convertToWebP\(\) expects string, bool\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Services/FileService.php
+
+		-
+			message: '#^Method App\\Services\\PhoneService\:\:phoneCodes\(\) return type with generic class Illuminate\\Support\\Collection does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Services/PhoneService.php
+
+		-
+			message: '#^Parameter \#1 \$json of function json_decode expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/PhoneService.php
+
+		-
+			message: '#^Parameter \#1 \$value of function collect expects Illuminate\\Contracts\\Support\\Arrayable\<\(int\|string\), mixed\>\|iterable\<\(int\|string\), mixed\>\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/PhoneService.php
+
+		-
+			message: '#^Parameter \#3 \$subject of function preg_replace expects array\<float\|int\|string\>\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/PhoneService.php
+
+		-
+			message: '#^Unable to resolve the template type TKey in call to function collect$#'
+			identifier: argument.templateType
+			count: 1
+			path: app/Services/PhoneService.php
+
+		-
+			message: '#^Unable to resolve the template type TValue in call to function collect$#'
+			identifier: argument.templateType
+			count: 1
+			path: app/Services/PhoneService.php
+
+		-
+			message: '#^Method App\\View\\Components\\Ui\\Breadcrumb\:\:tooltip\(\) should return string\|null but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: app/View/Components/Ui/Breadcrumb.php
+
+		-
+			message: '#^Method App\\View\\Components\\Ui\\ChoicesAdvancedSearch\:\:__construct\(\) has parameter \$options with generic class Illuminate\\Support\\Collection but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/View/Components/Ui/ChoicesAdvancedSearch.php
+
+		-
+			message: '#^Method App\\View\\Components\\Ui\\ChoicesAdvancedSearch\:\:modelName\(\) should return string\|null but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: app/View/Components/Ui/ChoicesAdvancedSearch.php
+
+		-
+			message: '#^Parameter \#1 \$string of function str expects string\|null, float\|int\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/View/Components/Ui/ChoicesAdvancedSearch.php
+
+		-
+			message: '#^Part \$value \(mixed\) of encapsed string cannot be cast to string\.$#'
+			identifier: encapsedStringPart.nonString
+			count: 2
+			path: app/View/Components/Ui/ChoicesAdvancedSearch.php
