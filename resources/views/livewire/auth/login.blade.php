@@ -40,7 +40,17 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
         RateLimiter::clear($this->throttleKey());
         Session::regenerate();
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        $user = Auth::user();
+        
+        if ($user->hasRole('super_admin')) {
+            $this->redirectIntended(default: route('admin.dashboard', absolute: false), navigate: true);
+        } elseif ($user->hasRole('teacher')) {
+            $this->redirectIntended(default: route('teacher.dashboard', absolute: false), navigate: true);
+        } elseif ($user->hasRole('parent')) {
+            $this->redirectIntended(default: route('parent.dashboard', absolute: false), navigate: true);
+        } else {
+            $this->redirectIntended(default: route('home', absolute: false), navigate: true);
+        }
     }
 
     /**

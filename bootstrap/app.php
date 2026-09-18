@@ -25,6 +25,19 @@ return Application::configure(basePath: dirname(__DIR__))
             'role_or_permission' => RoleOrPermissionMiddleware::class,
             'check.parent.eligibility' => \App\Http\Middleware\CheckParentEligibility::class,
         ]);
+        
+        $middleware->redirectUsersTo(function () {
+            if (auth()->check()) {
+                if (auth()->user()->hasRole('super_admin')) {
+                    return route('admin.dashboard');
+                } elseif (auth()->user()->hasRole('teacher')) {
+                    return route('teacher.dashboard');
+                } elseif (auth()->user()->hasRole('parent')) {
+                    return route('parent.dashboard');
+                }
+            }
+            return '/';
+        });
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

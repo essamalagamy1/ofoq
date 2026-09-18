@@ -1,25 +1,30 @@
 <?php
 
 use App\Http\Controllers\LanguageController;
-use App\Livewire\Dashboard\Dashboard;
-use App\Livewire\Dashboard\Student\StudentData;
-use App\Livewire\Dashboard\Teacher\TeacherData;
 use App\Livewire\Dashboard\BadgeSetting\BadgeSettingData;
-use App\Livewire\Dashboard\SystemCycles\CycleData;
-use App\Livewire\Dashboard\QuestionBank\QuestionData;
-use App\Livewire\Dashboard\ProjectorMode\ProjectorBoard;
-use App\Livewire\Dashboard\ParentSuggestion\SuggestionData;
+use App\Livewire\Dashboard\Dashboard;
 use App\Livewire\Dashboard\ParentDashboard\ChildrenList;
-use App\Livewire\Dashboard\ShareOpinion\SuggestionList as ParentSuggestionList;
+use App\Livewire\Dashboard\ParentSuggestion\SuggestionData;
+use App\Livewire\Dashboard\ProjectorMode\ProjectorBoard;
+use App\Livewire\Dashboard\QuestionBank\QuestionData;
 use App\Livewire\Dashboard\ShareOpinion\CreateSuggestion as ParentCreateSuggestion;
+use App\Livewire\Dashboard\ShareOpinion\SuggestionList as ParentSuggestionList;
+use App\Livewire\Dashboard\Student\StudentData;
+use App\Livewire\Dashboard\SystemCycles\CycleData;
+use App\Livewire\Dashboard\Teacher\TeacherData;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['web-language'])->group(function () {
     Route::get('web-language/{lang}', LanguageController::class)->name('web-language');
     Route::redirect('/', 'login')->name('home');
 
+    // Shared Auth Routes
+    Route::middleware(['auth'])->group(function () {
+        Route::livewire('profile', \App\Livewire\Dashboard\Profile\Profile::class)->name('profile');
+    });
+
     // Admin Routes
-    Route::middleware(['auth', 'verified', 'role:super_admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::middleware(['auth', 'role:super_admin'])->prefix('admin')->name('admin.')->group(function () {
         Route::livewire('dashboard', Dashboard::class)->name('dashboard');
         Route::livewire('students', StudentData::class)->name('students');
         Route::livewire('teachers', TeacherData::class)->name('teachers');
@@ -28,7 +33,7 @@ Route::middleware(['web-language'])->group(function () {
     });
 
     // Teacher Routes
-    Route::middleware(['auth', 'verified', 'role:teacher'])->prefix('teacher')->name('teacher.')->group(function () {
+    Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')->group(function () {
         Route::livewire('dashboard', Dashboard::class)->name('dashboard');
         Route::livewire('questions', QuestionData::class)->name('questions');
         Route::livewire('projector', ProjectorBoard::class)->name('projector');
@@ -36,9 +41,9 @@ Route::middleware(['web-language'])->group(function () {
     });
 
     // Parent Routes
-    Route::middleware(['auth', 'verified', 'role:parent'])->prefix('parent')->name('parent.')->group(function () {
+    Route::middleware(['auth', 'role:parent'])->prefix('parent')->name('parent.')->group(function () {
         Route::livewire('dashboard', ChildrenList::class)->name('dashboard');
-        
+
         // Custom middleware to check if any child can share opinion
         Route::middleware(['check.parent.eligibility'])->group(function () {
             Route::livewire('opinion', ParentSuggestionList::class)->name('opinion');
