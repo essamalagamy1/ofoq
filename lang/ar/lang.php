@@ -754,4 +754,19 @@ return [
     'max_percentage' => 'أعلى نسبة',
     'color' => 'اللون',
     'max_percentage_error' => 'النسبة العليا يجب أن تكون أكبر من أو تساوي النسبة الدنيا.',
+
+    // Question Bank CRUD Translations
+    'add_question' => 'إضافة سؤال',
+    'update_question' => 'تعديل سؤال',
+    'search_by_question' => 'بحث في السؤال',
+    'all_cycles' => 'كل الدورات',
+    'all_subjects' => 'كل المواد',
+    'all_grades' => 'كل الصفوف',
+    'question_content' => 'نص السؤال',
+    'option_a' => 'الخيار الأول (A)',
+    'option_b' => 'الخيار الثاني (B)',
+    'option_c' => 'الخيار الثالث (C)',
+    'option_d' => 'الخيار الرابع (D)',
+    'correct_option' => 'الخيار الصحيح',
+    'no_active_cycle_error' => 'لا يمكن إضافة سؤال لعدم وجود دورة أكاديمية نشطة حالياً. يرجى تفعيل دورة أولاً.',
 ];
