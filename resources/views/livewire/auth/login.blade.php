@@ -38,9 +38,7 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
 
         if (!$user) {
             $student = \App\Models\Student::where(function ($query) {
-                $query->where('parent_mobile_1', $this->phone)->where('parent_mobile_1_key', $this->phone_key)
-                      ->orWhere('parent_mobile_2', $this->phone)->where('parent_mobile_2_key', $this->phone_key)
-                      ->orWhere('parent_mobile_3', $this->phone)->where('parent_mobile_3_key', $this->phone_key);
+                $query->where('parent_mobile_1', $this->phone)->where('parent_mobile_1_key', $this->phone_key)->orWhere('parent_mobile_2', $this->phone)->where('parent_mobile_2_key', $this->phone_key)->orWhere('parent_mobile_3', $this->phone)->where('parent_mobile_3_key', $this->phone_key);
             })->first();
 
             if ($student) {
@@ -151,22 +149,27 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
         class="flex flex-col gap-6 border border-gray-300 dark:border-gray-700 text-lg font-medium rounded-xl dark:text-gray-300
 			dark:bg-gray-900  transition-colors duration-200"
         shadow separator>
-        <x-auth-header :title="__('lang.log_account')" />
+        <div class="text-center mb-4 border-b-[3px] border-dashed border-[#d4a85a] pb-4">
+            <h2 class="text-3xl font-extrabold text-[#0b1c38] flex items-center justify-center gap-3 drop-shadow-sm">
+                <x-icon name="o-book-open" class="w-10 h-10 text-[#d4a85a]" />
+                جواز المعرفة
+            </h2>
+        </div>
 
         @session('status')
             <x-alert title="{{ session('status') }}"
                 class="text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 my-4 text-center" />
         @endsession
 
-        <form wire:submit="{{ $phone_checked ? 'login' : 'checkPhone' }}" class="flex flex-col gap-6 mt-3">
+        <form wire:submit="{{ $phone_checked ? 'login' : 'checkPhone' }}" class="flex flex-col gap-4 mt-3">
 
             @if (!$phone_checked)
                 <div class="mb-2 text-center text-sm text-gray-600 dark:text-gray-400">
                     {{ __('lang.enter_phone_number_login') ?? 'أدخل رقم جوالك لتسجيل الدخول' }}
                 </div>
 
-                <x-phone-input phoneProperty="phone" keyProperty="phone_key" label="{{ __('lang.phone') ?? 'رقم الجوال' }}"
-                    required autofocus />
+                <x-phone-input phoneProperty="phone" keyProperty="phone_key"
+                    label="{{ __('lang.phone') ?? 'رقم الجوال' }}" required autofocus />
             @else
                 <div class="mb-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg flex items-center justify-between">
                     <div class="flex items-center space-x-2 rtl:space-x-reverse">
@@ -204,6 +207,63 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
                 </x-button>
             </div>
         </form>
+
+        <!-- Subjects -->
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-2">
+            <div class="px-5 py-2 rounded-full font-bold shadow-md flex items-center gap-2"
+                style="background: linear-gradient(180deg, #1e3a8a, #0b1c38); border: 2px solid #d4a85a; color: white;">
+                <div class="rounded-full p-1" style="background-color: #d4a85a;"><x-icon name="o-book-open"
+                        class="w-4 h-4" style="color: #0b1c38;" /></div> القراءة
+            </div>
+            <div class="px-5 py-2 rounded-full font-bold shadow-md flex items-center gap-2"
+                style="background: linear-gradient(180deg, #1e3a8a, #0b1c38); border: 2px solid #d4a85a; color: white;">
+                <div class="rounded-full p-1" style="background-color: #d4a85a;"><x-icon name="o-beaker" class="w-4 h-4"
+                        style="color: #0b1c38;" /></div> العلوم
+            </div>
+            <div class="px-5 py-2 rounded-full font-bold shadow-md flex items-center gap-2"
+                style="background: linear-gradient(180deg, #1e3a8a, #0b1c38); border: 2px solid #d4a85a; color: white;">
+                <div class="rounded-full p-1" style="background-color: #d4a85a;"><x-icon name="o-calculator"
+                        class="w-4 h-4" style="color: #0b1c38;" /></div> الرياضيات
+            </div>
+        </div>
+
+        <!-- Badges -->
+        <div class="mt-8 border-t-[3px] border-dashed " style="border-color: #d4a85a;">
+            <h3 class="text-center text-xl font-extrabold mb-6 flex items-center justify-center gap-2 drop-shadow-sm"
+                style="color: #0b1c38;">
+                <span class="text-sm" style="color: #d4a85a;">✦</span> أوسمة الإنجاز <span class="text-sm"
+                    style="color: #d4a85a;">✦</span>
+            </h3>
+            <div class="flex justify-center gap-6 md:gap-10">
+                <div class="flex flex-col items-center">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full shadow-xl flex items-center justify-center border-4 border-white mb-2 relative"
+                        style="background: linear-gradient(135deg, #fcd34d, #b45309);">
+                        <x-icon name="s-star" class="w-8 h-8 md:w-10 md:h-10 text-white" />
+                        <div class="absolute -bottom-2 -left-2 -right-2 h-4 opacity-50 blur-sm rounded-full"
+                            style="background: linear-gradient(90deg, transparent, #d4a85a, transparent);"></div>
+                    </div>
+                    <span class="text-base font-extrabold" style="color: #0b1c38;">ذهبي</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full shadow-xl flex items-center justify-center border-4 border-white mb-2 relative"
+                        style="background: linear-gradient(135deg, #f3f4f6, #9ca3af);">
+                        <x-icon name="s-star" class="w-8 h-8 md:w-10 md:h-10 text-white" />
+                        <div class="absolute -bottom-2 -left-2 -right-2 h-4 opacity-50 blur-sm rounded-full"
+                            style="background: linear-gradient(90deg, transparent, #9ca3af, transparent);"></div>
+                    </div>
+                    <span class="text-base font-extrabold" style="color: #0b1c38;">فضي</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full shadow-xl flex items-center justify-center border-4 border-white mb-2 relative"
+                        style="background: linear-gradient(135deg, #fdba74, #9a3412);">
+                        <x-icon name="s-star" class="w-8 h-8 md:w-10 md:h-10 text-white" />
+                        <div class="absolute -bottom-2 -left-2 -right-2 h-4 opacity-50 blur-sm rounded-full"
+                            style="background: linear-gradient(90deg, transparent, #c2410c, transparent);"></div>
+                    </div>
+                    <span class="text-base font-extrabold" style="color: #0b1c38;">برونزي</span>
+                </div>
+            </div>
+        </div>
 
     </x-card>
 </div>
