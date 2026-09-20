@@ -23,11 +23,21 @@ class TeacherData extends Component
         return view('livewire.placeholders.page-loading');
     }
 
-    public $search_name;
-    public $search_mobile;
+    public $search_teacher_id;
+    public $search_subject;
+    public $all_teachers = [];
 
     public function mount(): void
     {
+        $this->all_teachers = User::where('type', 'teacher')->get(['id', 'name', 'phone', 'phone_key'])->map(function ($item): array {
+            $phone = $item->phone ? ltrim($item->phone_key, '+') . $item->phone : '';
+            return [
+                'id' => $item->id,
+                'name' => $item->name,
+                'sub_label' => "{$item->id} | {$phone}",
+            ];
+        })->toArray();
+
         view()->share('breadcrumbs', $this->breadcrumbs());
     }
 
@@ -46,8 +56,8 @@ class TeacherData extends Component
     {
         $data['teachers'] = User::query()
             ->where('type', 'teacher')
-            ->when($this->search_name, fn (Builder $query) => $query->where('name', 'like', "%{$this->search_name}%"))
-            ->when($this->search_mobile, fn (Builder $query) => $query->where('phone', 'like', "%{$this->search_mobile}%"))
+            ->when($this->search_teacher_id, fn (Builder $query) => $query->where('id', $this->search_teacher_id))
+            ->when($this->search_subject, fn (Builder $query) => $query->where('assigned_subject', $this->search_subject))
             ->latest()
             ->paginate(20);
 

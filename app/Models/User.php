@@ -19,7 +19,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @property int $id
  * @property string $name
  * @property string $email
- * @property string|null $mobile_number
+ * @property string|null $phone
+ * @property string|null $phone_key
  * @property bool $requires_password
  * @property string|null $type
  * @property string|null $assigned_subject

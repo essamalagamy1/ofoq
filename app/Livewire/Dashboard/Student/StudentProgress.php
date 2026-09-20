@@ -78,6 +78,7 @@ class StudentProgress extends Component
                     $earnedBadge = [
                         'name' => $badge->name,
                         'color_hex' => $badge->color_hex,
+                        'image' => $badge->getFirstMediaUrl('image')
                     ];
                     break;
                 }

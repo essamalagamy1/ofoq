@@ -43,7 +43,7 @@ class BadgeData extends Component
     #[On('render')]
     public function render(): View
     {
-        $data['badges'] = BadgeSetting::query()
+        $data['badges'] = BadgeSetting::query()->with('media')
             ->when($this->search_name, fn (Builder $query) => $query->where('name', 'like', "%{$this->search_name}%"))
             ->orderBy('min_percentage', 'asc')
             ->paginate(20);

@@ -30,7 +30,11 @@
                         @if($data['total_answered'] > 0)
                             <div class="mb-3 relative w-16 h-16 flex items-center justify-center">
                                 @if($data['badge'])
-                                    <x-icon name="s-star" class="w-14 h-14" style="color: {{ $data['badge']['color_hex'] }}; drop-shadow(0 4px 6px {{ $data['badge']['color_hex'] }}40)" />
+                                    @if(!empty($data['badge']['image']))
+                                        <img src="{{ $data['badge']['image'] }}" class="w-14 h-14 object-cover rounded-full shadow-md" alt="{{ $data['badge']['name'] }}" />
+                                    @else
+                                        <x-icon name="s-star" class="w-14 h-14" style="color: {{ $data['badge']['color_hex'] }}; drop-shadow(0 4px 6px {{ $data['badge']['color_hex'] }}40)" />
+                                    @endif
                                 @else
                                     <div class="w-12 h-12 rounded-full border-4 border-gray-200 flex items-center justify-center bg-gray-50">
                                         <x-icon name="o-x-mark" class="w-6 h-6 text-gray-400" />

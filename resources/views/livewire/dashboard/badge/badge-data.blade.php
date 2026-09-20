@@ -14,6 +14,7 @@
                 <thead>
                     <tr class="bg-base-200/50">
                         <th class="py-3 px-4">#</th>
+                        <th class="py-3 px-4">{{ __('lang.image') ?? 'الصورة' }}</th>
                         <th class="py-3 px-4">{{ __('lang.name') ?? 'الاسم' }}</th>
                         <th class="py-3 px-4 text-center">{{ __('lang.min_percentage') ?? 'أقل نسبة' }}</th>
                         <th class="py-3 px-4 text-center">{{ __('lang.max_percentage') ?? 'أعلى نسبة' }}</th>
@@ -25,6 +26,15 @@
                     @forelse($badges as $badge)
                         <tr class="hover:bg-base-100/80 transition-colors border-b border-base-100 last:border-0">
                             <td class="py-3 px-4">{{ $badge->id }}</td>
+                            <td class="py-3 px-4">
+                                @if($badge->getFirstMediaUrl('image'))
+                                    <img src="{{ $badge->getFirstMediaUrl('image') }}" class="w-10 h-10 object-cover rounded-lg" alt="{{ $badge->name }}" />
+                                @else
+                                    <div class="w-10 h-10 rounded-lg bg-base-300 flex items-center justify-center">
+                                        <x-icon name="o-photo" class="w-5 h-5 text-base-content/50" />
+                                    </div>
+                                @endif
+                            </td>
                             <td class="py-3 px-4 font-semibold">{{ $badge->name }}</td>
                             <td class="py-3 px-4 text-center">{{ $badge->min_percentage }}%</td>
                             <td class="py-3 px-4 text-center">{{ $badge->max_percentage }}%</td>
@@ -40,7 +50,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="py-8 text-center text-gray-500">
+                            <td colspan="7" class="py-8 text-center text-gray-500">
                                 {{ __('lang.no_data') ?? 'لا توجد بيانات متاحة' }}
                             </td>
                         </tr>

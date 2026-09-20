@@ -2,27 +2,26 @@
     <x-modal wire:model="create_modal" title="{{ __('lang.add_teacher') ?? 'إضافة معلم' }}" separator>
         <x-form wire:submit="create">
             <x-input label="{{ __('lang.name') ?? 'الاسم' }}" wire:model="name" required />
-            
-            <x-input type="password" label="{{ __('lang.password') ?? 'كلمة المرور' }}" wire:model="password" required />
+            <div class="mt-4">
+                <x-checkbox label="{{ __('lang.requires_password') ?? 'تفعيل الدخول بكلمة مرور' }}"
+                    wire:model.live="requires_password" />
+            </div>
+
+            @if ($requires_password)
+                <x-password label="{{ __('lang.password') ?? 'كلمة المرور' }}" wire:model="password" required />
+            @endif
 
             <div class="mt-4">
-                <x-phone-input 
-                    phoneProperty="phone" 
-                    keyProperty="phone_key" 
-                    label="{{ __('lang.mobile_number') ?? 'رقم الجوال' }}" 
-                />
+                <x-phone-input phoneProperty="phone" keyProperty="phone_key"
+                    label="{{ __('lang.phone') ?? 'رقم الجوال' }}" />
             </div>
 
             <div class="mt-4">
-                <x-select 
-                    label="{{ __('lang.assigned_subject') ?? 'المادة الدراسية' }}" 
-                    wire:model="assigned_subject" 
-                    :options="collect(\App\Enums\SubjectEnum::getInstances())->map(fn($e) => ['value' => $e->value, 'title' => $e->title()])" 
-                    option-value="value" 
-                    option-label="title" 
-                    placeholder="{{ __('lang.select') ?? 'اختر...' }}" 
-                    required 
-                />
+                <x-select label="{{ __('lang.assigned_subject') ?? 'المادة الدراسية' }}" wire:model="assigned_subject"
+                    :options="collect(\App\Enums\SubjectEnum::getInstances())->map(
+                        fn($e) => ['value' => $e->value, 'title' => $e->title()],
+                    )" option-value="value" option-label="title"
+                    placeholder="{{ __('lang.select') ?? 'اختر...' }}" required />
             </div>
 
             <x-slot:actions>

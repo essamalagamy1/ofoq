@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RolePermissionSeeder::class);
         $superadmin = User::firstOrCreate(
-            ['email' => 'superadmin@admin.com'],
+            ['phone' => '0123456789', 'phone_key' => '+966'],
             [
                 'name' => 'superadmin',
                 'password' => Hash::make('12345678'),

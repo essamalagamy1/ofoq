@@ -7,9 +7,32 @@
         </x-slot:actions>
     </x-header>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
-        <x-input wire:model.live.debounce.500ms="search_name" placeholder="{{ __('lang.search_by_name') ?? 'بحث بالاسم' }}" icon="o-magnifying-glass" clearable class="w-full" />
-        <x-input wire:model.live.debounce.500ms="search_mobile" placeholder="{{ __('lang.search_mobile') ?? 'بحث برقم الجوال' }}" icon="o-magnifying-glass" clearable class="w-full" />
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+        <div class="col-span-1 md:col-span-2">
+            <x-ui.choices-advanced-search 
+                wire:model.live="search_teacher_id" 
+                :options="$all_teachers" 
+                option-label="name" 
+                option-sub-label="sub_label" 
+                placeholder="{{ __('lang.search_by_name') ?? 'بحث بالاسم' }} / {{ __('lang.search_by_id') ?? 'بحث بالرقم' }} / {{ __('lang.search_mobile') ?? 'بحث برقم الجوال' }}" 
+                icon="o-magnifying-glass" 
+                clearable 
+                single 
+                searchable 
+                class="w-full bg-base-100" />
+        </div>
+        <div class="col-span-1">
+            <x-select 
+                wire:model.live="search_subject" 
+                :options="collect(\App\Enums\SubjectEnum::getInstances())->map(fn($e) => ['value' => $e->value, 'title' => $e->title()])" 
+                option-value="value" 
+                option-label="title" 
+                placeholder="{{ __('lang.subject') ?? 'المادة الدراسية' }}" 
+                icon="o-book-open"
+                clearable
+                class="w-full bg-base-100"
+            />
+        </div>
     </div>
 
     <div class="bg-base-100 rounded-lg shadow-sm border border-base-200">
@@ -19,7 +42,7 @@
                     <tr class="bg-base-200/50">
                         <th class="py-3 px-4">#</th>
                         <th class="py-3 px-4">{{ __('lang.name') ?? 'الاسم' }}</th>
-                        <th class="py-3 px-4">{{ __('lang.mobile_number') ?? 'رقم الجوال' }}</th>
+                        <th class="py-3 px-4">{{ __('lang.phone') ?? 'رقم الجوال' }}</th>
                         <th class="py-3 px-4">{{ __('lang.assigned_subject') ?? 'المادة الدراسية' }}</th>
                         <th class="py-3 px-4 text-center">{{ __('lang.action') ?? 'الإجراءات' }}</th>
                     </tr>

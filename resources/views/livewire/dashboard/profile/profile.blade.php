@@ -9,7 +9,7 @@
                 <x-phone-input 
                     phoneProperty="phone" 
                     keyProperty="phone_key" 
-                    label="{{ __('lang.mobile_number') ?? 'رقم الجوال' }}" 
+                    label="{{ __('lang.phone') ?? 'رقم الجوال' }}" 
                 />
 
 

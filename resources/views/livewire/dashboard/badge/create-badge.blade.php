@@ -12,6 +12,10 @@
                 <x-input type="color" label="{{ __('lang.color') ?? 'اللون' }}" wire:model="color_hex" class="h-14" required />
             </div>
 
+            <div class="mt-4">
+                <x-file label="{{ __('lang.image') ?? 'الصورة' }}" wire:model="image" accept="image/*" required />
+            </div>
+
             <x-slot:actions>
                 <x-button label="{{ __('lang.cancel') ?? 'إلغاء' }}" @click="$wire.create_modal = false" />
                 <x-button label="{{ __('lang.save') ?? 'حفظ' }}" class="btn-primary" type="submit" spinner="create" />

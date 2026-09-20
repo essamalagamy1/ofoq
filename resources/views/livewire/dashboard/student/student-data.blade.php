@@ -8,9 +8,18 @@
         </x-slot:actions>
     </x-header>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
-        <x-input wire:model.live.debounce.500ms="search_student_id" placeholder="{{ __('lang.search_by_id') ?? 'بحث بالرقم' }}" icon="o-magnifying-glass" clearable class="w-full" />
-        <x-input wire:model.live.debounce.500ms="search_name" placeholder="{{ __('lang.search_by_name') ?? 'بحث بالاسم' }}" icon="o-magnifying-glass" clearable class="w-full" />
+    <div class="gap-4 mb-4">
+            <x-ui.choices-advanced-search 
+                wire:model.live="search_student_id" 
+                :options="$all_students" 
+                option-label="name" 
+                option-sub-label="sub_label" 
+                placeholder="{{ __('lang.search_by_name') ?? 'بحث بالاسم' }} / {{ __('lang.search_by_id') ?? 'بحث بالرقم' }}" 
+                icon="o-magnifying-glass" 
+                clearable 
+                single 
+                searchable 
+                />
     </div>
 
     <div class="bg-base-100 rounded-lg shadow-sm border border-base-200">
@@ -75,8 +84,15 @@
             <x-input type="number" label="{{ __('lang.grade') ?? 'الصف (3-6)' }}" wire:model="import_grade" min="3" max="6" required />
             <x-file wire:model="import_file" label="{{ __('lang.select_excel_file') ?? 'اختر ملف Excel' }}" accept=".xlsx,.xls,.csv" required />
             
-            <div class="text-sm text-gray-500 mt-2">
-                الأعمدة المطلوبة في الملف: name, nationality, semester, parent_mobile_1_key, parent_mobile_1, parent_mobile_2_key, parent_mobile_2, parent_mobile_3_key, parent_mobile_3, can_share_opinion
+            <div class="text-sm text-gray-500 mt-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <div class="font-bold mb-2">الأعمدة المطلوبة في الملف:</div>
+                <div class="mb-4" dir="ltr">
+                    name, nationality, semester, phone_1, phone_2, phone_3
+                </div>
+                <a href="{{ asset('temp.xlsx') }}" download class="btn btn-sm btn-outline btn-info">
+                    <x-icon name="o-arrow-down-tray" class="w-4 h-4" />
+                    {{ __('lang.download_template') ?? 'تحميل قالب الاستيراد (temp.xlsx)' }}
+                </a>
             </div>
 
             <x-slot:actions>

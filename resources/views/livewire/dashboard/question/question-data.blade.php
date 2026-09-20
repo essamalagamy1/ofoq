@@ -2,65 +2,45 @@
     <x-header title="{{ __('lang.questions') ?? 'بنك الأسئلة' }}" separator>
         <x-slot:actions>
             <div class="flex items-center gap-2 sm:gap-4">
-                <x-button icon="o-plus" class="btn-primary btn-sm sm:btn-md" wire:click="checkActiveCycleAndOpenCreateModal">{{ __('lang.add') ?? 'إضافة' }}</x-button>
+                <x-button icon="o-plus" class="btn-primary btn-sm sm:btn-md"
+                    wire:click="checkActiveCycleAndOpenCreateModal">{{ __('lang.add') ?? 'إضافة' }}</x-button>
             </div>
         </x-slot:actions>
     </x-header>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-4">
-        <x-input wire:model.live.debounce.500ms="search_content" placeholder="{{ __('lang.search_by_question') ?? 'بحث في السؤال' }}" icon="o-magnifying-glass" clearable class="w-full" />
-        
-        <x-select 
-            wire:model.live="filter_cycle_id" 
-            :options="$all_cycles" 
-            option-value="id" 
-            option-label="name" 
-            placeholder="{{ __('lang.all_cycles') ?? 'كل الدورات' }}" 
-            class="w-full"
-        />
+        <x-input wire:model.live.debounce.500ms="search_content"
+            placeholder="{{ __('lang.search_by_question') ?? 'بحث في السؤال' }}" icon="o-magnifying-glass" clearable
+            class="w-full" label="بحث في السؤال" />
 
-        @if(!auth()->user()->hasRole('teacher'))
-            <x-select 
-                wire:model.live="filter_teacher" 
-                :options="$all_teachers" 
-                option-value="id" 
-                option-label="name" 
-                placeholder="{{ __('lang.all_teachers') ?? 'كل المعلمين' }}" 
-                class="w-full"
-            />
+        <x-choices-offline wire:model.live="filter_cycle_id" :options="$all_cycles" option-value="id" option-label="name"
+            placeholder="{{ __('lang.all_cycles') ?? 'كل الدورات' }}" class="w-full" searchable clearable single
+            label="الدورات" />
+
+        @if (!auth()->user()->hasRole('teacher'))
+            <x-choices-offline wire:model.live="filter_teacher" :options="$all_teachers" option-value="id" option-label="name"
+                placeholder="{{ __('lang.all_teachers') ?? 'كل المعلمين' }}" class="w-full" searchable clearable single
+                label="المعلمين" />
         @endif
 
-        <x-select 
-            wire:model.live="filter_subject" 
-            :options="collect(\App\Enums\SubjectEnum::getInstances())->map(fn($e) => ['value' => $e->value, 'title' => $e->title()])" 
-            option-value="value" 
-            option-label="title" 
-            placeholder="{{ __('lang.all_subjects') ?? 'كل المواد' }}" 
-            class="w-full"
-        />
+        <x-choices-offline wire:model.live="filter_subject" :options="collect(\App\Enums\SubjectEnum::getInstances())->map(
+            fn($e) => ['value' => $e->value, 'title' => $e->title()],
+        )->values()" option-value="value" option-label="title"
+            placeholder="{{ __('lang.all_subjects') ?? 'كل المواد' }}" class="w-full" searchable clearable single
+            label="المواد" />
 
-        <x-select 
-            wire:model.live="filter_grade" 
-            :options="[
-                ['id' => 3, 'name' => '3'],
-                ['id' => 4, 'name' => '4'],
-                ['id' => 5, 'name' => '5'],
-                ['id' => 6, 'name' => '6'],
-            ]"
-            option-value="id" 
-            option-label="name" 
-            placeholder="{{ __('lang.all_grades') ?? 'كل الصفوف' }}" 
-            class="w-full"
-        />
+        <x-choices-offline wire:model.live="filter_grade" :options="[
+            ['id' => 3, 'name' => '3'],
+            ['id' => 4, 'name' => '4'],
+            ['id' => 5, 'name' => '5'],
+            ['id' => 6, 'name' => '6'],
+        ]" option-value="id" option-label="name"
+            placeholder="{{ __('lang.all_grades') ?? 'كل الصفوف' }}" class="w-full" searchable clearable single
+            label="الصف" />
 
-        <x-select 
-            wire:model.live="filter_week" 
-            :options="collect(range(1, 12))->map(fn($w) => ['id' => $w, 'name' => __('lang.week') . ' ' . $w])->toArray()"
-            option-value="id" 
-            option-label="name" 
-            placeholder="{{ __('lang.all_weeks') ?? 'كل الأسابيع' }}" 
-            class="w-full"
-        />
+        <x-choices-offline wire:model.live="filter_week" :options="collect(range(1, 12))->map(fn($w) => ['id' => $w, 'name' => __('lang.week') . ' ' . $w])->values()->toArray()" option-value="id" option-label="name"
+            placeholder="{{ __('lang.all_weeks') ?? 'كل الأسابيع' }}" class="w-full" searchable clearable single
+            label="الأسابيع" />
     </div>
 
     <div class="bg-base-100 rounded-lg shadow-sm border border-base-200">
@@ -71,7 +51,7 @@
                         <th class="py-3 px-4">#</th>
                         <th class="py-3 px-4">{{ __('lang.question') ?? 'السؤال' }}</th>
                         <th class="py-3 px-4">{{ __('lang.cycle') ?? 'الدورة' }}</th>
-                        @if(!auth()->user()->hasRole('teacher'))
+                        @if (!auth()->user()->hasRole('teacher'))
                             <th class="py-3 px-4">{{ __('lang.teacher') ?? 'المعلم' }}</th>
                         @endif
                         <th class="py-3 px-4">{{ __('lang.subject') ?? 'المادة' }}</th>
@@ -90,7 +70,7 @@
                                 </div>
                             </td>
                             <td class="py-3 px-4 text-sm text-gray-600">{{ $question->cycle->name ?? '-' }}</td>
-                            @if(!auth()->user()->hasRole('teacher'))
+                            @if (!auth()->user()->hasRole('teacher'))
                                 <td class="py-3 px-4 text-sm text-gray-600">{{ $question->creator->name ?? '-' }}</td>
                             @endif
                             <td class="py-3 px-4">
@@ -102,9 +82,15 @@
                             <td class="py-3 px-4 text-center">{{ $question->week }}</td>
                             <td class="py-3 px-4 text-center">
                                 <div class="flex items-center justify-center gap-2">
-                                    <x-button icon="o-eye" class="btn-sm btn-ghost text-success" wire:click="$dispatch('open-show-answers-modal', { question: {{ $question->id }} })" tooltip="{{ __('lang.view_answers') ?? 'عرض الإجابات' }}" />
-                                    <x-button icon="o-pencil" class="btn-sm btn-ghost text-info" wire:click="$dispatch('open-update-modal', { question: {{ $question->id }} })" />
-                                    <x-button icon="o-trash" class="btn-sm btn-ghost text-error" wire:click="delete({{ $question->id }})" wire:confirm="{{ __('lang.confirm_delete') ?? 'هل أنت متأكد من الحذف؟' }}" />
+                                    <x-button icon="o-presentation-chart-bar" class="btn-sm btn-ghost text-primary" link="{{ route(auth()->user()->hasRole('teacher') ? 'teacher.questions.record' : 'admin.questions.record', $question->id) }}" tooltip="{{ __('lang.projector_mode') ?? 'وضع العرض وتسجيل الإجابات' }}" />
+                                    <x-button icon="o-eye" class="btn-sm btn-ghost text-success"
+                                        wire:click="$dispatch('open-show-answers-modal', { question: {{ $question->id }} })"
+                                        tooltip="{{ __('lang.view_answers') ?? 'عرض الإجابات' }}" />
+                                    <x-button icon="o-pencil" class="btn-sm btn-ghost text-info"
+                                        wire:click="$dispatch('open-update-modal', { question: {{ $question->id }} })" />
+                                    <x-button icon="o-trash" class="btn-sm btn-ghost text-error"
+                                        wire:click="delete({{ $question->id }})"
+                                        wire:confirm="{{ __('lang.confirm_delete') ?? 'هل أنت متأكد من الحذف؟' }}" />
                                 </div>
                             </td>
                         </tr>
@@ -118,8 +104,8 @@
                 </tbody>
             </table>
         </div>
-        
-        @if($questions->hasPages())
+
+        @if ($questions->hasPages())
             <div class="p-4 border-t border-base-200">
                 {{ $questions->links() }}
             </div>

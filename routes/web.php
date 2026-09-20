@@ -30,6 +30,7 @@ Route::middleware(['web-language'])->group(function () {
         Route::livewire('teachers', TeacherData::class)->name('teachers');
         Route::livewire('badges', BadgeData::class)->name('badges');
         Route::livewire('questions', QuestionData::class)->name('questions');
+        Route::livewire('questions/{question}/record', \App\Livewire\Dashboard\Question\RecordStudentAnswers::class)->name('questions.record');
         Route::livewire('cycles', CycleData::class)->name('cycles');
     });
 
@@ -37,7 +38,7 @@ Route::middleware(['web-language'])->group(function () {
     Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')->group(function () {
         Route::livewire('dashboard', Dashboard::class)->name('dashboard');
         Route::livewire('questions', QuestionData::class)->name('questions');
-        Route::livewire('projector', ProjectorBoard::class)->name('projector');
+        Route::livewire('questions/{question}/record', \App\Livewire\Dashboard\Question\RecordStudentAnswers::class)->name('questions.record');
         Route::livewire('suggestions', SuggestionData::class)->name('suggestions');
     });
 

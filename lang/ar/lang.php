@@ -855,9 +855,19 @@ return [
     'search_by_name' => 'بحث بالاسم',
     'search_mobile' => 'بحث برقم الجوال',
     'subject' => 'المادة',
-    
+
     // Login Flow
     'enter_phone_number_login' => 'أدخل رقم جوالك لتسجيل الدخول',
     'continue' => 'متابعة',
     'edit' => 'تعديل',
+    'download_template' => 'تحميل قالب الاستيراد',
+    'requires_password' => 'تفعيل الدخول بكلمة مرور',
+    'active_week' => 'الأسبوع النشط',
+    'projector_mode' => 'وضع العرض وتسجيل الإجابات',
+    'record_answers' => 'تسجيل الإجابات',
+    'exit_fullscreen' => 'خروج من وضع ملء الشاشة',
+    'fullscreen' => 'ملء الشاشة',
+    'show_answer' => 'إظهار الإجابة الصحيحة',
+    'hide_answer' => 'إخفاء الإجابة',
+    'answer_recorded_for' => 'تم تسجيل الإجابة :option للطالب :student',
 ];

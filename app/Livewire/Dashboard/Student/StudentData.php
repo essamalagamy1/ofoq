@@ -31,10 +31,29 @@ class StudentData extends Component
     }
 
     public $search_student_id;
-    public $search_name;
+    public $all_students = [];
 
     public function mount(): void
     {
+        $this->all_students = Student::get([
+            'id', 'name', 
+            'parent_mobile_1', 'parent_mobile_1_key', 
+            'parent_mobile_2', 'parent_mobile_2_key', 
+            'parent_mobile_3', 'parent_mobile_3_key'
+        ])->map(function ($item): array {
+            $phones = collect([
+                $item->parent_mobile_1 ? ltrim($item->parent_mobile_1_key, '+') . $item->parent_mobile_1 : null,
+                $item->parent_mobile_2 ? ltrim($item->parent_mobile_2_key, '+') . $item->parent_mobile_2 : null,
+                $item->parent_mobile_3 ? ltrim($item->parent_mobile_3_key, '+') . $item->parent_mobile_3 : null,
+            ])->filter()->implode(' - ');
+
+            return [
+                'id' => $item->id,
+                'name' => $item->name,
+                'sub_label' => "{$item->id} | " . $phones,
+            ];
+        })->toArray();
+
         view()->share('breadcrumbs', $this->breadcrumbs());
     }
 
@@ -53,7 +72,6 @@ class StudentData extends Component
     {
         $data['students'] = Student::query()
             ->when($this->search_student_id, fn (Builder $query) => $query->where('id', $this->search_student_id))
-            ->when($this->search_name, fn (Builder $query) => $query->where('name', 'like', "%{$this->search_name}%"))
             ->latest()
             ->paginate(20);
 

@@ -6,13 +6,15 @@ use App\Models\BadgeSetting;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Mary\Traits\Toast;
 
 class CreateBadge extends Component
 {
-    use Toast;
+    use Toast, WithFileUploads;
 
     public bool $create_modal = false;
+    public $image;
 
     public string $name = '';
     public ?int $min_percentage = null;
@@ -22,7 +24,7 @@ class CreateBadge extends Component
     #[On('open-create-modal')]
     public function openModal(): void
     {
-        $this->reset(['name', 'min_percentage', 'max_percentage']);
+        $this->reset(['name', 'min_percentage', 'max_percentage', 'image']);
         $this->color_hex = '#FFD700'; // default gold color
         $this->create_modal = true;
     }
@@ -34,6 +36,7 @@ class CreateBadge extends Component
             'min_percentage' => 'required|integer|min:0|max:100',
             'max_percentage' => 'required|integer|min:0|max:100|gte:min_percentage',
             'color_hex' => ['required', 'string', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
+            'image' => 'required|image|max:2048',
         ];
     }
 
@@ -48,7 +51,16 @@ class CreateBadge extends Component
     {
         $validated = $this->validate();
 
-        BadgeSetting::create($validated);
+        $badge = BadgeSetting::create([
+            'name' => $validated['name'],
+            'min_percentage' => $validated['min_percentage'],
+            'max_percentage' => $validated['max_percentage'],
+            'color_hex' => $validated['color_hex'],
+        ]);
+
+        if ($this->image) {
+            $badge->addMedia($this->image)->toMediaCollection('image');
+        }
 
         $this->success(__('lang.created_successfully', ['attribute' => __('lang.badge') ?? 'الشارة']));
         

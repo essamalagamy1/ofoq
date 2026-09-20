@@ -20,6 +20,7 @@
 
 		{{-- Overview Statistics Cards --}}
 		<div class="grid auto-rows-min gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+			@if(auth()->user()->type !== 'teacher')
 			<div class="relative overflow-hidden rounded-xl bg-base-100 shadow-sm border border-base-200 p-4 transition-all hover:shadow-md">
 				<x-stat 
 					title="{{ __('lang.total_students') ?? 'إجمالي الطلاب' }}" 
@@ -37,7 +38,7 @@
 					color="text-success" 
 				/>
 			</div>
-			
+			@endif
 
 			
 			<div class="relative overflow-hidden rounded-xl bg-base-100 shadow-sm border border-base-200 p-4 transition-all hover:shadow-md">

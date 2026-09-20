@@ -6,14 +6,16 @@ use App\Models\BadgeSetting;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Mary\Traits\Toast;
 
 class UpdateBadge extends Component
 {
-    use Toast;
+    use Toast, WithFileUploads;
 
     public bool $update_modal = false;
     public ?BadgeSetting $badge = null;
+    public $image;
 
     public string $name = '';
     public ?int $min_percentage = null;
@@ -28,6 +30,7 @@ class UpdateBadge extends Component
         $this->min_percentage = $badge->min_percentage;
         $this->max_percentage = $badge->max_percentage;
         $this->color_hex = $badge->color_hex ?? '#000000';
+        $this->reset('image');
         
         $this->update_modal = true;
     }
@@ -39,6 +42,7 @@ class UpdateBadge extends Component
             'min_percentage' => 'required|integer|min:0|max:100',
             'max_percentage' => 'required|integer|min:0|max:100|gte:min_percentage',
             'color_hex' => ['required', 'string', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
+            'image' => 'nullable|image|max:2048',
         ];
     }
 
@@ -53,7 +57,17 @@ class UpdateBadge extends Component
     {
         $validated = $this->validate();
 
-        $this->badge->update($validated);
+        $this->badge->update([
+            'name' => $validated['name'],
+            'min_percentage' => $validated['min_percentage'],
+            'max_percentage' => $validated['max_percentage'],
+            'color_hex' => $validated['color_hex'],
+        ]);
+
+        if ($this->image) {
+            $this->badge->clearMediaCollection('image');
+            $this->badge->addMedia($this->image)->toMediaCollection('image');
+        }
 
         $this->success(__('lang.updated_successfully', ['attribute' => __('lang.badge') ?? 'الشارة']));
         

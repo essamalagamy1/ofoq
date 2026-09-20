@@ -55,7 +55,7 @@
 		</div> --}}
 
             {{-- Notifications --}}
-            <livewire:dashboard.notifications></livewire:dashboard.notifications>
+            {{-- <livewire:dashboard.notifications></livewire:dashboard.notifications> --}}
 
             {{-- profile --}}
             <div class="dropdown dropdown-end">

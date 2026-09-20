@@ -25,6 +25,13 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
     public bool $requires_password = false;
     public bool $phone_checked = false;
 
+    public $badges = [];
+
+    public function mount()
+    {
+        $this->badges = \App\Models\BadgeSetting::with('media')->orderBy('min_percentage', 'desc')->take(3)->get();
+    }
+
     public function checkPhone(): void
     {
         $this->validate([
@@ -146,11 +153,10 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
 
 <div>
     <x-card
-        class="flex flex-col gap-6 border border-gray-300 dark:border-gray-700 text-lg font-medium rounded-xl dark:text-gray-300
-			dark:bg-gray-900  transition-colors duration-200"
-        shadow separator>
-        <div class="text-center mb-4 border-b-[3px] border-dashed border-[#d4a85a] pb-4">
-            <h2 class="text-3xl font-extrabold text-[#0b1c38] flex items-center justify-center gap-3 drop-shadow-sm">
+        class="flex flex-col gap-6 border-2 !border-[#d4a85a]/40 !bg-white/95 backdrop-blur-md shadow-[0_10px_40px_rgba(11,28,56,0.15)] text-lg font-medium !rounded-[2rem] dark:text-gray-300 dark:bg-gray-900/95 transition-all duration-300 p-2 md:p-4"
+        separator>
+        <div class="text-center mb-4 border-b-[3px] border-dashed border-[#d4a85a]/50 pb-6 pt-2">
+            <h2 class="text-3xl font-black text-[#0b1c38] flex items-center justify-center gap-3 drop-shadow-sm">
                 <x-icon name="o-book-open" class="w-10 h-10 text-[#d4a85a]" />
                 جواز المعرفة
             </h2>
@@ -200,10 +206,12 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
             <!-- Remember Me -->
             <x-checkbox wire:model="remember" :label="__('lang.remember_me')" />
 
-            <div class="flex items-center justify-end">
-                <x-button variant="primary" type="submit" class="w-full"
+            <div class="flex items-center justify-end mt-2">
+                <x-button type="submit"
+                    class="w-full text-white text-lg font-bold rounded-xl border-2 border-[#d4a85a]/50 hover:scale-[1.01] hover:shadow-lg transition-all"
+                    style="background: linear-gradient(180deg, #1e3a8a, #0b1c38);"
                     spinner="{{ $phone_checked ? 'login' : 'checkPhone' }}">
-                    {{ $phone_checked && $requires_password ? __('lang.login') : __('lang.continue') ?? 'متابعة' }}
+                    {{ __('lang.login') }}
                 </x-button>
             </div>
         </form>
@@ -228,40 +236,30 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
         </div>
 
         <!-- Badges -->
-        <div class="mt-8 border-t-[3px] border-dashed " style="border-color: #d4a85a;">
+        <div class="mt-8 border-t-[3px] border-dashed border-[#d4a85a]/50 pt-8">
             <h3 class="text-center text-xl font-extrabold mb-6 flex items-center justify-center gap-2 drop-shadow-sm"
                 style="color: #0b1c38;">
                 <span class="text-sm" style="color: #d4a85a;">✦</span> أوسمة الإنجاز <span class="text-sm"
                     style="color: #d4a85a;">✦</span>
             </h3>
-            <div class="flex justify-center gap-6 md:gap-10">
-                <div class="flex flex-col items-center">
-                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full shadow-xl flex items-center justify-center border-4 border-white mb-2 relative"
-                        style="background: linear-gradient(135deg, #fcd34d, #b45309);">
-                        <x-icon name="s-star" class="w-8 h-8 md:w-10 md:h-10 text-white" />
-                        <div class="absolute -bottom-2 -left-2 -right-2 h-4 opacity-50 blur-sm rounded-full"
-                            style="background: linear-gradient(90deg, transparent, #d4a85a, transparent);"></div>
+            <div class="flex justify-center flex-wrap gap-6 md:gap-10">
+                @foreach ($badges as $badge)
+                    <div class="flex flex-col items-center">
+                        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full shadow-xl flex items-center justify-center border-4 border-white mb-2 relative"
+                            style="background-color: {{ $badge->color_hex }};">
+                            @if ($badge->getFirstMediaUrl('image'))
+                                <img src="{{ $badge->getFirstMediaUrl('image') }}"
+                                    class="w-full h-full object-cover rounded-full" alt="{{ $badge->name }}" />
+                            @else
+                                <x-icon name="s-star" class="w-8 h-8 md:w-10 md:h-10 text-white" />
+                            @endif
+                            <div class="absolute -bottom-2 -left-2 -right-2 h-4 opacity-50 blur-sm rounded-full"
+                                style="background: linear-gradient(90deg, transparent, {{ $badge->color_hex }}, transparent);">
+                            </div>
+                        </div>
+                        <span class="text-base font-extrabold" style="color: #0b1c38;">{{ $badge->name }}</span>
                     </div>
-                    <span class="text-base font-extrabold" style="color: #0b1c38;">ذهبي</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full shadow-xl flex items-center justify-center border-4 border-white mb-2 relative"
-                        style="background: linear-gradient(135deg, #f3f4f6, #9ca3af);">
-                        <x-icon name="s-star" class="w-8 h-8 md:w-10 md:h-10 text-white" />
-                        <div class="absolute -bottom-2 -left-2 -right-2 h-4 opacity-50 blur-sm rounded-full"
-                            style="background: linear-gradient(90deg, transparent, #9ca3af, transparent);"></div>
-                    </div>
-                    <span class="text-base font-extrabold" style="color: #0b1c38;">فضي</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full shadow-xl flex items-center justify-center border-4 border-white mb-2 relative"
-                        style="background: linear-gradient(135deg, #fdba74, #9a3412);">
-                        <x-icon name="s-star" class="w-8 h-8 md:w-10 md:h-10 text-white" />
-                        <div class="absolute -bottom-2 -left-2 -right-2 h-4 opacity-50 blur-sm rounded-full"
-                            style="background: linear-gradient(90deg, transparent, #c2410c, transparent);"></div>
-                    </div>
-                    <span class="text-base font-extrabold" style="color: #0b1c38;">برونزي</span>
-                </div>
+                @endforeach
             </div>
         </div>
 

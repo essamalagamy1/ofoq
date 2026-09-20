@@ -56,6 +56,6 @@ class ProjectorBoard extends Component
 
     public function render(): View
     {
-        return view('livewire.dashboard.projector-mode.projector-board')->layout('components.layouts.app');
+        return view('livewire.dashboard.projector-mode.projector-board')->layout('components.layouts.maryui.app');
     }
 }

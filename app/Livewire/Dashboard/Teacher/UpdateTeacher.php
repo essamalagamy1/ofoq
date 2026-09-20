@@ -27,6 +27,8 @@ class UpdateTeacher extends Component
 
     public string $assigned_subject = '';
 
+    public bool $requires_password = false;
+
     #[On('open-update-modal')]
     public function openModal(User $teacher): void
     {
@@ -36,6 +38,7 @@ class UpdateTeacher extends Component
         $this->phone_key = $teacher->phone_key ?? '+966';
         $this->phone = $teacher->phone ?? '';
         $this->assigned_subject = $teacher->assigned_subject ?? '';
+        $this->requires_password = (bool) $teacher->requires_password;
 
         $this->update_modal = true;
     }
@@ -47,6 +50,7 @@ class UpdateTeacher extends Component
             'phone_key' => 'nullable|string|max:10',
             'phone' => 'required|string|max:20|unique:users,phone,'.$this->teacher->id,
             'assigned_subject' => 'required|string|in:science,math,arabic',
+            'requires_password' => 'boolean',
         ];
     }
 
@@ -54,8 +58,10 @@ class UpdateTeacher extends Component
     {
         $validated = $this->validate();
 
-        if ($this->password) {
+        if ($this->requires_password && $this->password) {
             $validated['password'] = Hash::make($this->password);
+        } elseif (!$this->requires_password) {
+            $validated['password'] = null;
         }
 
         $this->teacher->update($validated);

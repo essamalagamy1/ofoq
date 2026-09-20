@@ -25,11 +25,13 @@ class CreateTeacher extends Component
 
     public string $assigned_subject = '';
 
+    public bool $requires_password = false;
+
     #[On('open-create-modal')]
     public function openModal(): void
     {
         $this->reset([
-            'name', 'password', 'phone', 'assigned_subject',
+            'name', 'password', 'phone', 'assigned_subject', 'requires_password'
         ]);
         $this->phone_key = '+966';
         $this->create_modal = true;
@@ -39,7 +41,8 @@ class CreateTeacher extends Component
     {
         return [
             'name' => 'required|string|max:255',
-            'password' => 'required|string|min:8',
+            'requires_password' => 'boolean',
+            'password' => $this->requires_password ? 'required|string|min:8' : 'nullable',
             'phone_key' => 'nullable|string|max:10',
             'phone' => 'required|string|max:20|unique:users,phone',
             'assigned_subject' => 'required|string|in:science,math,arabic',
@@ -52,7 +55,8 @@ class CreateTeacher extends Component
 
         $user = clone User::create([
             'name' => $this->name,
-            'password' => Hash::make($this->password),
+            'password' => $this->requires_password ? Hash::make($this->password) : null,
+            'requires_password' => $this->requires_password,
             'phone_key' => $this->phone_key,
             'phone' => $this->phone,
             'assigned_subject' => $this->assigned_subject,

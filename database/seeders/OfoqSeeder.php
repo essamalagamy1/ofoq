@@ -21,10 +21,9 @@ class OfoqSeeder extends Seeder
 
         // 2. Super Admin User
         $admin = User::firstOrCreate(
-            ['email' => 'superadmin@admin.com'],
+            ['phone' => '555555555', 'phone_key' => '+966'],
             [
                 'name' => 'Super Admin',
-                'mobile_number' => '01000000000',
                 'password' => Hash::make('12345678'),
                 'requires_password' => true,
                 'type' => 'admin',
