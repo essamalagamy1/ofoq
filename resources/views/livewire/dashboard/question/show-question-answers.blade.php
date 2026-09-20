@@ -13,6 +13,7 @@
                         <tr class="bg-base-200/50">
                             <th class="py-3 px-4">#</th>
                             <th class="py-3 px-4">{{ __('lang.student_name') ?? 'اسم الطالب' }}</th>
+                            <th class="py-3 px-4 text-center">{{ __('lang.selected_option') ?? 'الإجابة المختارة' }}</th>
                             <th class="py-3 px-4 text-center">{{ __('lang.status') ?? 'الحالة' }}</th>
                             <th class="py-3 px-4 text-center">{{ __('lang.date') ?? 'التاريخ' }}</th>
                         </tr>
@@ -22,6 +23,7 @@
                             <tr class="hover:bg-base-100/80 transition-colors border-b border-base-100 last:border-0">
                                 <td class="py-3 px-4">{{ $answer->id }}</td>
                                 <td class="py-3 px-4 font-semibold">{{ $answer->student->name ?? '-' }}</td>
+                                <td class="py-3 px-4 text-center font-bold text-primary">{{ $answer->selected_option ?? '-' }}</td>
                                 <td class="py-3 px-4 text-center">
                                     @if($answer->is_correct)
                                         <span class="badge badge-success text-white">{{ __('lang.correct_answer') ?? 'إجابة صحيحة' }}</span>
@@ -35,7 +37,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="py-8 text-center text-gray-500">
+                                <td colspan="5" class="py-8 text-center text-gray-500">
                                     {{ __('lang.no_answers_yet') ?? 'لا توجد إجابات على هذا السؤال حتى الآن' }}
                                 </td>
                             </tr>

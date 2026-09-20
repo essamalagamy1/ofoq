@@ -17,11 +17,9 @@
             placeholder="{{ __('lang.all_cycles') ?? 'كل الدورات' }}" class="w-full" searchable clearable single
             label="الدورات" />
 
-        @if (!auth()->user()->hasRole('teacher'))
-            <x-choices-offline wire:model.live="filter_teacher" :options="$all_teachers" option-value="id" option-label="name"
-                placeholder="{{ __('lang.all_teachers') ?? 'كل المعلمين' }}" class="w-full" searchable clearable single
-                label="المعلمين" />
-        @endif
+        <x-choices-offline wire:model.live="filter_teacher" :options="$all_teachers" option-value="id" option-label="name"
+            placeholder="{{ __('lang.all_teachers') ?? 'كل المعلمين' }}" class="w-full" searchable clearable single
+            label="المعلمين" />
 
         <x-choices-offline wire:model.live="filter_subject" :options="collect(\App\Enums\SubjectEnum::getInstances())->map(
             fn($e) => ['value' => $e->value, 'title' => $e->title()],
@@ -51,12 +49,12 @@
                         <th class="py-3 px-4">#</th>
                         <th class="py-3 px-4">{{ __('lang.question') ?? 'السؤال' }}</th>
                         <th class="py-3 px-4">{{ __('lang.cycle') ?? 'الدورة' }}</th>
-                        @if (!auth()->user()->hasRole('teacher'))
-                            <th class="py-3 px-4">{{ __('lang.teacher') ?? 'المعلم' }}</th>
-                        @endif
+                        <th class="py-3 px-4">{{ __('lang.teacher') ?? 'المعلم' }}</th>
                         <th class="py-3 px-4">{{ __('lang.subject') ?? 'المادة' }}</th>
                         <th class="py-3 px-4 text-center">{{ __('lang.grade') ?? 'الصف' }}</th>
                         <th class="py-3 px-4 text-center">{{ __('lang.week') ?? 'الأسبوع' }}</th>
+                        <th class="py-3 px-4 text-center">{{ __('lang.answers_status') ?? 'حالة الإجابات' }}</th>
+                        <th class="py-3 px-4 text-center">{{ __('lang.date') ?? 'التاريخ' }}</th>
                         <th class="py-3 px-4 text-center">{{ __('lang.action') ?? 'الإجراءات' }}</th>
                     </tr>
                 </thead>
@@ -70,9 +68,7 @@
                                 </div>
                             </td>
                             <td class="py-3 px-4 text-sm text-gray-600">{{ $question->cycle->name ?? '-' }}</td>
-                            @if (!auth()->user()->hasRole('teacher'))
-                                <td class="py-3 px-4 text-sm text-gray-600">{{ $question->creator->name ?? '-' }}</td>
-                            @endif
+                            <td class="py-3 px-4 text-sm text-gray-600">{{ $question->creator->name ?? '-' }}</td>
                             <td class="py-3 px-4">
                                 <span class="badge badge-primary text-white">
                                     {{ \App\Enums\SubjectEnum::coerce($question->subject)?->title() ?? $question->subject }}
@@ -80,23 +76,46 @@
                             </td>
                             <td class="py-3 px-4 text-center">{{ $question->grade }}</td>
                             <td class="py-3 px-4 text-center">{{ $question->week }}</td>
+                            
+                            @php
+                                $totalStudents = $studentsPerGrade[$question->grade] ?? 0;
+                                $answeredStudents = $question->answers_count;
+                                $isComplete = $totalStudents > 0 && $answeredStudents >= $totalStudents;
+                                $progressPercentage = $totalStudents > 0 ? round(($answeredStudents / $totalStudents) * 100) : 0;
+                            @endphp
+                            <td class="py-3 px-4 text-center">
+                                <div class="flex flex-col items-center gap-1" title="{{ $progressPercentage }}%">
+                                    <span class="text-xs font-bold text-gray-600 dir-ltr">{{ $answeredStudents }} / {{ $totalStudents }}</span>
+                                    @if($isComplete)
+                                        <span class="badge badge-success text-white badge-sm">{{ __('lang.completed') ?? 'مكتمل' }}</span>
+                                    @else
+                                        <progress class="progress progress-primary w-16" value="{{ $progressPercentage }}" max="100"></progress>
+                                    @endif
+                                </div>
+                            </td>
+
+                            <td class="py-3 px-4 text-center text-sm text-gray-500" title="{{ $question->created_at->format('Y-m-d h:i A') }}">
+                                {{ $question->created_at->diffForHumans() }}
+                            </td>
                             <td class="py-3 px-4 text-center">
                                 <div class="flex items-center justify-center gap-2">
                                     <x-button icon="o-presentation-chart-bar" class="btn-sm btn-ghost text-primary" link="{{ route(auth()->user()->hasRole('teacher') ? 'teacher.questions.record' : 'admin.questions.record', $question->id) }}" tooltip="{{ __('lang.projector_mode') ?? 'وضع العرض وتسجيل الإجابات' }}" />
                                     <x-button icon="o-eye" class="btn-sm btn-ghost text-success"
                                         wire:click="$dispatch('open-show-answers-modal', { question: {{ $question->id }} })"
                                         tooltip="{{ __('lang.view_answers') ?? 'عرض الإجابات' }}" />
-                                    <x-button icon="o-pencil" class="btn-sm btn-ghost text-info"
-                                        wire:click="$dispatch('open-update-modal', { question: {{ $question->id }} })" />
-                                    <x-button icon="o-trash" class="btn-sm btn-ghost text-error"
-                                        wire:click="delete({{ $question->id }})"
-                                        wire:confirm="{{ __('lang.confirm_delete') ?? 'هل أنت متأكد من الحذف؟' }}" />
+                                    @if(auth()->user()->hasRole('super_admin') || $question->user_id === auth()->id())
+                                        <x-button icon="o-pencil" class="btn-sm btn-ghost text-info"
+                                            wire:click="$dispatch('open-update-modal', { question: {{ $question->id }} })" />
+                                        <x-button icon="o-trash" class="btn-sm btn-ghost text-error"
+                                            wire:click="delete({{ $question->id }})"
+                                            wire:confirm="{{ __('lang.confirm_delete') ?? 'هل أنت متأكد من الحذف؟' }}" />
+                                    @endif
                                 </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="py-8 text-center text-gray-500">
+                            <td colspan="10" class="py-8 text-center text-gray-500">
                                 {{ __('lang.no_data') ?? 'لا توجد بيانات متاحة' }}
                             </td>
                         </tr>

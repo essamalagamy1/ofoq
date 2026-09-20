@@ -18,6 +18,7 @@ class StudentProgress extends Component
     public $selected_cycle_id = null;
     
     public $weekly_progress = []; // Array of weeks 1 to 12
+    public $overall_progress = null; // Overall cycle progress
 
     #[On('open-student-progress-modal')]
     public function openModal(Student $student): void
@@ -53,6 +54,34 @@ class StudentProgress extends Component
         $answers = StudentAnswer::where('student_id', $this->student->id)
             ->where('cycle_id', $this->selected_cycle_id)
             ->get();
+            
+        // Calculate Overall Progress
+        $totalAll = $answers->count();
+        if ($totalAll > 0) {
+            $correctAll = $answers->where('is_correct', true)->count();
+            $percentageAll = round(($correctAll / $totalAll) * 100);
+            
+            $overallBadge = null;
+            foreach ($allBadges as $badge) {
+                if ($percentageAll >= $badge->min_percentage && $percentageAll <= $badge->max_percentage) {
+                    $overallBadge = [
+                        'name' => $badge->name,
+                        'color_hex' => $badge->color_hex,
+                        'image' => $badge->getFirstMediaUrl('image')
+                    ];
+                    break;
+                }
+            }
+            
+            $this->overall_progress = [
+                'percentage' => $percentageAll,
+                'badge' => $overallBadge,
+                'total_answered' => $totalAll,
+                'correct_answers' => $correctAll
+            ];
+        } else {
+            $this->overall_progress = null;
+        }
 
         // Loop over weeks 1 to 12
         for ($week = 1; $week <= 12; $week++) {

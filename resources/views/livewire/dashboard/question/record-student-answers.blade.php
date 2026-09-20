@@ -1,4 +1,37 @@
-<div x-data="projectorMode()">
+<div x-data="{
+    isFullscreen: false,
+    showAnswer: false,
+    init() {
+        const updateState = () => {
+            this.isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+        };
+        document.addEventListener('fullscreenchange', updateState);
+        document.addEventListener('webkitfullscreenchange', updateState);
+        document.addEventListener('mozfullscreenchange', updateState);
+        document.addEventListener('MSFullscreenChange', updateState);
+    },
+    toggleFullscreen() {
+        let elem = document.getElementById('projector-container');
+        
+        if (!this.isFullscreen) {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE11 */
+                document.msExitFullscreen();
+            }
+        }
+    }
+}">
     <x-header title="{{ __('lang.record_answers') ?? 'تسجيل الإجابات' }}" separator>
         <x-slot:actions>
             <x-button icon="o-arrow-left" class="btn-ghost btn-sm sm:btn-md" link="{{ route('teacher.questions') }}">{{ __('lang.back') ?? 'رجوع' }}</x-button>
@@ -136,42 +169,4 @@
 
     </div>
 
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('projectorMode', () => ({
-                isFullscreen: false,
-                showAnswer: false,
-                init() {
-                    const updateState = () => {
-                        this.isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
-                    };
-                    document.addEventListener('fullscreenchange', updateState);
-                    document.addEventListener('webkitfullscreenchange', updateState);
-                    document.addEventListener('mozfullscreenchange', updateState);
-                    document.addEventListener('MSFullscreenChange', updateState);
-                },
-                toggleFullscreen() {
-                    let elem = document.getElementById("projector-container");
-                    
-                    if (!this.isFullscreen) {
-                        if (elem.requestFullscreen) {
-                            elem.requestFullscreen();
-                        } else if (elem.webkitRequestFullscreen) { /* Safari */
-                            elem.webkitRequestFullscreen();
-                        } else if (elem.msRequestFullscreen) { /* IE11 */
-                            elem.msRequestFullscreen();
-                        }
-                    } else {
-                        if (document.exitFullscreen) {
-                            document.exitFullscreen();
-                        } else if (document.webkitExitFullscreen) { /* Safari */
-                            document.webkitExitFullscreen();
-                        } else if (document.msExitFullscreen) { /* IE11 */
-                            document.msExitFullscreen();
-                        }
-                    }
-                }
-            }))
-        })
-    </script>
 </div>

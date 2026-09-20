@@ -25,6 +25,18 @@ class StudentData extends Component
     public $import_file;
     public ?int $import_grade = null;
 
+    public array $sortBy = ['column' => 'id', 'direction' => 'desc'];
+
+    public function sortByColumn($column): void
+    {
+        if ($this->sortBy['column'] === $column) {
+            $this->sortBy['direction'] = $this->sortBy['direction'] === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortBy['column'] = $column;
+            $this->sortBy['direction'] = 'desc';
+        }
+    }
+
     public function placeholder(): View
     {
         return view('livewire.placeholders.page-loading');
@@ -70,10 +82,24 @@ class StudentData extends Component
     #[On('render')]
     public function render(): View
     {
-        $data['students'] = Student::query()
-            ->when($this->search_student_id, fn (Builder $query) => $query->where('id', $this->search_student_id))
-            ->latest()
-            ->paginate(20);
+        $activeCycle = \App\Models\AcademicCycle::where('is_active', true)->first();
+        $activeCycleId = $activeCycle ? $activeCycle->id : null;
+
+        $query = Student::query()
+            ->when($this->search_student_id, fn (Builder $query) => $query->where('id', $this->search_student_id));
+
+        if ($activeCycleId) {
+            $query->withAvg(['answers' => fn($q) => $q->where('cycle_id', $activeCycleId)], 'is_correct');
+        }
+
+        if ($this->sortBy['column'] === 'overall_evaluation') {
+            $query->orderBy('answers_avg_is_correct', $this->sortBy['direction']);
+        } else {
+            $query->orderBy($this->sortBy['column'], $this->sortBy['direction']);
+        }
+
+        $data['students'] = $query->paginate(20);
+        $data['allBadges'] = \App\Models\BadgeSetting::all();
 
         return view('livewire.dashboard.student.student-data', $data);
     }

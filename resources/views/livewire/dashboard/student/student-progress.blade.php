@@ -22,6 +22,55 @@
         </div>
 
         @if($selected_cycle_id)
+            {{-- Overall Cycle Progress --}}
+            @if($overall_progress)
+                <div class="mb-6 bg-base-100 rounded-xl shadow-md border-2 border-primary/20 p-6 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-primary/5 rounded-full blur-2xl"></div>
+                    
+                    <div class="flex items-center gap-6 z-10">
+                        <div class="relative w-24 h-24 flex items-center justify-center shrink-0">
+                            @if($overall_progress['badge'])
+                                @if(!empty($overall_progress['badge']['image']))
+                                    <img src="{{ $overall_progress['badge']['image'] }}" class="w-20 h-20 object-cover rounded-full shadow-lg" alt="{{ $overall_progress['badge']['name'] }}" />
+                                @else
+                                    <x-icon name="s-star" class="w-20 h-20" style="color: {{ $overall_progress['badge']['color_hex'] }}; drop-shadow(0 6px 8px {{ $overall_progress['badge']['color_hex'] }}50)" />
+                                @endif
+                            @else
+                                <div class="w-20 h-20 rounded-full border-4 border-gray-200 flex items-center justify-center bg-gray-50 shadow-inner">
+                                    <x-icon name="o-x-mark" class="w-10 h-10 text-gray-400" />
+                                </div>
+                            @endif
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-2xl font-bold text-gray-800 mb-1">{{ __('lang.overall_cycle_evaluation') ?? 'التقييم الإجمالي للدورة' }}</h4>
+                            @if($overall_progress['badge'])
+                                <div class="flex items-center gap-2">
+                                    <span class="badge font-bold text-white badge-lg" style="background-color: {{ $overall_progress['badge']['color_hex'] }}; border-color: {{ $overall_progress['badge']['color_hex'] }};">
+                                        {{ $overall_progress['badge']['name'] }}
+                                    </span>
+                                    <span class="text-gray-500 text-sm">{{ __('lang.based_on_all_weeks') ?? 'بناءً على أداء جميع الأسابيع' }}</span>
+                                </div>
+                            @else
+                                <span class="badge badge-ghost text-gray-500">{{ __('lang.no_badge') ?? 'لا توجد شارة' }}</span>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-row md:flex-col gap-4 md:gap-2 text-center md:text-end z-10 bg-base-200/50 p-4 rounded-xl">
+                        <div>
+                            <p class="text-sm text-gray-500 font-semibold">{{ __('lang.total_score') ?? 'النسبة الإجمالية' }}</p>
+                            <p class="text-3xl font-black text-primary">{{ $overall_progress['percentage'] }}%</p>
+                        </div>
+                        <div class="divider m-0 md:hidden"></div>
+                        <div>
+                            <p class="text-sm text-gray-500 font-semibold">{{ __('lang.answers') ?? 'الإجابات' }}</p>
+                            <p class="text-lg font-bold text-gray-700 dir-ltr">{{ $overall_progress['correct_answers'] }} / {{ $overall_progress['total_answered'] }}</p>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
                 @foreach($weekly_progress as $week => $data)
                     <div class="card bg-base-100 shadow-sm border border-base-200 p-4 flex flex-col items-center justify-center text-center relative overflow-hidden group hover:border-primary transition-all">

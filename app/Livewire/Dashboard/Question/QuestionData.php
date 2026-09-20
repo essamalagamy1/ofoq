@@ -45,6 +45,7 @@ class QuestionData extends Component
         view()->share('breadcrumbs', $this->breadcrumbs());
     }
 
+
     public function breadcrumbs(): array
     {
         return [
@@ -60,25 +61,33 @@ class QuestionData extends Component
     {
         $query = Question::query()
             ->with(['cycle', 'creator'])
+            ->withCount('answers')
             ->when($this->search_content, fn (Builder $q) => $q->where('content', 'like', "%{$this->search_content}%"))
             ->when($this->filter_cycle_id, fn (Builder $q) => $q->where('cycle_id', $this->filter_cycle_id))
             ->when($this->filter_subject, fn (Builder $q) => $q->where('subject', $this->filter_subject))
             ->when($this->filter_grade, fn (Builder $q) => $q->where('grade', $this->filter_grade))
             ->when($this->filter_week, fn (Builder $q) => $q->where('week', $this->filter_week));
 
-        if (auth()->user()->hasRole('teacher')) {
-            $query->where('user_id', auth()->id());
-        } else {
-            $query->when($this->filter_teacher, fn (Builder $q) => $q->where('user_id', $this->filter_teacher));
-        }
+        $query->when($this->filter_teacher, fn (Builder $q) => $q->where('user_id', $this->filter_teacher));
+
+        $studentsPerGrade = \App\Models\Student::selectRaw('grade, count(*) as count')
+            ->groupBy('grade')
+            ->pluck('count', 'grade')
+            ->toArray();
 
         $data['questions'] = $query->latest()->paginate(20);
+        $data['studentsPerGrade'] = $studentsPerGrade;
 
         return view('livewire.dashboard.question.question-data', $data);
     }
 
     public function delete(Question $question): void
     {
+        if (!auth()->user()->hasRole('super_admin') && $question->user_id !== auth()->id()) {
+            $this->error(__('lang.unauthorized') ?? 'ليس لديك صلاحية لإجراء هذه العملية');
+            return;
+        }
+
         $question->delete();
         $this->success(__('lang.deleted_successfully', ['attribute' => __('lang.question') ?? 'السؤال']));
     }
