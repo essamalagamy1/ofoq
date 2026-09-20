@@ -31,6 +31,7 @@ Route::middleware(['web-language'])->group(function () {
         Route::livewire('badges', BadgeData::class)->name('badges');
         Route::livewire('questions', QuestionData::class)->name('questions');
         Route::livewire('questions/{question}/record', \App\Livewire\Dashboard\Question\RecordStudentAnswers::class)->name('questions.record');
+        Route::livewire('suggestions', SuggestionData::class)->name('suggestions');
         Route::livewire('cycles', CycleData::class)->name('cycles');
     });
 

@@ -60,6 +60,16 @@ class CreateStudent extends Component
     {
         $validated = $this->validate();
 
+        if (!empty($validated['parent_mobile_1'])) {
+            $validated['parent_mobile_1'] = preg_replace('/[^0-9]/', '', $validated['parent_mobile_1']);
+        }
+        if (!empty($validated['parent_mobile_2'])) {
+            $validated['parent_mobile_2'] = preg_replace('/[^0-9]/', '', $validated['parent_mobile_2']);
+        }
+        if (!empty($validated['parent_mobile_3'])) {
+            $validated['parent_mobile_3'] = preg_replace('/[^0-9]/', '', $validated['parent_mobile_3']);
+        }
+
         Student::create($validated);
 
         $this->success(__('lang.added_successfully', ['attribute' => __('lang.student') ?? 'الطالب']));

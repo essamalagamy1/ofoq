@@ -684,7 +684,7 @@ return [
     'questions' => 'بنك الأسئلة',
     'projector' => 'وضع العرض',
     'suggestions' => 'مشاركات الآباء',
-    'opinion' => 'شارك برأيك',
+    'opinion' => 'جسور إلى الأفق',
     'overview_of_platform' => 'نظرة عامة على إحصائيات المنصة',
     'select_cycle' => 'اختر الدورة الأكاديمية',
     'total_students' => 'إجمالي الطلاب',
@@ -890,4 +890,9 @@ return [
     'based_on_all_weeks' => 'بناءً على أداء جميع الأسابيع',
     'total_score' => 'النسبة الإجمالية',
     'answers' => 'الإجابات',
+    'not_eligible_for_opinion' => 'غير مؤهل لتقديم الاقتراحات',
+    'contact_admin_to_update_info' => 'يرجى التواصل مع الإدارة لتحديث بياناتك الشخصية',
+    'approved' => 'مقبول',
+    'pending' => 'قيد المراجعة',
+    'rejected' => 'مرفوض',
 ];

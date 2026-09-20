@@ -64,8 +64,16 @@ class SuggestionData extends Component
             ->latest()
             ->paginate(20);
 
+        $stats = [
+            'total' => Question::where('is_parent_suggestion', true)->when($user->hasRole('teacher'), fn($q) => $q->where('subject', $user->assigned_subject))->count(),
+            'pending' => Question::where('is_parent_suggestion', true)->where('status', 'pending')->when($user->hasRole('teacher'), fn($q) => $q->where('subject', $user->assigned_subject))->count(),
+            'approved' => Question::where('is_parent_suggestion', true)->where('status', 'approved')->when($user->hasRole('teacher'), fn($q) => $q->where('subject', $user->assigned_subject))->count(),
+            'rejected' => Question::where('is_parent_suggestion', true)->where('status', 'rejected')->when($user->hasRole('teacher'), fn($q) => $q->where('subject', $user->assigned_subject))->count(),
+        ];
+
         return view('livewire.dashboard.parent-suggestion.suggestion-data', [
-            'suggestions' => $suggestions
+            'suggestions' => $suggestions,
+            'stats' => $stats
         ]);
     }
 

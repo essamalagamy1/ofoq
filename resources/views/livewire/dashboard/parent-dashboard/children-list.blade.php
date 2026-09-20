@@ -3,7 +3,7 @@
         @if($can_share_opinion)
             <x-slot:actions>
                 <x-button icon="o-light-bulb" link="{{ route('parent.opinion') }}" class="btn-primary">
-                    {{ __('lang.suggest_question') ?? 'اقتراح أسئلة' }}
+                    {{ __('lang.opinion') ?? 'اقتراح أسئلة' }}
                 </x-button>
             </x-slot:actions>
         @endif
@@ -19,11 +19,6 @@
         @forelse($children as $child)
             <div class="card bg-base-100 shadow-xl border border-base-200 overflow-hidden">
                 <div class="bg-primary/10 p-6 flex flex-col items-center text-center">
-                    <div class="avatar placeholder mb-4">
-                        <div class="bg-primary text-primary-content rounded-full w-24 ring ring-primary ring-offset-base-100 ring-offset-2">
-                            <span class="text-3xl">{{ mb_substr($child->name, 0, 1) }}</span>
-                        </div>
-                    </div>
                     <h3 class="text-2xl font-bold text-gray-800">{{ $child->name }}</h3>
                     <p class="text-primary font-semibold mt-1">{{ __('lang.grade') ?? 'الصف' }}: {{ $child->grade }} | {{ __('lang.semester') ?? 'الفصل' }}: {{ $child->semester }}</p>
                 </div>

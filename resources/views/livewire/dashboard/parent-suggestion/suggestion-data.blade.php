@@ -2,6 +2,13 @@
     <x-header title="{{ __('lang.parent_suggestions') ?? 'مقترحات أولياء الأمور' }}" separator>
     </x-header>
 
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <x-stat title="{{ __('lang.total') ?? 'إجمالي المقترحات' }}" value="{{ $stats['total'] }}" icon="o-document-text" class="bg-base-100 shadow-sm border border-base-200" />
+        <x-stat title="{{ __('lang.pending') ?? 'قيد المراجعة' }}" value="{{ $stats['pending'] }}" icon="o-clock" color="text-yellow-500" class="bg-base-100 shadow-sm border border-base-200" />
+        <x-stat title="{{ __('lang.approved') ?? 'مقبول' }}" value="{{ $stats['approved'] }}" icon="o-check-circle" color="text-green-500" class="bg-base-100 shadow-sm border border-base-200" />
+        <x-stat title="{{ __('lang.rejected') ?? 'مرفوض' }}" value="{{ $stats['rejected'] }}" icon="o-x-circle" color="text-red-500" class="bg-base-100 shadow-sm border border-base-200" />
+    </div>
+
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
         <x-select 
             wire:model.live="filter_status" 

@@ -49,6 +49,11 @@ class Profile extends Component
 
     public function updateProfile(): void
     {
+        if (!auth()->user()->hasRole('super_admin')) {
+            $this->error(__('lang.unauthorized_action') ?? 'غير مصرح لك بتعديل البيانات');
+            return;
+        }
+
         $this->validate([
             'name' => 'required|string|max:255',
             'phone' => 'nullable|string|max:20|unique:users,phone,' . auth()->id(),

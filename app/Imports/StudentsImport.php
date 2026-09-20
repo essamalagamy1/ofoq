@@ -42,7 +42,9 @@ class StudentsImport implements ToModel, WithHeadingRow
             return null;
         }
 
-        $phone = preg_replace('/^(\+|00)?966/', '', (string)$phone);
+        // Remove all non-numeric characters first
+        $phone = preg_replace('/[^0-9]/', '', (string)$phone);
+        $phone = preg_replace('/^(\+|00)?966/', '', $phone);
         $phone = ltrim($phone, '0');
 
         return $phone ?: null;

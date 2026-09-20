@@ -16,6 +16,8 @@
         <x-menu-title title="{{ __('lang.academic_content') ?? 'المحتوى الأكاديمي' }}" />
         <x-menu-item title="{{ __('lang.questions') ?? 'بنك الأسئلة' }}" icon-classes="text-primary" icon="o-document-text"
             link="{{ route('admin.questions') }}" />
+        <x-menu-item title="{{ __('lang.suggestions') ?? 'مشاركات الآباء' }}" icon-classes="text-primary"
+            icon="o-chat-bubble-left-ellipsis" link="{{ route('admin.suggestions') }}" />
 
         <x-menu-separator />
         <x-menu-title title="{{ __('lang.system_settings') ?? 'الإعدادات' }}" />
@@ -42,8 +44,18 @@
             link="{{ route('parent.dashboard') }}" />
         <x-menu-separator />
 
-        <x-menu-item title="{{ __('lang.opinion') ?? 'شارك برأيك' }}" icon-classes="text-primary" icon="o-pencil-square"
-            link="{{ route('parent.opinion') }}" />
+        @php
+            $can_share_opinion = \App\Models\Student::where(function ($query) {
+                $query->where('parent_mobile_1', auth()->user()->phone)
+                      ->orWhere('parent_mobile_2', auth()->user()->phone)
+                      ->orWhere('parent_mobile_3', auth()->user()->phone);
+            })->where('can_share_opinion', true)->exists();
+        @endphp
+
+        @if($can_share_opinion)
+            <x-menu-item title="{{ __('lang.opinion') ?? 'شارك برأيك' }}" icon-classes="text-primary" icon="o-pencil-square"
+                link="{{ route('parent.opinion') }}" />
+        @endif
     @endrole
 
 </x-menu>

@@ -107,6 +107,12 @@ class Dashboard extends Component
 
         // 1. Questions By Subject Chart
         $questionsSubj = Question::where('cycle_id', $this->selected_cycle_id)
+            ->where(function ($q) {
+                $q->where('is_parent_suggestion', false)
+                  ->orWhere(function ($q2) {
+                      $q2->where('is_parent_suggestion', true)->where('status', 'approved');
+                  });
+            })
             ->selectRaw('subject, count(*) as count')
             ->groupBy('subject')
             ->get();
@@ -153,6 +159,12 @@ class Dashboard extends Component
 
         // 2. Questions By Week Chart
         $questionsWeek = Question::where('cycle_id', $this->selected_cycle_id)
+            ->where(function ($q) {
+                $q->where('is_parent_suggestion', false)
+                  ->orWhere(function ($q2) {
+                      $q2->where('is_parent_suggestion', true)->where('status', 'approved');
+                  });
+            })
             ->selectRaw('week, count(*) as count')
             ->groupBy('week')
             ->orderBy('week')
@@ -199,7 +211,13 @@ class Dashboard extends Component
 
         // 3. Student Evaluations By Week Chart
         $answers = \App\Models\StudentAnswer::whereHas('question', function ($q) {
-            $q->where('cycle_id', $this->selected_cycle_id);
+            $q->where('cycle_id', $this->selected_cycle_id)
+                ->where(function ($q2) {
+                    $q2->where('is_parent_suggestion', false)
+                      ->orWhere(function ($q3) {
+                          $q3->where('is_parent_suggestion', true)->where('status', 'approved');
+                      });
+                });
         })
             ->selectRaw('week, is_correct, count(*) as count')
             ->groupBy('week', 'is_correct')
@@ -288,7 +306,13 @@ class Dashboard extends Component
 
         // 4. Top Questions (Correct/Wrong) Chart
         $questionAnswers = \App\Models\StudentAnswer::whereHas('question', function ($q) {
-            $q->where('cycle_id', $this->selected_cycle_id);
+            $q->where('cycle_id', $this->selected_cycle_id)
+                ->where(function ($q2) {
+                    $q2->where('is_parent_suggestion', false)
+                      ->orWhere(function ($q3) {
+                          $q3->where('is_parent_suggestion', true)->where('status', 'approved');
+                      });
+                });
         })
             ->selectRaw('question_id, is_correct, count(*) as count')
             ->groupBy('question_id', 'is_correct')
@@ -379,7 +403,13 @@ class Dashboard extends Component
         if (! $this->selected_cycle_id) {
             return 0;
         }
-        return Question::where('cycle_id', $this->selected_cycle_id)->count();
+        return Question::where('cycle_id', $this->selected_cycle_id)
+            ->where(function ($q) {
+                $q->where('is_parent_suggestion', false)
+                  ->orWhere(function ($q2) {
+                      $q2->where('is_parent_suggestion', true)->where('status', 'approved');
+                  });
+            })->count();
     }
 
     #[Computed]
@@ -389,6 +419,12 @@ class Dashboard extends Component
             return collect();
         }
         return Question::where('cycle_id', $this->selected_cycle_id)
+            ->where(function ($q) {
+                $q->where('is_parent_suggestion', false)
+                  ->orWhere(function ($q2) {
+                      $q2->where('is_parent_suggestion', true)->where('status', 'approved');
+                  });
+            })
             ->with('creator')
             ->latest()
             ->take(5)

@@ -62,6 +62,13 @@ class QuestionData extends Component
         $query = Question::query()
             ->with(['cycle', 'creator'])
             ->withCount('answers')
+            ->where(function (Builder $q) {
+                $q->where('is_parent_suggestion', false)
+                  ->orWhere(function (Builder $q2) {
+                      $q2->where('is_parent_suggestion', true)
+                         ->where('status', 'approved');
+                  });
+            })
             ->when($this->search_content, fn (Builder $q) => $q->where('content', 'like', "%{$this->search_content}%"))
             ->when($this->filter_cycle_id, fn (Builder $q) => $q->where('cycle_id', $this->filter_cycle_id))
             ->when($this->filter_subject, fn (Builder $q) => $q->where('subject', $this->filter_subject))
