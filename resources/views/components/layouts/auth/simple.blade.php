@@ -90,6 +90,7 @@
         <h3 class="text-xl md:text-3xl font-black drop-shadow-md flex items-center justify-center gap-3"
             style="color: #d4a85a;">
             من الفجوة إلى الأثر
+            <img src="{{ asset('1111111.png') }}" class="h-10 md:h-10 w-auto object-contain" alt="1111111" />
         </h3>
     </div>
 </body>
