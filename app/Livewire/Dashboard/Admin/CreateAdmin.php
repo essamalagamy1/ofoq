@@ -39,7 +39,7 @@ class CreateAdmin extends Component
         return [
             'name' => 'required|string|max:255',
             'password' => 'nullable|string|min:8|confirmed',
-            'phone' => 'required|string|max:20|unique:users,phone',
+            'phone' => 'required|string|digits:9|unique:users,phone',
             'phone_key' => 'required|string|max:5',
             'roles' => 'required|array|min:1',
             'roles.*' => 'exists:roles,id',
@@ -48,6 +48,8 @@ class CreateAdmin extends Component
 
     public function saveAdd(): void
     {
+        $this->phone = preg_replace('/[^0-9]/', '', $this->phone);
+
         $this->authorize('create_admin');
         $this->validate();
         $user = User::create([

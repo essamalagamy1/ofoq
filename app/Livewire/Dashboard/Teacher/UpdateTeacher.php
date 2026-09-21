@@ -48,7 +48,7 @@ class UpdateTeacher extends Component
         return [
             'name' => 'required|string|max:255',
             'phone_key' => 'nullable|string|max:10',
-            'phone' => 'required|string|max:20|unique:users,phone,'.$this->teacher->id,
+            'phone' => 'required|string|digits:9|unique:users,phone,'.$this->teacher->id,
             'assigned_subject' => 'required|string|in:science,math,arabic',
             'requires_password' => 'boolean',
         ];
@@ -56,6 +56,8 @@ class UpdateTeacher extends Component
 
     public function update(): void
     {
+        $this->phone = preg_replace('/[^0-9]/', '', $this->phone);
+        
         $validated = $this->validate();
 
         if ($this->requires_password && $this->password) {

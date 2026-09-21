@@ -90,6 +90,8 @@ class StudentData extends Component
 
         if ($activeCycleId) {
             $query->withAvg(['answers' => fn($q) => $q->where('cycle_id', $activeCycleId)], 'is_correct');
+        } else {
+            $query->withAvg('answers', 'is_correct');
         }
 
         if ($this->sortBy['column'] === 'overall_evaluation') {

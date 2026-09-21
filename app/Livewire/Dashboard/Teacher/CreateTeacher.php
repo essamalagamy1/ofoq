@@ -44,13 +44,15 @@ class CreateTeacher extends Component
             'requires_password' => 'boolean',
             'password' => $this->requires_password ? 'required|string|min:8' : 'nullable',
             'phone_key' => 'nullable|string|max:10',
-            'phone' => 'required|string|max:20|unique:users,phone',
+            'phone' => 'required|string|digits:9|unique:users,phone',
             'assigned_subject' => 'required|string|in:science,math,arabic',
         ];
     }
 
     public function create(): void
     {
+        $this->phone = preg_replace('/[^0-9]/', '', $this->phone);
+        
         $validated = $this->validate();
 
         $user = clone User::create([
