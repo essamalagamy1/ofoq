@@ -21,8 +21,12 @@ class StudentsImport implements ToModel, WithHeadingRow
      */
     public function model(array $row): \Illuminate\Database\Eloquent\Model|array|null
     {
+        if (empty($row['name'])) {
+            return null;
+        }
+
         return new Student([
-            'name' => $row['name'] ?? null,
+            'name' => $row['name'],
             'nationality' => $row['nationality'] ?? null,
             'grade' => $this->grade,
             'semester' => $row['semester'] ?? 1,
