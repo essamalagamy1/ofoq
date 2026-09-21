@@ -53,7 +53,7 @@
             </div>
 
             <!-- Header Titles -->
-            <div class="flex flex-col items-center text-center mb-4 md:mb-6">
+            <div class="flex flex-col items-center text-center mb-2 md:mb-2">
                 <h1 class="font-bold drop-shadow-xl"
                     style="font-size: clamp(60px, 8vw, 90px); -webkit-text-stroke: 2.5px #d4a85a; color: #0b1c38; line-height: 1;">
                     أفق</h1>
