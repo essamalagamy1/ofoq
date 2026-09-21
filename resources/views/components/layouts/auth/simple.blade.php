@@ -4,7 +4,7 @@
 @include('partials.head')
 
 <body
-    class="min-h-screen antialiased dark:bg-linear-to-b  font-sans text-gray-900 dark:text-gray-100 transition-colors duration-300 relative">
+    class="flex flex-col min-h-screen antialiased dark:bg-linear-to-b font-sans text-gray-900 dark:text-gray-100 transition-colors duration-300 relative">
     {{-- <div class="absolute top-4 right-4 left-4 z-50 flex items-center gap-2 ">
 	<div class="dropdown dropdown-start">
 		<div tabindex="0" role="button" class="flex items-center justify-center p-1.5 sm:p-2 rounded-full text-gray-700 dark:text-gray-300  dark:bg-gray-900 transition-colors duration-200">
@@ -28,19 +28,28 @@
 		</ul>
 	</div>
 </div> --}}
-    <div class="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10 relative"
+    <div style="background-color: #0b1c38;"
+        class="w-full flex items-center justify-between px-6 md:px-12 py-3 md:py-4 shadow-lg border-b-2 border-[#d4a85a]/30 z-20 relative">
+        <div style="color: #d4a85a;" class="font-bold text-sm md:text-xl drop-shadow-md">
+            نكتب قصة نجاح
+        </div>
+        <div style="color: #d4a85a;" class="font-bold text-sm md:text-xl drop-shadow-md">
+            الابتدائية الرابعة والتسعون
+        </div>
+    </div>
+    <div class="bg-background flex-1 flex flex-col items-center justify-center gap-6 py-8 px-4 relative w-full"
         style="background-image: url('{{ asset('bg.png') }}'); background-size: cover; background-repeat: no-repeat; background-position: center;">
 
         <!-- Main Overlay Container -->
-        <div class="flex flex-col gap-2 w-full max-w-xl z-10 relative mt-8 md:mt-4">
+        <div class="flex flex-col gap-2 w-full max-w-xl z-10 relative mt-20 md:mt-16">
 
             <!-- 12 Weeks Badge (Floating) -->
-            <div class="p-2 absolute -top-16 md:-top-20 -right-6 md:-right-20 rounded-full flex flex-col items-center justify-center shadow-2xl z-20 w-[110px] h-[110px] md:w-[130px] md:h-[130px]"
+            <div class="p-2 absolute -top-20 md:-top-20 -right-2 md:-right-20 rounded-full flex flex-col items-center justify-center shadow-2xl z-20 w-[90px] h-[90px] md:w-[130px] md:h-[130px]"
                 style="transform: rotate(-10deg); background: linear-gradient(180deg, #0b1c38, #1e3a8a); border: 3px solid #d4a85a; color: white;">
-                <x-icon name="o-clock" class="w-7 h-7 mb-1" style="color: #d4a85a;" />
-                <span class="text-[12px] md:text-sm font-bold">رحلة</span>
-                <span class="text-2xl md:text-3xl font-black leading-none my-1" style="color: #d4a85a;">١٢</span>
-                <span class="text-[12px] md:text-sm font-bold">أسبوعاً</span>
+                <x-icon name="o-clock" class="w-6 h-6 md:w-7 md:h-7 mb-1" style="color: #d4a85a;" />
+                <span class="text-[10px] md:text-sm font-bold">رحلة</span>
+                <span class="text-xl md:text-3xl font-black leading-none my-1" style="color: #d4a85a;">١٢</span>
+                <span class="text-[10px] md:text-sm font-bold">أسبوعاً</span>
             </div>
 
             <!-- Header Titles -->
@@ -64,7 +73,7 @@
                 {{ $slot }}
             </div>
 
-            <!-- Bottom Banner -->
+            {{-- <!-- Bottom Banner -->
             <div class="mt-4 text-center pb-8">
                 <div class="inline-flex items-center justify-center px-5 md:px-8 py-3 rounded-full font-bold text-sm md:text-lg shadow-xl w-full max-w-[95%]"
                     style="background-color: #51258c; border: 3px solid #d4a85a; color: white;">
@@ -72,9 +81,16 @@
                     اجتازي المحطات، اجمعي الأوسمة، واصلي التحليق
                     <span class="mx-2 text-xl" style="color: #d4a85a;">✦</span>
                 </div>
-            </div>
+            </div> --}}
 
         </div>
+    </div>
+    <div style="background-color: #0b1c38;"
+        class="py-4 text-center border-t-2 border-[#d4a85a]/30 shadow-[0_-5px_15px_rgba(0,0,0,0.2)] z-20 relative w-full">
+        <h3 class="text-xl md:text-3xl font-black drop-shadow-md flex items-center justify-center gap-3"
+            style="color: #d4a85a;">
+            من الفجوة إلى الأثر
+        </h3>
     </div>
 </body>
 

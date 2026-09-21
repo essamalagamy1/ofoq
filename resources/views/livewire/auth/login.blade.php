@@ -161,10 +161,11 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
     <x-card
         class="flex flex-col gap-6 border-2 !border-[#d4a85a]/40 !bg-white/95 backdrop-blur-md shadow-[0_10px_40px_rgba(11,28,56,0.15)] text-lg font-medium !rounded-[2rem] dark:text-gray-300 dark:bg-gray-900/95 transition-all duration-300 p-2 md:p-4"
         separator>
-        <div class="text-center mb-4 border-b-[3px] border-dashed border-[#d4a85a]/50 pb-6 pt-2">
-            <h2 class="text-3xl font-black text-[#0b1c38] flex items-center justify-center gap-3 drop-shadow-sm">
-                <x-icon name="o-book-open" class="w-10 h-10 text-[#d4a85a]" />
-                جواز المعرفة
+        <div class="text-center mb-4 border-b-[3px] border-dashed border-[#d4a85a]/50 pb-4 pt-2">
+            <h2
+                class="text-3xl font-black text-[#0b1c38] flex items-center justify-center gap-3 drop-shadow-sm transition-transform duration-500 hover:scale-105">
+                <x-icon name="o-user-circle" class="w-10 h-10 text-[#d4a85a]" />
+                تسجيل الدخول
             </h2>
         </div>
 
@@ -212,34 +213,22 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
             <!-- Remember Me -->
             <x-checkbox wire:model="remember" :label="__('lang.remember_me')" />
 
-            <div class="flex items-center justify-end mt-2">
+            <div class="flex items-center justify-end mt-4">
                 <x-button type="submit"
-                    class="w-full text-white text-lg font-bold rounded-xl border-2 border-[#d4a85a]/50 hover:scale-[1.01] hover:shadow-lg transition-all"
+                    class="w-full text-white text-xl font-bold rounded-xl border-2 border-[#d4a85a]/50 hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(212,168,90,0.3)] transition-all duration-300 relative overflow-hidden group"
                     style="background: linear-gradient(180deg, #1e3a8a, #0b1c38);"
                     spinner="{{ $phone_checked ? 'login' : 'checkPhone' }}">
-                    {{ __('lang.login') }}
+                    <span class="relative z-10 flex items-center gap-2">
+                        {{ __('lang.login') }}
+                        <x-icon name="o-arrow-left"
+                            class="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300 rtl:rotate-0 ltr:rotate-180" />
+                    </span>
+                    <div
+                        class="absolute inset-0 bg-[#d4a85a]/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
+                    </div>
                 </x-button>
             </div>
         </form>
-
-        <!-- Subjects -->
-        <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-2">
-            <div class="px-5 py-2 rounded-full font-bold shadow-md flex items-center gap-2"
-                style="background: linear-gradient(180deg, #1e3a8a, #0b1c38); border: 2px solid #d4a85a; color: white;">
-                <div class="rounded-full p-1" style="background-color: #d4a85a;"><x-icon name="o-book-open"
-                        class="w-4 h-4" style="color: #0b1c38;" /></div> القراءة
-            </div>
-            <div class="px-5 py-2 rounded-full font-bold shadow-md flex items-center gap-2"
-                style="background: linear-gradient(180deg, #1e3a8a, #0b1c38); border: 2px solid #d4a85a; color: white;">
-                <div class="rounded-full p-1" style="background-color: #d4a85a;"><x-icon name="o-beaker" class="w-4 h-4"
-                        style="color: #0b1c38;" /></div> العلوم
-            </div>
-            <div class="px-5 py-2 rounded-full font-bold shadow-md flex items-center gap-2"
-                style="background: linear-gradient(180deg, #1e3a8a, #0b1c38); border: 2px solid #d4a85a; color: white;">
-                <div class="rounded-full p-1" style="background-color: #d4a85a;"><x-icon name="o-calculator"
-                        class="w-4 h-4" style="color: #0b1c38;" /></div> الرياضيات
-            </div>
-        </div>
 
         <!-- Badges -->
         <div class="mt-8 border-t-[3px] border-dashed border-[#d4a85a]/50 pt-2">
