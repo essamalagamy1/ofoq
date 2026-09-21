@@ -54,18 +54,18 @@
 
             <!-- Header Titles -->
             <div class="flex flex-col items-center text-center mb-2 md:mb-2">
-                <h1 class="font-bold drop-shadow-xl"
+                {{-- <h1 class="font-bold drop-shadow-xl"
                     style="font-size: clamp(60px, 8vw, 90px); -webkit-text-stroke: 2.5px #d4a85a; color: #0b1c38; line-height: 1;">
-                    أفق</h1>
+                    أفق</h1> --}}
                 <h2 class="font-extrabold mt-4"
                     style="font-size: clamp(20px, 4vw, 26px); color: #0b1c38; text-shadow: 0 2px 4px rgba(255,255,255,0.8);">
-                    في الابتدائية الرابعة والتسعون</h2>
-                <div class="flex items-center gap-2 mt-2 font-bold"
+                    نحلق نحو التميز</h2>
+                {{-- <div class="flex items-center gap-2 mt-2 font-bold"
                     style="font-size: clamp(16px, 3vw, 20px); color: #0b1c38; text-shadow: 0 2px 4px rgba(255,255,255,0.8);">
                     <span style="color: #d4a85a; font-size: 14px;">✦</span>
-                    <span>نحلق بالمدرسة نحو التميز</span>
+                    <span>نحلق نحو التميز</span>
                     <span style="color: #d4a85a; font-size: 14px;">✦</span>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Login Card Slot -->
