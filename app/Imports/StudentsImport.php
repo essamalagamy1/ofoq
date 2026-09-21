@@ -28,7 +28,7 @@ class StudentsImport implements ToModel, WithHeadingRow
         return new Student([
             'name' => $row['name'],
             'nationality' => $row['nationality'] ?? null,
-            'grade' => $this->grade,
+            'grade' => $row['grade'] ?? $this->grade,
             'semester' => $row['semester'] ?? 1,
             'parent_mobile_1_key' => '+966',
             'parent_mobile_1' => $this->cleanPhone($row['phone_1'] ?? null),
