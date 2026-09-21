@@ -121,7 +121,7 @@ class StudentData extends Component
     {
         $this->validate([
             'import_file' => 'required|mimes:xlsx,xls,csv|max:10240',
-            'import_grade' => 'required|integer|between:3,6',
+            'import_grade' => 'nullable|integer|between:3,6',
         ]);
 
         try {
