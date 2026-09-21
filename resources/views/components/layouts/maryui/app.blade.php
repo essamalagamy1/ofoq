@@ -111,9 +111,9 @@
                 <p class="text-gray-400 text-center  text-xs mt-3">
                     {{ __('lang.footer_copyright', ['year' => now()->year, 'app_name' => config('app.name')]) }}
                     {{ __('lang.footer_developed_by') }}
-                    <a href=""
+                    <a href="https://e-data360.com/"
                         class="font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600">
-                        {{ config('app.name') }}
+                        E-data360
                     </a>
                 </p>
             </footer>

@@ -18,6 +18,7 @@ class RecordStudentAnswers extends Component
     public Question $question;
     public $students = [];
     public $search_student = '';
+    public $search_semester = '';
     public $answers = []; // Array of student_id => selected_option
 
     public function mount(Question $question): void
@@ -35,6 +36,10 @@ class RecordStudentAnswers extends Component
             $query->where('name', 'like', "%{$this->search_student}%");
         }
 
+        if (!empty($this->search_semester)) {
+            $query->where('semester', $this->search_semester);
+        }
+
         $this->students = $query->orderBy('name')->get();
     }
 
@@ -47,6 +52,11 @@ class RecordStudentAnswers extends Component
     }
 
     public function updatedSearchStudent(): void
+    {
+        $this->loadStudents();
+    }
+
+    public function updatedSearchSemester(): void
     {
         $this->loadStudents();
     }

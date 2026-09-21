@@ -16,8 +16,7 @@
                         <th class="py-3 px-4">{{ __('lang.question') ?? 'السؤال' }}</th>
                         <th class="py-3 px-4 text-center">{{ __('lang.subject') ?? 'المادة' }}</th>
                         <th class="py-3 px-4 text-center">{{ __('lang.grade') ?? 'الصف' }}</th>
-                        <th class="py-3 px-4 text-center">{{ __('lang.status') ?? 'الحالة' }}</th>
-                        <th class="py-3 px-4">{{ __('lang.teacher_comment') ?? 'تعليق المعلم' }}</th>
+                        <th class="py-3 px-4">{{ __('lang.teacher_comment') ?? 'رد المعلم' }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,22 +34,19 @@
                                 </span>
                             </td>
                             <td class="py-3 px-4 text-center">{{ $suggestion->grade }}</td>
-                            <td class="py-3 px-4 text-center">
-                                @php
-                                    $statusEnum = \App\Enums\SuggestionStatusEnum::coerce($suggestion->status);
-                                    $color = $statusEnum ? $statusEnum->color() : 'gray-500';
-                                @endphp
-                                <span class="badge text-white bg-{{ $color }} border-{{ $color }}">
-                                    {{ $statusEnum ? $statusEnum->title() : $suggestion->status }}
-                                </span>
-                            </td>
-                            <td class="py-3 px-4 text-sm text-gray-600">
-                                {{ $suggestion->teacher_comment ?: '-' }}
+                            <td class="py-3 px-4">
+                                @if($suggestion->teacher_comment)
+                                    <div class="max-w-xs text-sm text-gray-600 italic bg-base-200 p-2 rounded-lg" title="{{ $suggestion->teacher_comment }}">
+                                        {{ Str::limit($suggestion->teacher_comment, 60) }}
+                                    </div>
+                                @else
+                                    <span class="text-xs text-gray-400">{{ __('lang.no_comment') ?? 'لا يوجد رد' }}</span>
+                                @endif
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="py-8 text-center text-gray-500">
+                            <td colspan="5" class="py-8 text-center text-gray-500">
                                 {{ __('lang.no_suggestions_yet') ?? 'لم تقم بتقديم أي مقترحات بعد.' }}
                             </td>
                         </tr>

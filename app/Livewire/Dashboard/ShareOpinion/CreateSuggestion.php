@@ -23,6 +23,7 @@ class CreateSuggestion extends Component
     public string $option_c = '';
     public string $option_d = '';
     public string $correct_option = '';
+    public array $available_grades = [];
 
     public function mount(): void
     {
@@ -30,13 +31,32 @@ class CreateSuggestion extends Component
         if ($activeCycle) {
             $this->week = $activeCycle->active_week ?? 1;
         }
+
+        // Get parent's children's grades
+        $user = auth()->user();
+        $this->available_grades = \App\Models\Student::where('parent_mobile_1', $user->phone)
+            ->orWhere('parent_mobile_2', $user->phone)
+            ->orWhere('parent_mobile_3', $user->phone)
+            ->select('grade')
+            ->distinct()
+            ->pluck('grade')
+            ->map(fn($grade) => ['id' => $grade, 'name' => (string) $grade])
+            ->toArray();
+        
+        // Ensure the selected grade (if any) is valid; otherwise it stays null.
+        if (count($this->available_grades) === 1) {
+            $this->grade = $this->available_grades[0]['id'];
+        }
     }
 
     public function rules(): array
     {
+        $gradesList = collect($this->available_grades)->pluck('id')->toArray();
+        $gradesRule = empty($gradesList) ? 'required|integer|between:3,6' : 'required|integer|in:' . implode(',', $gradesList);
+
         return [
             'subject' => 'required|string|in:science,math,arabic',
-            'grade' => 'required|integer|between:3,6',
+            'grade' => $gradesRule,
             'content' => 'required|string',
             'option_a' => 'required|string|max:255',
             'option_b' => 'required|string|max:255',

@@ -9,6 +9,7 @@ use App\Livewire\Dashboard\ProjectorMode\ProjectorBoard;
 use App\Livewire\Dashboard\Question\QuestionData;
 use App\Livewire\Dashboard\ShareOpinion\CreateSuggestion as ParentCreateSuggestion;
 use App\Livewire\Dashboard\ShareOpinion\SuggestionList as ParentSuggestionList;
+use App\Livewire\Dashboard\SiteSetting\UpdateSiteSetting;
 use App\Livewire\Dashboard\Student\StudentData;
 use App\Livewire\Dashboard\SystemCycles\CycleData;
 use App\Livewire\Dashboard\Teacher\TeacherData;
@@ -33,6 +34,7 @@ Route::middleware(['web-language'])->group(function () {
         Route::livewire('questions/{question}/record', \App\Livewire\Dashboard\Question\RecordStudentAnswers::class)->name('questions.record');
         Route::livewire('suggestions', SuggestionData::class)->name('suggestions');
         Route::livewire('cycles', CycleData::class)->name('cycles');
+        Route::livewire('site-settings', UpdateSiteSetting::class)->name('site-settings');
     });
 
     // Teacher Routes

@@ -15,7 +15,7 @@ final class SiteSetting extends Model implements HasMedia
 
     protected $table = 'site_settings';
 
-    public $translatable = ['name', 'description'];
+    public $translatable = ['name', 'description', 'login_message'];
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 

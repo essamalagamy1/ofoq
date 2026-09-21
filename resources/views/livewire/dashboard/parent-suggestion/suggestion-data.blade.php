@@ -2,22 +2,8 @@
     <x-header title="{{ __('lang.parent_suggestions') ?? 'مقترحات أولياء الأمور' }}" separator>
     </x-header>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+    <div class="grid grid-cols-1 gap-4 mb-6">
         <x-stat title="{{ __('lang.total') ?? 'إجمالي المقترحات' }}" value="{{ $stats['total'] }}" icon="o-document-text" class="bg-base-100 shadow-sm border border-base-200" />
-        <x-stat title="{{ __('lang.pending') ?? 'قيد المراجعة' }}" value="{{ $stats['pending'] }}" icon="o-clock" color="text-yellow-500" class="bg-base-100 shadow-sm border border-base-200" />
-        <x-stat title="{{ __('lang.approved') ?? 'مقبول' }}" value="{{ $stats['approved'] }}" icon="o-check-circle" color="text-green-500" class="bg-base-100 shadow-sm border border-base-200" />
-        <x-stat title="{{ __('lang.rejected') ?? 'مرفوض' }}" value="{{ $stats['rejected'] }}" icon="o-x-circle" color="text-red-500" class="bg-base-100 shadow-sm border border-base-200" />
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
-        <x-select 
-            wire:model.live="filter_status" 
-            :options="collect(\App\Enums\SuggestionStatusEnum::getInstances())->map(fn($e) => ['value' => $e->value, 'title' => $e->title()])" 
-            option-value="value" 
-            option-label="title" 
-            placeholder="{{ __('lang.all_statuses') ?? 'كل الحالات' }}" 
-            class="w-full"
-        />
     </div>
 
     <div class="bg-base-100 rounded-lg shadow-sm border border-base-200">
@@ -29,7 +15,6 @@
                         <th class="py-3 px-4">{{ __('lang.question') ?? 'السؤال' }}</th>
                         <th class="py-3 px-4">{{ __('lang.parent') ?? 'ولي الأمر' }}</th>
                         <th class="py-3 px-4 text-center">{{ __('lang.grade') ?? 'الصف' }}</th>
-                        <th class="py-3 px-4 text-center">{{ __('lang.status') ?? 'الحالة' }}</th>
                         <th class="py-3 px-4 text-center">{{ __('lang.action') ?? 'الإجراءات' }}</th>
                     </tr>
                 </thead>
@@ -45,17 +30,9 @@
                             <td class="py-3 px-4 text-sm text-gray-600">{{ $suggestion->creator->name ?? '-' }}</td>
                             <td class="py-3 px-4 text-center">{{ $suggestion->grade }}</td>
                             <td class="py-3 px-4 text-center">
-                                @php
-                                    $statusEnum = \App\Enums\SuggestionStatusEnum::coerce($suggestion->status);
-                                    $color = $statusEnum ? $statusEnum->color() : 'gray-500';
-                                @endphp
-                                <span class="badge text-white bg-{{ $color }} border-{{ $color }}">
-                                    {{ $statusEnum ? $statusEnum->title() : $suggestion->status }}
-                                </span>
-                            </td>
-                            <td class="py-3 px-4 text-center">
                                 <div class="flex items-center justify-center gap-2">
-                                    <x-button icon="o-eye" class="btn-sm btn-ghost text-info" wire:click="openReviewModal({{ $suggestion->id }})" tooltip="{{ __('lang.review') ?? 'مراجعة' }}" />
+                                    <x-button icon="o-chat-bubble-bottom-center-text" class="btn-sm btn-info text-white" wire:click="openCommentModal({{ $suggestion->id }})" tooltip="{{ __('lang.add_comment') ?? 'إضافة تعليق' }}" spinner />
+                                    <x-button icon="o-plus-circle" class="btn-sm btn-success text-white" wire:click="addToQuestions({{ $suggestion->id }})" tooltip="{{ __('lang.add_to_questions') ?? 'إضافة لأسئلة الطلاب' }}" spinner />
                                 </div>
                             </td>
                         </tr>
@@ -77,54 +54,25 @@
         @endif
     </div>
 
-    <!-- Review Modal -->
-    <x-modal wire:model="review_modal" title="{{ __('lang.review_suggestion') ?? 'مراجعة الاقتراح' }}" separator box-class="max-w-3xl">
-        
+    <!-- Comment Modal -->
+    <x-modal wire:model="comment_modal" title="{{ __('lang.add_comment') ?? 'إضافة تعليق على مقترح' }}" separator>
         @if($selected_suggestion)
-            <div class="bg-base-200 p-4 rounded-lg mb-4">
-                <div class="mb-4">
-                    <span class="text-gray-500 text-sm">{{ __('lang.parent') ?? 'ولي الأمر' }}:</span> 
-                    <strong>{{ $selected_suggestion->creator->name ?? '-' }}</strong>
-                </div>
-                
-                <h3 class="font-bold text-lg mb-2">{{ __('lang.question_content') ?? 'نص السؤال' }}:</h3>
-                <p class="text-lg">{{ $selected_suggestion->content }}</p>
-
-                <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
-                    <div class="p-2 border border-base-300 rounded {{ $selected_suggestion->correct_option === 'A' ? 'bg-success/20 border-success text-success-content font-bold' : '' }}">
-                        <span class="font-bold mr-2">A:</span> {{ $selected_suggestion->option_a }}
-                    </div>
-                    <div class="p-2 border border-base-300 rounded {{ $selected_suggestion->correct_option === 'B' ? 'bg-success/20 border-success text-success-content font-bold' : '' }}">
-                        <span class="font-bold mr-2">B:</span> {{ $selected_suggestion->option_b }}
-                    </div>
-                    <div class="p-2 border border-base-300 rounded {{ $selected_suggestion->correct_option === 'C' ? 'bg-success/20 border-success text-success-content font-bold' : '' }}">
-                        <span class="font-bold mr-2">C:</span> {{ $selected_suggestion->option_c }}
-                    </div>
-                    <div class="p-2 border border-base-300 rounded {{ $selected_suggestion->correct_option === 'D' ? 'bg-success/20 border-success text-success-content font-bold' : '' }}">
-                        <span class="font-bold mr-2">D:</span> {{ $selected_suggestion->option_d }}
-                    </div>
-                </div>
+            <div class="mb-4">
+                <p class="text-sm font-semibold text-gray-500">{{ __('lang.question') ?? 'السؤال' }}:</p>
+                <p class="text-base text-gray-800 bg-base-200 p-3 rounded-lg">{{ $selected_suggestion->content }}</p>
             </div>
-
-            @if($selected_suggestion->status === \App\Enums\SuggestionStatusEnum::Pending)
-                <div class="mt-4">
-                    <x-textarea label="{{ __('lang.teacher_comment') ?? 'تعليق المعلم' }}" wire:model="teacher_comment" placeholder="{{ __('lang.teacher_comment_hint') ?? 'اكتب تعليقك هنا (مطلوب في حالة الرفض)' }}" rows="3" />
-                </div>
-            @else
-                <div class="mt-4 p-4 border border-base-300 rounded-lg">
-                    <h4 class="font-bold text-gray-700">{{ __('lang.teacher_comment') ?? 'تعليق المعلم' }}:</h4>
-                    <p class="mt-1 text-gray-600">{{ $selected_suggestion->teacher_comment ?: '-' }}</p>
-                </div>
-            @endif
-        @endif
-
-        <x-slot:actions>
-            <x-button label="{{ __('lang.close') ?? 'إغلاق' }}" @click="$wire.review_modal = false" />
             
-            @if($selected_suggestion && $selected_suggestion->status === \App\Enums\SuggestionStatusEnum::Pending)
-                <x-button label="{{ __('lang.reject') ?? 'رفض' }}" class="btn-error" wire:click="reject" spinner />
-                <x-button label="{{ __('lang.approve') ?? 'قبول وإضافة' }}" class="btn-success" wire:click="approve" spinner />
-            @endif
+            <x-textarea 
+                label="{{ __('lang.teacher_comment') ?? 'تعليق المعلم' }}" 
+                wire:model="teacher_comment" 
+                placeholder="{{ __('lang.enter_comment_here') ?? 'اكتب تعليقك ليظهر لولي الأمر...' }}" 
+                rows="4" 
+            />
+        @endif
+        
+        <x-slot:actions>
+            <x-button label="{{ __('lang.cancel') ?? 'إلغاء' }}" @click="$wire.comment_modal = false" />
+            <x-button label="{{ __('lang.save') ?? 'حفظ' }}" class="btn-primary" wire:click="saveComment" spinner="saveComment" />
         </x-slot:actions>
     </x-modal>
 </div>

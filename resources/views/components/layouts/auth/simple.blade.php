@@ -44,12 +44,12 @@
         <div class="flex flex-col gap-2 w-full max-w-xl z-10 relative mt-20 md:mt-16">
 
             <!-- 12 Weeks Badge (Floating) -->
-            <div class="p-2 absolute -top-20 md:-top-20 -right-2 md:-right-20 rounded-full flex flex-col items-center justify-center shadow-2xl z-20 w-[90px] h-[90px] md:w-[130px] md:h-[130px]"
+            <div class="p-2 absolute -top-20 md:-top-20 -right-2 md:-right-20 rounded-full flex flex-col items-center justify-center shadow-2xl z-20 w-[110px] h-[110px] md:w-[150px] md:h-[150px]"
                 style="transform: rotate(-10deg); background: linear-gradient(180deg, #0b1c38, #1e3a8a); border: 3px solid #d4a85a; color: white;">
-                <x-icon name="o-clock" class="w-6 h-6 md:w-7 md:h-7 mb-1" style="color: #d4a85a;" />
-                <span class="text-[10px] md:text-sm font-bold">رحلة</span>
-                <span class="text-xl md:text-3xl font-black leading-none my-1" style="color: #d4a85a;">١٢</span>
-                <span class="text-[10px] md:text-sm font-bold">أسبوعاً</span>
+                <x-icon name="o-clock" class="w-7 h-7 md:w-8 md:h-8 mb-1" style="color: #d4a85a;" />
+                <span class="text-xs md:text-base font-bold">رحلة</span>
+                <span class="text-3xl md:text-4xl font-black leading-none my-1" style="color: #d4a85a;">١٢</span>
+                <span class="text-xs md:text-base font-bold">أسبوعاً</span>
             </div>
 
             <!-- Header Titles -->

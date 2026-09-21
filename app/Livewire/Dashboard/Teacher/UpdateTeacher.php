@@ -25,9 +25,13 @@ class UpdateTeacher extends Component
 
     public string $phone = '';
 
-    public string $assigned_subject = '';
+    public ?string $assigned_subject = null;
+
+    public ?int $assigned_grade = null;
 
     public bool $requires_password = false;
+
+    public bool $is_substitute = false;
 
     #[On('open-update-modal')]
     public function openModal(User $teacher): void
@@ -37,8 +41,10 @@ class UpdateTeacher extends Component
         $this->password = ''; // empty unless they want to change it
         $this->phone_key = $teacher->phone_key ?? '+966';
         $this->phone = $teacher->phone ?? '';
-        $this->assigned_subject = $teacher->assigned_subject ?? '';
+        $this->assigned_subject = $teacher->assigned_subject;
+        $this->assigned_grade = $teacher->assigned_grade;
         $this->requires_password = (bool) $teacher->requires_password;
+        $this->is_substitute = (bool) $teacher->is_substitute;
 
         $this->update_modal = true;
     }
@@ -49,7 +55,9 @@ class UpdateTeacher extends Component
             'name' => 'required|string|max:255',
             'phone_key' => 'nullable|string|max:10',
             'phone' => 'required|string|digits:9|unique:users,phone,'.$this->teacher->id,
-            'assigned_subject' => 'required|string|in:science,math,arabic',
+            'assigned_subject' => 'nullable|string|in:science,math,arabic',
+            'assigned_grade' => 'nullable|integer|in:3,4,5,6',
+            'is_substitute' => 'boolean',
             'requires_password' => 'boolean',
         ];
     }

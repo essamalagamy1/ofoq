@@ -9,8 +9,11 @@ use BenSampo\Enum\Enum;
 final class GradeEnum extends Enum
 {
     const Third = 3;
+
     const Fourth = 4;
+
     const Fifth = 5;
+
     const Sixth = 6;
 
     public function title(): string

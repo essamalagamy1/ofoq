@@ -232,11 +232,19 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
 
         <!-- Badges -->
         <div class="mt-8 border-t-[3px] border-dashed border-[#d4a85a]/50 pt-2">
-            <h3 class="text-center text-xl font-extrabold mb-6 flex items-center justify-center gap-2 drop-shadow-sm"
+            @php
+                $siteSetting = \App\Models\SiteSetting::getSetting();
+                $loginMessage = $siteSetting->getTranslation('login_message', app()->getLocale(), false);
+            @endphp
+            
+            @if(!empty($loginMessage))
+            <h3 class="text-center text-xl font-extrabold mt-4 mb-6 flex items-center justify-center gap-2 drop-shadow-sm"
                 style="color: #0b1c38;">
-                <span class="text-sm" style="color: #d4a85a;">✦</span> أوسمة الإنجاز <span class="text-sm"
-                    style="color: #d4a85a;">✦</span>
+                <span class="text-sm" style="color: #d4a85a;">✦</span> 
+                {{ $loginMessage }}
+                <span class="text-sm" style="color: #d4a85a;">✦</span>
             </h3>
+            @endif
             <div class="flex justify-center flex-wrap gap-6 md:gap-10">
                 @foreach ($badges as $badge)
                     <div class="flex flex-col items-center">
@@ -256,6 +264,11 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
                     </div>
                 @endforeach
             </div>
+            <h3 class="text-center text-xl font-extrabold mt-4 flex items-center justify-center gap-2 drop-shadow-sm"
+                style="color: #0b1c38;">
+                <span class="text-sm" style="color: #d4a85a;">✦</span> أوسمة الإنجاز <span class="text-sm"
+                    style="color: #d4a85a;">✦</span>
+            </h3>
         </div>
 
     </x-card>

@@ -16,7 +16,6 @@ class SuggestionList extends Component
     public function render(): View
     {
         $suggestions = Question::where('user_id', auth()->id())
-            ->where('is_parent_suggestion', true)
             ->latest()
             ->paginate(15);
 

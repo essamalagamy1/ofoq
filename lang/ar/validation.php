@@ -18,7 +18,7 @@ return [
         'array' => 'يجب أن يحتوي :attribute على عدد عناصر بين :min و :max.',
         'file' => 'يجب أن يكون حجم :attribute بين :min و :max كيلوبايت.',
         'numeric' => 'يجب أن تكون قيمة :attribute بين :min و :max.',
-        'string' => 'يجب أن يحتوي :attribute على عدد أحرف بين :min و :max.'
+        'string' => 'يجب أن يحتوي :attribute على عدد أحرف بين :min و :max.',
     ],
     'boolean' => 'يجب أن تكون قيمة :attribute إما true أو false.',
     'can' => ':attribute يحتوي على قيمة غير مصرح بها.',
@@ -49,13 +49,13 @@ return [
         'array' => 'يجب أن يحتوي :attribute على أكثر من :value عناصر.',
         'file' => 'يجب أن يكون حجم :attribute أكبر من :value كيلوبايت.',
         'numeric' => 'يجب أن تكون قيمة :attribute أكبر من :value.',
-        'string' => 'يجب أن يحتوي :attribute على أكثر من :value أحرف.'
+        'string' => 'يجب أن يحتوي :attribute على أكثر من :value أحرف.',
     ],
     'gte' => [
         'array' => 'يجب أن يحتوي :attribute على :value عناصر أو أكثر.',
         'file' => 'يجب أن يكون حجم :attribute أكبر من أو يساوي :value كيلوبايت.',
         'numeric' => 'يجب أن تكون قيمة :attribute أكبر من أو تساوي :value.',
-        'string' => 'يجب أن يحتوي :attribute على :value أحرف أو أكثر.'
+        'string' => 'يجب أن يحتوي :attribute على :value أحرف أو أكثر.',
     ],
     'hex_color' => 'يجب أن يكون :attribute لون هيكس صالح.',
     'image' => 'يجب أن يكون :attribute صورة.',
@@ -72,20 +72,20 @@ return [
         'array' => 'يجب أن يحتوي :attribute على أقل من :value عناصر.',
         'file' => 'يجب أن يكون حجم :attribute أقل من :value كيلوبايت.',
         'numeric' => 'يجب أن تكون قيمة :attribute أقل من :value.',
-        'string' => 'يجب أن يحتوي :attribute على أقل من :value أحرف.'
+        'string' => 'يجب أن يحتوي :attribute على أقل من :value أحرف.',
     ],
     'lte' => [
         'array' => 'يجب ألا يحتوي :attribute على أكثر من :value عناصر.',
         'file' => 'يجب أن يكون حجم :attribute أقل من أو يساوي :value كيلوبايت.',
         'numeric' => 'يجب أن تكون قيمة :attribute أقل من أو تساوي :value.',
-        'string' => 'يجب أن يحتوي :attribute على :value أحرف أو أقل.'
+        'string' => 'يجب أن يحتوي :attribute على :value أحرف أو أقل.',
     ],
     'mac_address' => 'يجب أن يكون :attribute عنوان MAC صالح.',
     'max' => [
         'array' => 'يجب ألا يحتوي :attribute على أكثر من :max عناصر.',
         'file' => 'يجب ألا يكون حجم :attribute أكبر من :max كيلوبايت.',
         'numeric' => 'يجب ألا تكون قيمة :attribute أكبر من :max.',
-        'string' => 'يجب ألا يحتوي :attribute على أكثر من :max أحرف.'
+        'string' => 'يجب ألا يحتوي :attribute على أكثر من :max أحرف.',
     ],
     'max_digits' => 'يجب ألا يحتوي :attribute على أكثر من :max أرقام.',
     'mimes' => 'يجب أن يكون :attribute ملفًا من نوع: :values.',
@@ -94,7 +94,7 @@ return [
         'array' => 'يجب أن يحتوي :attribute على الأقل :min عناصر.',
         'file' => 'يجب أن يكون حجم :attribute على الأقل :min كيلوبايت.',
         'numeric' => 'يجب أن تكون قيمة :attribute على الأقل :min.',
-        'string' => 'يجب أن يحتوي :attribute على الأقل :min أحرف.'
+        'string' => 'يجب أن يحتوي :attribute على الأقل :min أحرف.',
     ],
     'min_digits' => 'يجب أن يحتوي :attribute على الأقل :min أرقام.',
     'missing' => 'يجب أن يكون :attribute مفقودًا.',
@@ -111,7 +111,7 @@ return [
         'mixed' => 'يجب أن يحتوي :attribute على حرف كبير وحرف صغير على الأقل.',
         'numbers' => 'يجب أن يحتوي :attribute على رقم واحد على الأقل.',
         'symbols' => 'يجب أن يحتوي :attribute على رمز واحد على الأقل.',
-        'uncompromised' => ':attribute المُدخل تم تسريبه. يرجى اختيار :attribute آخر.'
+        'uncompromised' => ':attribute المُدخل تم تسريبه. يرجى اختيار :attribute آخر.',
     ],
     'present' => 'يجب تقديم :attribute.',
     'present_if' => 'يجب تقديم :attribute عندما يكون :other هو :value.',
@@ -140,7 +140,7 @@ return [
         'array' => 'يجب أن يحتوي :attribute على :size عناصر.',
         'file' => 'يجب أن يكون حجم :attribute :size كيلوبايت.',
         'numeric' => 'يجب أن تكون قيمة :attribute :size.',
-        'string' => 'يجب أن يحتوي :attribute على :size أحرف.'
+        'string' => 'يجب أن يحتوي :attribute على :size أحرف.',
     ],
     'starts_with' => 'يجب أن يبدأ :attribute بأحد القيم التالية: :values.',
     'string' => 'يجب أن يكون :attribute نصًا.',
@@ -156,11 +156,11 @@ return [
             'required' => 'يجب تحميل صورة واحدة على الأقل.',
             'image' => 'يجب أن تكون الصورة من نوع صورة.',
             'mimes' => 'يجب أن تكون الصورة من نوع: :values.',
-            'max' => 'يجب ألا يتجاوز حجم الصورة :max كيلوبايت.'
+            'max' => 'يجب ألا يتجاوز حجم الصورة :max كيلوبايت.',
         ],
         'attribute-name' => [
-            'rule-name' => 'رسالة مخصصة'
-        ]
+            'rule-name' => 'رسالة مخصصة',
+        ],
     ],
     'attributes' => [
         'email' => 'البريد الإلكتروني',
@@ -229,6 +229,10 @@ return [
         'current_job' => 'الوظيفة الحالية',
         'company_website' => 'موقع الشركة',
         'challenges_and_solutions' => 'التحديات والحلول',
-        'technologies' => 'التقنيات المستخدمة'
-    ]
+        'technologies' => 'التقنيات المستخدمة',
+        'phone' => 'رقم الهاتف',
+        'teacher' => 'معلمة',
+        'student' => 'طالبة',
+        'parent' => 'ولي أمر',
+    ],
 ];

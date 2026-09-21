@@ -673,5 +673,8 @@ return [
     'error' => 'Error',
     'invalid_password' => 'Invalid password',
     'user_not_found' => 'User not found',
-    'invalid_code' => 'Invalid code'
+    'invalid_code' => 'Invalid code',
+    'login_message' => 'Login Page Message',
+    'login_message_ar' => 'Message (Arabic)',
+    'login_message_en' => 'Message (English)',
 ];

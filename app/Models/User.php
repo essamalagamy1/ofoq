@@ -48,6 +48,8 @@ class User extends Authenticatable implements HasMedia
         return [
             'password' => 'hashed',
             'requires_password' => 'boolean',
+            'is_substitute' => 'boolean',
+            'assigned_grade' => 'integer',
         ];
     }
 

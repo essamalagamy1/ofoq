@@ -1,5 +1,16 @@
 <div>
     <div class="flex h-full w-full flex-1 flex-col gap-6 rounded-xl">
+        {{-- Welcome Message --}}
+        <div class="bg-gradient-to-r from-primary to-primary/80 rounded-xl p-6 text-primary-content shadow-lg flex items-center justify-between">
+            <div>
+                <h2 class="text-3xl font-bold mb-2">{{ __('lang.welcome_back') ?? 'مرحباً بك مجدداً' }}، {{ auth()->user()->name }}! 👋</h2>
+                <p class="text-primary-content/80">{{ __('lang.welcome_dashboard_msg') ?? 'نتمنى لك يوماً حافلاً بالإنجازات والنجاح.' }}</p>
+            </div>
+            <div class="hidden md:block">
+                <x-icon name="o-sparkles" class="w-16 h-16 text-primary-content/20" />
+            </div>
+        </div>
+
         {{-- Header with Cycle Selection --}}
         <div
             class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-base-100 p-4 rounded-xl shadow-sm border border-base-200">
@@ -67,12 +78,21 @@
                 </div>
             </div>
 
-            {{-- Chart 4: Top Questions (Correct vs Wrong) --}}
-            <div class="lg:col-span-2 bg-base-100 rounded-xl shadow-sm border border-base-200 p-6">
+            {{-- Chart 4: Top Questions (Correct vs Wrong) - All Time --}}
+            <div class="lg:col-span-1 bg-base-100 rounded-xl shadow-sm border border-base-200 p-6">
                 <h3 class="font-bold text-lg mb-2 text-center text-primary">{{ __('lang.top_questions') ?? 'أكثر الأسئلة تفاعلاً' }}</h3>
                 <p class="text-sm text-center text-gray-500 mb-6">{{ __('lang.chart_x_count_y_question') ?? 'المحور الأفقي: عدد الإجابات | المحور الرأسي: الأسئلة' }}</p>
                 <div class="h-[400px] w-full">
                     <x-chart wire:model="topQuestionsChart" />
+                </div>
+            </div>
+
+            {{-- Chart 5: Top Questions (Correct vs Wrong) - Current Week --}}
+            <div class="lg:col-span-1 bg-base-100 rounded-xl shadow-sm border border-base-200 p-6">
+                <h3 class="font-bold text-lg mb-2 text-center text-primary">{{ __('lang.top_questions_current_week') ?? 'أكثر الأسئلة تفاعلاً (الأسبوع الحالي)' }}</h3>
+                <p class="text-sm text-center text-gray-500 mb-6">{{ __('lang.chart_x_count_y_question') ?? 'المحور الأفقي: عدد الإجابات | المحور الرأسي: الأسئلة' }}</p>
+                <div class="h-[400px] w-full">
+                    <x-chart wire:model="topQuestionsCurrentWeekChart" />
                 </div>
             </div>
         </div>

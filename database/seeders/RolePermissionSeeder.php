@@ -43,6 +43,9 @@ class RolePermissionSeeder extends Seeder
         foreach (['create', 'show', 'edit', 'delete'] as $action) {
             Permission::firstOrCreate(['name' => $action.'_sub_category', 'type' => 'sub_categories_mng']);
         }
+
+        // site setting login message
+        Permission::firstOrCreate(['name' => 'edit_login_message', 'type' => 'site_settings_mng']);
         // categories
         foreach (['create', 'show', 'edit', 'delete'] as $action) {
             Permission::firstOrCreate(['name' => $action.'_category', 'type' => 'categories_mng']);

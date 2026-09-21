@@ -37,6 +37,11 @@ class CreateQuestion extends Component
         if ($activeCycle) {
             $this->week = $activeCycle->active_week ?? 1;
         }
+        
+        if (auth()->user()->hasRole('teacher')) {
+            $this->subject = auth()->user()->assigned_subject ?? '';
+            $this->grade = auth()->user()->assigned_grade ?? null;
+        }
 
         $this->create_modal = true;
     }
@@ -70,6 +75,11 @@ class CreateQuestion extends Component
         $validated['user_id'] = auth()->id();
         $validated['status'] = 'approved';
         $validated['is_parent_suggestion'] = false; // Because created from dashboard by teacher/admin
+        
+        if (auth()->user()->hasRole('teacher')) {
+            $validated['subject'] = auth()->user()->assigned_subject;
+            $validated['grade'] = auth()->user()->assigned_grade;
+        }
 
         Question::create($validated);
 

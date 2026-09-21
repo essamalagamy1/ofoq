@@ -11,9 +11,10 @@
                     option-label="title" 
                     placeholder="{{ __('lang.select') ?? 'اختر...' }}" 
                     required 
+                    :disabled="auth()->user()->hasRole('teacher')"
                 />
 
-                <x-input type="number" label="{{ __('lang.grade') ?? 'الصف (3-6)' }}" wire:model="grade" min="3" max="6" required />
+                <x-input type="number" label="{{ __('lang.grade') ?? 'الصف (3-6)' }}" wire:model="grade" min="3" max="6" required :disabled="auth()->user()->hasRole('teacher')" />
                 <x-input type="number" label="{{ __('lang.week') ?? 'الأسبوع' }}" wire:model="week" readonly hint="يتم تحديد الأسبوع تلقائياً من قبل الإدارة" />
             </div>
 

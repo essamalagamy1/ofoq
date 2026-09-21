@@ -5,6 +5,7 @@ namespace App\Livewire\Dashboard\Teacher;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Lazy;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
@@ -25,6 +26,7 @@ class TeacherData extends Component
 
     public $search_teacher_id;
     public $search_subject;
+    public $search_is_substitute;
     public $all_teachers = [];
 
     public function mount(): void
@@ -51,6 +53,24 @@ class TeacherData extends Component
         ];
     }
 
+    #[Computed]
+    public function totalTeachers(): int
+    {
+        return User::where('type', 'teacher')->count();
+    }
+
+    #[Computed]
+    public function totalRegularTeachers(): int
+    {
+        return User::where('type', 'teacher')->where('is_substitute', false)->count();
+    }
+
+    #[Computed]
+    public function totalSubstituteTeachers(): int
+    {
+        return User::where('type', 'teacher')->where('is_substitute', true)->count();
+    }
+
     #[On('render')]
     public function render(): View
     {
@@ -58,6 +78,9 @@ class TeacherData extends Component
             ->where('type', 'teacher')
             ->when($this->search_teacher_id, fn (Builder $query) => $query->where('id', $this->search_teacher_id))
             ->when($this->search_subject, fn (Builder $query) => $query->where('assigned_subject', $this->search_subject))
+            ->when($this->search_is_substitute !== null && $this->search_is_substitute !== '', function (Builder $query) {
+                $query->where('is_substitute', $this->search_is_substitute);
+            })
             ->latest()
             ->paginate(20);
 

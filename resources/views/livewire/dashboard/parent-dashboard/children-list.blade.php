@@ -1,4 +1,15 @@
 <div class="space-y-6">
+    {{-- Welcome Message --}}
+    <div class="bg-gradient-to-r from-primary to-primary/80 rounded-xl p-6 text-primary-content shadow-lg flex items-center justify-between">
+        <div>
+            <h2 class="text-3xl font-bold mb-2">{{ __('lang.welcome_back') ?? 'مرحباً بك مجدداً' }}، {{ auth()->user()->name }}! 👋</h2>
+            <p class="text-primary-content/80">{{ __('lang.welcome_parent_msg') ?? 'نحن سعداء بمتابعتك لمستوى أبنائك وتفاعلك معنا.' }}</p>
+        </div>
+        <div class="hidden md:block">
+            <x-icon name="o-heart" class="w-16 h-16 text-primary-content/20" />
+        </div>
+    </div>
+
     <x-header title="{{ __('lang.my_children') ?? 'أبنائي' }}" subtitle="{{ __('lang.welcome_parent') ?? 'مرحباً بك في لوحة متابعة أبنائك' }}" separator>
         @if($can_share_opinion)
             <x-slot:actions>

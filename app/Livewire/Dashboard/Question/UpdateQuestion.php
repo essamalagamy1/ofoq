@@ -32,6 +32,12 @@ class UpdateQuestion extends Component
         
         $this->subject = $question->subject;
         $this->grade = $question->grade;
+
+        if (auth()->user()->hasRole('teacher')) {
+            $this->subject = auth()->user()->assigned_subject ?? $question->subject;
+            $this->grade = auth()->user()->assigned_grade ?? $question->grade;
+        }
+
         $this->week = $question->week;
         $this->content = $question->content;
         $this->option_a = $question->option_a;
@@ -61,6 +67,11 @@ class UpdateQuestion extends Component
     public function update(): void
     {
         $validated = $this->validate();
+
+        if (auth()->user()->hasRole('teacher')) {
+            $validated['subject'] = auth()->user()->assigned_subject ?? $validated['subject'];
+            $validated['grade'] = auth()->user()->assigned_grade ?? $validated['grade'];
+        }
 
         $this->question->update($validated);
 

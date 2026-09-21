@@ -2,36 +2,51 @@
     <x-header title="{{ __('lang.teachers') ?? 'المعلمين' }}" separator>
         <x-slot:actions>
             <div class="flex items-center gap-2 sm:gap-4">
-                <x-button icon="o-plus" class="btn-primary btn-sm sm:btn-md" wire:click="$dispatch('open-create-modal')">{{ __('lang.add') ?? 'إضافة' }}</x-button>
+                <x-button icon="o-plus" class="btn-primary btn-sm sm:btn-md"
+                    wire:click="$dispatch('open-create-modal')">{{ __('lang.add') ?? 'إضافة' }}</x-button>
             </div>
         </x-slot:actions>
     </x-header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+    <div class="grid auto-rows-min gap-4 grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 mb-6">
+        <div
+            class="relative overflow-hidden rounded-xl bg-base-100 shadow-sm border border-base-200 p-4 transition-all hover:shadow-md">
+            <x-stat title="{{ __('lang.total_teachers') ?? 'إجمالي المعلمات' }}" value="{{ $this->totalTeachers }}"
+                icon="o-users" color="text-info" />
+        </div>
+        <div
+            class="relative overflow-hidden rounded-xl bg-base-100 shadow-sm border border-base-200 p-4 transition-all hover:shadow-md">
+            <x-stat title="{{ __('lang.regular_teachers_count') ?? 'عدد المعلمات الأساسيات' }}"
+                value="{{ $this->totalRegularTeachers }}" icon="o-check-badge" color="text-success" />
+        </div>
+        <div
+            class="relative overflow-hidden rounded-xl bg-base-100 shadow-sm border border-base-200 p-4 transition-all hover:shadow-md">
+            <x-stat title="{{ __('lang.substitute_teachers_count') ?? 'عدد المعلمات البديلات' }}"
+                value="{{ $this->totalSubstituteTeachers }}" icon="o-user-group" color="text-warning" />
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
         <div class="col-span-1 md:col-span-2">
-            <x-ui.choices-advanced-search 
-                wire:model.live="search_teacher_id" 
-                :options="$all_teachers" 
-                option-label="name" 
-                option-sub-label="sub_label" 
-                placeholder="{{ __('lang.search_by_name') ?? 'بحث بالاسم' }} / {{ __('lang.search_by_id') ?? 'بحث بالرقم' }} / {{ __('lang.search_mobile') ?? 'بحث برقم الجوال' }}" 
-                icon="o-magnifying-glass" 
-                clearable 
-                single 
-                searchable 
+            <x-ui.choices-advanced-search wire:model.live="search_teacher_id" :options="$all_teachers" option-label="name"
+                option-sub-label="sub_label"
+                placeholder="{{ __('lang.search_by_name') ?? 'بحث بالاسم' }} / {{ __('lang.search_by_id') ?? 'بحث بالرقم' }} / {{ __('lang.search_mobile') ?? 'بحث برقم الجوال' }}"
+                icon="o-magnifying-glass" clearable single searchable class="w-full bg-base-100" />
+        </div>
+        <div class="col-span-1">
+            <x-select wire:model.live="search_subject" :options="collect(\App\Enums\SubjectEnum::getInstances())->map(
+                fn($e) => ['value' => $e->value, 'title' => $e->title()],
+            )" option-value="value" option-label="title"
+                placeholder="{{ __('lang.subject') ?? 'المادة الدراسية' }}" icon="o-book-open" clearable
                 class="w-full bg-base-100" />
         </div>
         <div class="col-span-1">
-            <x-select 
-                wire:model.live="search_subject" 
-                :options="collect(\App\Enums\SubjectEnum::getInstances())->map(fn($e) => ['value' => $e->value, 'title' => $e->title()])" 
-                option-value="value" 
-                option-label="title" 
-                placeholder="{{ __('lang.subject') ?? 'المادة الدراسية' }}" 
-                icon="o-book-open"
-                clearable
-                class="w-full bg-base-100"
-            />
+            <x-select wire:model.live="search_is_substitute" :options="[
+                ['value' => 1, 'title' => __('lang.substitute_teacher') ?? 'معلمة بديلة'],
+                ['value' => 0, 'title' => __('lang.regular_teacher') ?? 'معلمة عادية'],
+            ]" option-value="value" option-label="title"
+                placeholder="{{ __('lang.teacher_type') ?? 'نوع المعلمة' }}" icon="o-user" clearable
+                class="w-full bg-base-100" />
         </div>
     </div>
 
@@ -44,6 +59,8 @@
                         <th class="py-3 px-4">{{ __('lang.name') ?? 'الاسم' }}</th>
                         <th class="py-3 px-4">{{ __('lang.phone') ?? 'رقم الجوال' }}</th>
                         <th class="py-3 px-4">{{ __('lang.assigned_subject') ?? 'المادة الدراسية' }}</th>
+                        <th class="py-3 px-4">{{ __('lang.assigned_grade') ?? 'الصف' }}</th>
+                        <th class="py-3 px-4 text-center">{{ __('lang.substitute_teacher') ?? 'معلمة بديلة' }}</th>
                         <th class="py-3 px-4 text-center">{{ __('lang.action') ?? 'الإجراءات' }}</th>
                     </tr>
                 </thead>
@@ -57,13 +74,28 @@
                             </td>
                             <td class="py-3 px-4">
                                 <span class="badge badge-primary text-white">
-                                    {{ \App\Enums\SubjectEnum::coerce($teacher->assigned_subject)?->title() ?? $teacher->assigned_subject }}
+                                    {{ $teacher->assigned_subject ? \App\Enums\SubjectEnum::coerce($teacher->assigned_subject)?->title() ?? $teacher->assigned_subject : '-' }}
+                                </span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <span class="badge badge-info text-white">
+                                    {{ $teacher->assigned_grade ? \App\Enums\GradeEnum::coerce($teacher->assigned_grade)?->title() ?? $teacher->assigned_grade : '-' }}
                                 </span>
                             </td>
                             <td class="py-3 px-4 text-center">
+                                @if ($teacher->is_substitute)
+                                    <x-icon name="o-check-circle" class="w-6 h-6 text-success mx-auto" />
+                                @else
+                                    <x-icon name="o-x-circle" class="w-6 h-6 text-base-300 mx-auto" />
+                                @endif
+                            </td>
+                            <td class="py-3 px-4 text-center">
                                 <div class="flex items-center justify-center gap-2">
-                                    <x-button icon="o-pencil" class="btn-sm btn-ghost text-info" wire:click="$dispatch('open-update-modal', { teacher: {{ $teacher->id }} })" />
-                                    <x-button icon="o-trash" class="btn-sm btn-ghost text-error" wire:click="delete({{ $teacher->id }})" wire:confirm="{{ __('lang.confirm_delete') ?? 'هل أنت متأكد من الحذف؟' }}" />
+                                    <x-button icon="o-pencil" class="btn-sm btn-ghost text-info"
+                                        wire:click="$dispatch('open-update-modal', { teacher: {{ $teacher->id }} })" />
+                                    <x-button icon="o-trash" class="btn-sm btn-ghost text-error"
+                                        wire:click="delete({{ $teacher->id }})"
+                                        wire:confirm="{{ __('lang.confirm_delete') ?? 'هل أنت متأكد من الحذف؟' }}" />
                                 </div>
                             </td>
                         </tr>
@@ -77,8 +109,8 @@
                 </tbody>
             </table>
         </div>
-        
-        @if($teachers->hasPages())
+
+        @if ($teachers->hasPages())
             <div class="p-4 border-t border-base-200">
                 {{ $teachers->links() }}
             </div>

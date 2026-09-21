@@ -68,8 +68,14 @@ class QuestionData extends Component
                       $q2->where('is_parent_suggestion', true)
                          ->where('status', 'approved');
                   });
-            })
-            ->when($this->search_content, fn (Builder $q) => $q->where('content', 'like', "%{$this->search_content}%"))
+            });
+
+        $user = auth()->user();
+        if ($user->hasRole('teacher') && !$user->is_substitute) {
+            $query->where('user_id', $user->id);
+        }
+
+        $query->when($this->search_content, fn (Builder $q) => $q->where('content', 'like', "%{$this->search_content}%"))
             ->when($this->filter_cycle_id, fn (Builder $q) => $q->where('cycle_id', $this->filter_cycle_id))
             ->when($this->filter_subject, fn (Builder $q) => $q->where('subject', $this->filter_subject))
             ->when($this->filter_grade, fn (Builder $q) => $q->where('grade', $this->filter_grade))
@@ -101,6 +107,7 @@ class QuestionData extends Component
     
     public function viewAnswers(Question $question): void
     {
+        abort_if(auth()->user()->is_substitute, 403, __('lang.unauthorized') ?? 'غير مصرح');
         $this->selected_question = $question;
         $this->student_answers = \App\Models\StudentAnswer::where('question_id', $question->id)
             ->with('student')

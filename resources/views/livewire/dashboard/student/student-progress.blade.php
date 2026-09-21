@@ -10,20 +10,23 @@
                 </div>
             </div>
             
-            <div class="w-64">
-                <x-select 
-                    wire:model.live="selected_cycle_id" 
-                    :options="$cycles" 
-                    option-value="id" 
-                    option-label="name" 
-                    placeholder="{{ __('lang.select_cycle') ?? 'اختر الدورة...' }}" 
-                />
-            </div>
+            @unless(auth()->user()->hasRole('parent'))
+                <div class="w-64">
+                    <x-select 
+                        wire:model.live="selected_cycle_id" 
+                        :options="$cycles" 
+                        option-value="id" 
+                        option-label="name" 
+                        placeholder="{{ __('lang.select_cycle') ?? 'اختر الدورة...' }}" 
+                    />
+                </div>
+            @endunless
         </div>
 
         @if($selected_cycle_id)
-            {{-- Overall Cycle Progress --}}
-            @if($overall_progress)
+            {{-- Overall Cycle Progress (Hidden for Parents) --}}
+            @unless(auth()->user()->hasRole('parent'))
+                @if($overall_progress)
                 <div class="mb-6 bg-base-100 rounded-xl shadow-md border-2 border-primary/20 p-6 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
                     <div class="absolute -right-10 -top-10 w-40 h-40 bg-primary/5 rounded-full blur-2xl"></div>
                     
@@ -69,12 +72,63 @@
                         </div>
                     </div>
                 </div>
-            @endif
+                @endif
+            @endunless
 
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-                @foreach($weekly_progress as $week => $data)
-                    <div class="card bg-base-100 shadow-sm border border-base-200 p-4 flex flex-col items-center justify-center text-center relative overflow-hidden group hover:border-primary transition-all">
-                        <h4 class="font-bold text-gray-700 mb-2">{{ __('lang.week') ?? 'الأسبوع' }} {{ $week }}</h4>
+            @if($selected_week)
+                <div class="mb-4 flex items-center justify-between">
+                    <h4 class="font-bold text-xl text-primary">{{ __('lang.week') ?? 'الأسبوع' }} {{ $selected_week }} - {{ __('lang.details') ?? 'التفاصيل' }}</h4>
+                    <x-button icon="o-arrow-right" class="btn-sm btn-ghost" wire:click="backToWeeks">
+                        {{ __('lang.back') ?? 'رجوع' }}
+                    </x-button>
+                </div>
+                
+                <div class="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+                    @forelse($week_details as $answer)
+                        <div class="bg-base-100 p-4 rounded-xl border {{ $answer->is_correct ? 'border-success/50 bg-success/5' : 'border-error/50 bg-error/5' }}">
+                            <div class="mb-3">
+                                <span class="badge badge-primary badge-sm mb-2">{{ \App\Enums\SubjectEnum::coerce($answer->question->subject)?->title() ?? $answer->question->subject }}</span>
+                                <h5 class="font-bold text-lg leading-relaxed">{{ $answer->question->content }}</h5>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm mt-4">
+                                <div class="p-3 rounded-lg bg-base-200/50 border border-base-300">
+                                    <span class="text-gray-500 block mb-1">{{ __('lang.student_answer') ?? 'إجابة الطالب' }}</span>
+                                    <div class="flex items-center gap-2">
+                                        @if($answer->is_correct)
+                                            <x-icon name="o-check-circle" class="w-5 h-5 text-success" />
+                                            <span class="font-bold text-success">{{ $answer->question->{'option_' . strtolower($answer->selected_option)} ?? $answer->selected_option }}</span>
+                                        @else
+                                            <x-icon name="o-x-circle" class="w-5 h-5 text-error" />
+                                            <span class="font-bold text-error">{{ $answer->question->{'option_' . strtolower($answer->selected_option)} ?? $answer->selected_option }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="p-3 rounded-lg bg-success/10 border border-success/30">
+                                    <span class="text-gray-500 block mb-1">{{ __('lang.correct_answer') ?? 'الإجابة الصحيحة' }}</span>
+                                    <div class="flex items-center gap-2">
+                                        <x-icon name="o-check-circle" class="w-5 h-5 text-success" />
+                                        <span class="font-bold text-success">{{ $answer->question->{'option_' . strtolower($answer->question->correct_option)} ?? $answer->question->correct_option }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="text-center py-8 text-gray-500">
+                            {{ __('lang.no_data') ?? 'لا توجد بيانات' }}
+                        </div>
+                    @endforelse
+                </div>
+            @else
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+                    @foreach($weekly_progress as $week => $data)
+                        @php
+                            $isClickable = $selected_cycle_id === $active_cycle_id && $week < $active_cycle_week && $data['total_answered'] > 0;
+                        @endphp
+                        <div class="card bg-base-100 shadow-sm border border-base-200 p-4 flex flex-col items-center justify-center text-center relative overflow-hidden group {{ $isClickable ? 'hover:border-primary cursor-pointer hover:shadow-md transition-all' : '' }}"
+                             @if($isClickable) wire:click="showWeekDetails({{ $week }})" @endif>
+                            
+                            <h4 class="font-bold text-gray-700 mb-2">{{ __('lang.week') ?? 'الأسبوع' }} {{ $week }}</h4>
                         
                         @if($data['total_answered'] > 0)
                             <div class="mb-3 relative w-16 h-16 flex items-center justify-center">
@@ -103,6 +157,13 @@
                                 <span class="font-bold text-gray-700">{{ $data['percentage'] }}%</span>
                                 <span>{{ $data['correct_answers'] }} / {{ $data['total_answered'] }} {{ __('lang.correct') ?? 'صحيح' }}</span>
                             </div>
+                            
+                            @if($isClickable)
+                                <div class="absolute inset-0 bg-primary/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <x-icon name="o-eye" class="w-8 h-8 text-primary-content mb-2" />
+                                    <span class="text-primary-content font-bold text-sm">{{ __('lang.view_details') ?? 'عرض التفاصيل' }}</span>
+                                </div>
+                            @endif
                         @else
                             <div class="flex-1 flex flex-col items-center justify-center py-4">
                                 <x-icon name="o-minus-circle" class="w-8 h-8 text-gray-300 mb-2" />
@@ -112,6 +173,7 @@
                     </div>
                 @endforeach
             </div>
+            @endif
         @else
             <div class="py-12 text-center text-gray-500">
                 <x-icon name="o-inbox" class="w-12 h-12 mx-auto text-gray-300 mb-4" />

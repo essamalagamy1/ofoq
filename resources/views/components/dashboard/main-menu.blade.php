@@ -25,6 +25,8 @@
             link="{{ route('admin.badges') }}" />
         <x-menu-item title="{{ __('lang.cycles') ?? 'الدورات' }}" icon-classes="text-primary" icon="o-arrow-path"
             link="{{ route('admin.cycles') }}" />
+        <x-menu-item title="{{ __('lang.site_settings') ?? 'الإعدادات' }}" icon-classes="text-primary" icon="o-cog-6-tooth"
+            link="{{ route('admin.site-settings') }}" />
     @endrole
 
     @role('teacher')
@@ -35,8 +37,10 @@
         <x-menu-title title="{{ __('lang.academic_content') ?? 'المحتوى الأكاديمي' }}" />
         <x-menu-item title="{{ __('lang.questions') ?? 'بنك الأسئلة' }}" icon-classes="text-primary" icon="o-document-text"
             link="{{ route('teacher.questions') }}" />
-        <x-menu-item title="{{ __('lang.suggestions') ?? 'مشاركات الآباء' }}" icon-classes="text-primary"
-            icon="o-chat-bubble-left-ellipsis" link="{{ route('teacher.suggestions') }}" />
+        @if(!auth()->user()->is_substitute)
+            <x-menu-item title="{{ __('lang.suggestions') ?? 'مشاركات الآباء' }}" icon-classes="text-primary"
+                icon="o-chat-bubble-left-ellipsis" link="{{ route('teacher.suggestions') }}" />
+        @endif
     @endrole
 
     @role('parent')

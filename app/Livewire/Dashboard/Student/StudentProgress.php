@@ -19,6 +19,12 @@ class StudentProgress extends Component
     
     public $weekly_progress = []; // Array of weeks 1 to 12
     public $overall_progress = null; // Overall cycle progress
+    
+    public ?int $active_cycle_id = null;
+    public ?int $active_cycle_week = null;
+
+    public ?int $selected_week = null;
+    public $week_details = [];
 
     #[On('open-student-progress-modal')]
     public function openModal(Student $student): void
@@ -26,17 +32,25 @@ class StudentProgress extends Component
         $this->student = $student;
         $this->cycles = AcademicCycle::orderBy('id', 'desc')->get();
         
-        $activeCycle = $this->cycles->where('is_active', true)->first() ?? $this->cycles->first();
+        $activeCycle = $this->cycles->where('is_active', true)->first();
         if ($activeCycle) {
-            $this->selected_cycle_id = $activeCycle->id;
+            $this->active_cycle_id = $activeCycle->id;
+            $this->active_cycle_week = $activeCycle->active_week;
+        }
+
+        $defaultCycle = $activeCycle ?? $this->cycles->first();
+        if ($defaultCycle) {
+            $this->selected_cycle_id = $defaultCycle->id;
             $this->loadProgress();
         }
         
+        $this->selected_week = null;
         $this->show_modal = true;
     }
 
     public function updatedSelectedCycleId(): void
     {
+        $this->selected_week = null;
         $this->loadProgress();
     }
 
@@ -120,6 +134,32 @@ class StudentProgress extends Component
                 'correct_answers' => $correct
             ];
         }
+    }
+
+    public function showWeekDetails(int $week): void
+    {
+        if ($this->selected_cycle_id !== $this->active_cycle_id) {
+            return;
+        }
+
+        if ($week >= $this->active_cycle_week) {
+            return;
+        }
+
+        $this->selected_week = $week;
+        
+        $answers = StudentAnswer::where('student_id', $this->student->id)
+            ->where('cycle_id', $this->selected_cycle_id)
+            ->where('week', $week)
+            ->with('question')
+            ->get();
+
+        $this->week_details = $answers;
+    }
+
+    public function backToWeeks(): void
+    {
+        $this->selected_week = null;
     }
 
     public function render(): View

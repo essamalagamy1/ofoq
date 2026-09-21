@@ -18,19 +18,18 @@ class SuggestionData extends Component
 {
     use Toast, WithPagination;
 
+    public bool $comment_modal = false;
+    public ?Question $selected_suggestion = null;
+    public string $teacher_comment = '';
+
     public function placeholder(): View
     {
         return view('livewire.placeholders.page-loading');
     }
 
-    public $filter_status;
-
-    public bool $review_modal = false;
-    public ?Question $selected_suggestion = null;
-    public string $teacher_comment = '';
-
     public function mount(): void
     {
+        abort_if(auth()->user()->is_substitute, 403, __('lang.unauthorized') ?? 'غير مصرح');
         view()->share('breadcrumbs', $this->breadcrumbs());
     }
 
@@ -57,18 +56,12 @@ class SuggestionData extends Component
             ->when($user->hasRole('teacher'), function (Builder $query) use ($user) {
                 $query->where('subject', $user->assigned_subject);
             })
-            ->when($this->filter_status, function (Builder $query) {
-                $query->where('status', $this->filter_status);
-            })
             ->with(['cycle', 'creator'])
             ->latest()
             ->paginate(20);
 
         $stats = [
             'total' => Question::where('is_parent_suggestion', true)->when($user->hasRole('teacher'), fn($q) => $q->where('subject', $user->assigned_subject))->count(),
-            'pending' => Question::where('is_parent_suggestion', true)->where('status', 'pending')->when($user->hasRole('teacher'), fn($q) => $q->where('subject', $user->assigned_subject))->count(),
-            'approved' => Question::where('is_parent_suggestion', true)->where('status', 'approved')->when($user->hasRole('teacher'), fn($q) => $q->where('subject', $user->assigned_subject))->count(),
-            'rejected' => Question::where('is_parent_suggestion', true)->where('status', 'rejected')->when($user->hasRole('teacher'), fn($q) => $q->where('subject', $user->assigned_subject))->count(),
         ];
 
         return view('livewire.dashboard.parent-suggestion.suggestion-data', [
@@ -77,40 +70,36 @@ class SuggestionData extends Component
         ]);
     }
 
-    public function openReviewModal(Question $suggestion): void
+    public function addToQuestions(Question $suggestion): void
+    {
+        $activeCycle = \App\Models\AcademicCycle::where('is_active', true)->first();
+        
+        $suggestion->update([
+            'is_parent_suggestion' => false,
+            'status' => 'approved',
+            'week' => $activeCycle ? $activeCycle->active_week : 1,
+            'cycle_id' => $activeCycle ? $activeCycle->id : $suggestion->cycle_id,
+        ]);
+        
+        $this->success(__('lang.suggestion_added_to_questions') ?? 'تم إضافة السؤال لأسئلة الطلاب بنجاح.');
+    }
+
+    public function openCommentModal(Question $suggestion): void
     {
         $this->selected_suggestion = $suggestion;
         $this->teacher_comment = $suggestion->teacher_comment ?? '';
-        $this->review_modal = true;
+        $this->comment_modal = true;
     }
 
-    public function approve(): void
+    public function saveComment(): void
     {
         if ($this->selected_suggestion) {
             $this->selected_suggestion->update([
-                'status' => 'approved',
-                'teacher_comment' => $this->teacher_comment,
+                'teacher_comment' => $this->teacher_comment
             ]);
-            $this->success(__('lang.suggestion_approved') ?? 'تم قبول الاقتراح وإضافته لبنك الأسئلة.');
-            $this->review_modal = false;
+            $this->success(__('lang.comment_saved') ?? 'تم حفظ التعليق بنجاح.');
         }
-    }
-
-    public function reject(): void
-    {
-        $this->validate([
-            'teacher_comment' => 'required|string',
-        ], [
-            'teacher_comment.required' => __('lang.rejection_reason_required') ?? 'يجب كتابة سبب الرفض في التعليق.',
-        ]);
-
-        if ($this->selected_suggestion) {
-            $this->selected_suggestion->update([
-                'status' => 'rejected',
-                'teacher_comment' => $this->teacher_comment,
-            ]);
-            $this->success(__('lang.suggestion_rejected') ?? 'تم رفض الاقتراح.');
-            $this->review_modal = false;
-        }
+        $this->comment_modal = false;
+        $this->selected_suggestion = null;
     }
 }

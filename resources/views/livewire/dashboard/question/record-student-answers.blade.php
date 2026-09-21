@@ -61,11 +61,11 @@
         </div>
         
         {{-- Right Column (Question) --}}
-        <div class="md:col-span-2 flex flex-col gap-6" :class="isFullscreen ? 'h-[calc(100vh-4rem)] overflow-y-auto pr-2' : ''">
-            <div class="bg-base-100 rounded-xl shadow-sm border border-base-200 p-6 flex flex-col h-fit shrink-0">
-                <div class="text-center mb-8">
+        <div class="md:col-span-2 flex flex-col gap-6 min-w-0" :class="isFullscreen ? 'h-[calc(100vh-4rem)] overflow-y-auto pr-2' : ''">
+            <div class="bg-base-100 rounded-xl shadow-sm border border-base-200 p-6 flex flex-col h-fit shrink-0 w-full min-w-0">
+                <div class="text-center mb-8 w-full min-w-0">
                     <span class="badge badge-primary mb-4">{{ \App\Enums\SubjectEnum::coerce($question->subject)?->title() ?? $question->subject }} - {{ __('lang.grade') ?? 'الصف' }} {{ $question->grade }}</span>
-                    <h2 class="text-3xl font-bold leading-relaxed text-base-content" :class="isFullscreen ? 'text-5xl mb-12' : 'mb-6'">{{ $question->content }}</h2>
+                    <h2 class="text-3xl font-bold leading-relaxed text-base-content whitespace-pre-wrap break-all w-full" :class="isFullscreen ? 'text-5xl mb-12' : 'mb-6'">{{ $question->content }}</h2>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" :class="isFullscreen ? 'gap-8 px-12' : ''">
@@ -76,8 +76,8 @@
                              'bg-base-200/50 border-base-200': !showAnswer,
                              'p-8 text-3xl': isFullscreen 
                          }">
-                        <span class="font-bold text-2xl" :class="showAnswer && 'A' === '{{ $question->correct_option }}' ? 'text-success' : 'text-primary', isFullscreen ? 'text-4xl' : ''">A</span>
-                        <span>{{ $question->option_a }}</span>
+                        <span class="font-bold text-2xl shrink-0" :class="showAnswer && 'A' === '{{ $question->correct_option }}' ? 'text-success' : 'text-primary', isFullscreen ? 'text-4xl' : ''">A</span>
+                        <span class="break-all whitespace-pre-wrap w-full">{{ $question->option_a }}</span>
                     </div>
                     <div class="p-4 rounded-xl border flex items-center gap-4 text-xl transition-all duration-300" 
                          :class="{
@@ -86,8 +86,8 @@
                              'bg-base-200/50 border-base-200': !showAnswer,
                              'p-8 text-3xl': isFullscreen 
                          }">
-                        <span class="font-bold text-2xl" :class="showAnswer && 'B' === '{{ $question->correct_option }}' ? 'text-success' : 'text-primary', isFullscreen ? 'text-4xl' : ''">B</span>
-                        <span>{{ $question->option_b }}</span>
+                        <span class="font-bold text-2xl shrink-0" :class="showAnswer && 'B' === '{{ $question->correct_option }}' ? 'text-success' : 'text-primary', isFullscreen ? 'text-4xl' : ''">B</span>
+                        <span class="break-all whitespace-pre-wrap w-full">{{ $question->option_b }}</span>
                     </div>
                     <div class="p-4 rounded-xl border flex items-center gap-4 text-xl transition-all duration-300" 
                          :class="{
@@ -96,8 +96,8 @@
                              'bg-base-200/50 border-base-200': !showAnswer,
                              'p-8 text-3xl': isFullscreen 
                          }">
-                        <span class="font-bold text-2xl" :class="showAnswer && 'C' === '{{ $question->correct_option }}' ? 'text-success' : 'text-primary', isFullscreen ? 'text-4xl' : ''">C</span>
-                        <span>{{ $question->option_c }}</span>
+                        <span class="font-bold text-2xl shrink-0" :class="showAnswer && 'C' === '{{ $question->correct_option }}' ? 'text-success' : 'text-primary', isFullscreen ? 'text-4xl' : ''">C</span>
+                        <span class="break-all whitespace-pre-wrap w-full">{{ $question->option_c }}</span>
                     </div>
                     <div class="p-4 rounded-xl border flex items-center gap-4 text-xl transition-all duration-300" 
                          :class="{
@@ -106,8 +106,8 @@
                              'bg-base-200/50 border-base-200': !showAnswer,
                              'p-8 text-3xl': isFullscreen 
                          }">
-                        <span class="font-bold text-2xl" :class="showAnswer && 'D' === '{{ $question->correct_option }}' ? 'text-success' : 'text-primary', isFullscreen ? 'text-4xl' : ''">D</span>
-                        <span>{{ $question->option_d }}</span>
+                        <span class="font-bold text-2xl shrink-0" :class="showAnswer && 'D' === '{{ $question->correct_option }}' ? 'text-success' : 'text-primary', isFullscreen ? 'text-4xl' : ''">D</span>
+                        <span class="break-all whitespace-pre-wrap w-full">{{ $question->option_d }}</span>
                     </div>
                 </div>
             </div>
@@ -126,7 +126,10 @@
                     <x-icon name="o-users" class="w-5 h-5 text-primary" />
                     {{ __('lang.students') ?? 'الطلاب' }}
                 </h3>
-                <x-input wire:model.live.debounce.300ms="search_student" placeholder="{{ __('lang.search_by_name') ?? 'بحث بالاسم' }}" icon="o-magnifying-glass" clearable class="w-full" />
+                <div class="flex gap-2">
+                    <x-input wire:model.live.debounce.300ms="search_student" placeholder="{{ __('lang.search_by_name') ?? 'بحث بالاسم' }}" icon="o-magnifying-glass" clearable class="w-full" />
+                    <x-input type="number" wire:model.live.debounce.300ms="search_semester" placeholder="{{ __('lang.semester') ?? 'الفصل' }}" icon="o-hashtag" clearable class="w-24 shrink-0" />
+                </div>
             </div>
 
             <div class="flex-1 overflow-y-auto p-2">

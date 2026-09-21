@@ -23,6 +23,7 @@ class Dashboard extends Component
     public array $questionsByWeekChart = [];
     public array $studentEvaluationsByWeekChart = [];
     public array $topQuestionsChart = [];
+    public array $topQuestionsCurrentWeekChart = [];
 
     public function mount(): void
     {
@@ -105,6 +106,9 @@ class Dashboard extends Component
             ],
         ];
 
+        $user = auth()->user();
+        $isRegularTeacher = $user->hasRole('teacher') && !$user->is_substitute;
+
         // 1. Questions By Subject Chart
         $questionsSubj = Question::where('cycle_id', $this->selected_cycle_id)
             ->where(function ($q) {
@@ -113,6 +117,7 @@ class Dashboard extends Component
                       $q2->where('is_parent_suggestion', true)->where('status', 'approved');
                   });
             })
+            ->when($isRegularTeacher, fn($q) => $q->where('user_id', $user->id))
             ->selectRaw('subject, count(*) as count')
             ->groupBy('subject')
             ->get();
@@ -165,6 +170,7 @@ class Dashboard extends Component
                       $q2->where('is_parent_suggestion', true)->where('status', 'approved');
                   });
             })
+            ->when($isRegularTeacher, fn($q) => $q->where('user_id', $user->id))
             ->selectRaw('week, count(*) as count')
             ->groupBy('week')
             ->orderBy('week')
@@ -210,14 +216,15 @@ class Dashboard extends Component
         ];
 
         // 3. Student Evaluations By Week Chart
-        $answers = \App\Models\StudentAnswer::whereHas('question', function ($q) {
+        $answers = \App\Models\StudentAnswer::whereHas('question', function ($q) use ($isRegularTeacher, $user) {
             $q->where('cycle_id', $this->selected_cycle_id)
                 ->where(function ($q2) {
                     $q2->where('is_parent_suggestion', false)
                       ->orWhere(function ($q3) {
                           $q3->where('is_parent_suggestion', true)->where('status', 'approved');
                       });
-                });
+                })
+                ->when($isRegularTeacher, fn($q4) => $q4->where('user_id', $user->id));
         })
             ->selectRaw('week, is_correct, count(*) as count')
             ->groupBy('week', 'is_correct')
@@ -305,14 +312,15 @@ class Dashboard extends Component
         ];
 
         // 4. Top Questions (Correct/Wrong) Chart
-        $questionAnswers = \App\Models\StudentAnswer::whereHas('question', function ($q) {
+        $questionAnswers = \App\Models\StudentAnswer::whereHas('question', function ($q) use ($isRegularTeacher, $user) {
             $q->where('cycle_id', $this->selected_cycle_id)
                 ->where(function ($q2) {
                     $q2->where('is_parent_suggestion', false)
                       ->orWhere(function ($q3) {
                           $q3->where('is_parent_suggestion', true)->where('status', 'approved');
                       });
-                });
+                })
+                ->when($isRegularTeacher, fn($q4) => $q4->where('user_id', $user->id));
         })
             ->selectRaw('question_id, is_correct, count(*) as count')
             ->groupBy('question_id', 'is_correct')
@@ -395,6 +403,103 @@ class Dashboard extends Component
                 ]
             ])
         ];
+
+        // 5. Top Questions Current Week (Correct/Wrong) Chart
+        $selectedCycle = AcademicCycle::find($this->selected_cycle_id);
+        $currentWeek = $selectedCycle ? $selectedCycle->active_week : 1;
+
+        $questionAnswersWeek = \App\Models\StudentAnswer::where('week', $currentWeek)
+            ->whereHas('question', function ($q) use ($isRegularTeacher, $user) {
+                $q->where('cycle_id', $this->selected_cycle_id)
+                    ->where(function ($q2) {
+                        $q2->where('is_parent_suggestion', false)
+                          ->orWhere(function ($q3) {
+                              $q3->where('is_parent_suggestion', true)->where('status', 'approved');
+                          });
+                    })
+                    ->when($isRegularTeacher, fn($q4) => $q4->where('user_id', $user->id));
+            })
+            ->selectRaw('question_id, is_correct, count(*) as count')
+            ->groupBy('question_id', 'is_correct')
+            ->get();
+
+        $qStatsWeek = [];
+        foreach ($questionAnswersWeek as $ans) {
+            if (!isset($qStatsWeek[$ans->question_id])) {
+                $qStatsWeek[$ans->question_id] = ['correct' => 0, 'wrong' => 0, 'total' => 0];
+            }
+            if ($ans->is_correct) {
+                $qStatsWeek[$ans->question_id]['correct'] = $ans->count;
+            } else {
+                $qStatsWeek[$ans->question_id]['wrong'] = $ans->count;
+            }
+            $qStatsWeek[$ans->question_id]['total'] += $ans->count;
+        }
+
+        uasort($qStatsWeek, fn($a, $b) => $b['total'] <=> $a['total']);
+        $top10Week = array_slice($qStatsWeek, 0, 10, true);
+
+        $qIdsWeek = array_keys($top10Week);
+        $questionsMapWeek = \App\Models\Question::whereIn('id', $qIdsWeek)->pluck('content', 'id');
+
+        $labelsTopWeek = [];
+        $correctDataTopWeek = [];
+        $wrongDataTopWeek = [];
+
+        foreach ($top10Week as $qId => $stat) {
+            $content = $questionsMapWeek[$qId] ?? 'سؤال #' . $qId;
+            $content = \Illuminate\Support\Str::limit($content, 30);
+            $labelsTopWeek[] = $content;
+            $correctDataTopWeek[] = $stat['correct'];
+            $wrongDataTopWeek[] = $stat['wrong'];
+        }
+
+        $this->topQuestionsCurrentWeekChart = [
+            'type' => 'bar',
+            'data' => [
+                'labels' => $labelsTopWeek,
+                'datasets' => [
+                    [
+                        'label' => __('lang.correct_answers') ?? 'الإجابات الصحيحة',
+                        'data' => $correctDataTopWeek,
+                        'backgroundColor' => 'rgba(22, 163, 74, 0.85)',
+                        'borderColor' => '#16a34a',
+                        'borderWidth' => 1,
+                        'borderRadius' => 6,
+                        'hoverBackgroundColor' => '#16a34a',
+                    ],
+                    [
+                        'label' => __('lang.wrong_answers') ?? 'الإجابات الخاطئة',
+                        'data' => $wrongDataTopWeek,
+                        'backgroundColor' => 'rgba(220, 38, 38, 0.85)',
+                        'borderColor' => '#dc2626',
+                        'borderWidth' => 1,
+                        'borderRadius' => 6,
+                        'hoverBackgroundColor' => '#dc2626',
+                    ]
+                ]
+            ],
+            'options' => array_merge_recursive($commonOptions, [
+                'indexAxis' => 'y',
+                'interaction' => [
+                    'mode' => 'index',
+                    'intersect' => false,
+                ],
+                'scales' => [
+                    'x' => [
+                        'beginAtZero' => true, 
+                        'stacked' => true,
+                        'grid' => ['color' => 'rgba(0, 0, 0, 0.05)', 'borderDash' => [5, 5]],
+                        'ticks' => ['stepSize' => 1, 'font' => ['family' => 'inherit']]
+                    ],
+                    'y' => [
+                        'stacked' => true,
+                        'grid' => ['display' => false],
+                        'ticks' => ['font' => ['family' => 'inherit', 'size' => 12]]
+                    ]
+                ]
+            ])
+        ];
     }
 
     #[Computed]
@@ -403,13 +508,19 @@ class Dashboard extends Component
         if (! $this->selected_cycle_id) {
             return 0;
         }
+
+        $user = auth()->user();
+        $isRegularTeacher = $user->hasRole('teacher') && !$user->is_substitute;
+
         return Question::where('cycle_id', $this->selected_cycle_id)
             ->where(function ($q) {
                 $q->where('is_parent_suggestion', false)
                   ->orWhere(function ($q2) {
                       $q2->where('is_parent_suggestion', true)->where('status', 'approved');
                   });
-            })->count();
+            })
+            ->when($isRegularTeacher, fn($q) => $q->where('user_id', $user->id))
+            ->count();
     }
 
     #[Computed]
@@ -418,6 +529,9 @@ class Dashboard extends Component
         if (! $this->selected_cycle_id) {
             return collect();
         }
+        $user = auth()->user();
+        $isRegularTeacher = $user->hasRole('teacher') && !$user->is_substitute;
+
         return Question::where('cycle_id', $this->selected_cycle_id)
             ->where(function ($q) {
                 $q->where('is_parent_suggestion', false)
@@ -425,6 +539,7 @@ class Dashboard extends Component
                       $q2->where('is_parent_suggestion', true)->where('status', 'approved');
                   });
             })
+            ->when($isRegularTeacher, fn($q) => $q->where('user_id', $user->id))
             ->with('creator')
             ->latest()
             ->take(5)

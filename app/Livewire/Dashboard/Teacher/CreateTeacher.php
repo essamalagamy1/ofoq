@@ -23,15 +23,19 @@ class CreateTeacher extends Component
 
     public string $phone = '';
 
-    public string $assigned_subject = '';
+    public ?string $assigned_subject = null;
+
+    public ?int $assigned_grade = null;
 
     public bool $requires_password = false;
+
+    public bool $is_substitute = false;
 
     #[On('open-create-modal')]
     public function openModal(): void
     {
         $this->reset([
-            'name', 'password', 'phone', 'assigned_subject', 'requires_password'
+            'name', 'password', 'phone', 'assigned_subject', 'assigned_grade', 'requires_password', 'is_substitute'
         ]);
         $this->phone_key = '+966';
         $this->create_modal = true;
@@ -45,7 +49,9 @@ class CreateTeacher extends Component
             'password' => $this->requires_password ? 'required|string|min:8' : 'nullable',
             'phone_key' => 'nullable|string|max:10',
             'phone' => 'required|string|digits:9|unique:users,phone',
-            'assigned_subject' => 'required|string|in:science,math,arabic',
+            'assigned_subject' => 'nullable|string|in:science,math,arabic',
+            'assigned_grade' => 'nullable|integer|in:3,4,5,6',
+            'is_substitute' => 'boolean',
         ];
     }
 
@@ -62,6 +68,8 @@ class CreateTeacher extends Component
             'phone_key' => $this->phone_key,
             'phone' => $this->phone,
             'assigned_subject' => $this->assigned_subject,
+            'assigned_grade' => $this->assigned_grade,
+            'is_substitute' => $this->is_substitute,
             'type' => 'teacher',
         ]);
 

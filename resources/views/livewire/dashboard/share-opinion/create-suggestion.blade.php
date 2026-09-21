@@ -13,12 +13,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <x-select label="{{ __('lang.subject') ?? 'المادة' }}" wire:model="subject" :options="collect(\App\Enums\SubjectEnum::getInstances())->map(fn($e) => ['value' => $e->value, 'title' => $e->title()])" option-value="value" option-label="title" placeholder="{{ __('lang.select_subject') ?? 'اختر المادة...' }}" required />
                 
-                <x-select label="{{ __('lang.grade') ?? 'الصف' }}" wire:model="grade" :options="[
-                    ['id' => 3, 'name' => '3'],
-                    ['id' => 4, 'name' => '4'],
-                    ['id' => 5, 'name' => '5'],
-                    ['id' => 6, 'name' => '6'],
-                ]" option-value="id" option-label="name" placeholder="{{ __('lang.select_grade') ?? 'اختر الصف...' }}" required />
+                <x-select label="{{ __('lang.grade') ?? 'الصف' }}" wire:model="grade" :options="$available_grades" option-value="id" option-label="name" placeholder="{{ __('lang.select_grade') ?? 'اختر الصف...' }}" required />
                 
                 <x-input type="number" label="{{ __('lang.week') ?? 'الأسبوع' }}" wire:model="week" readonly hint="يتم تحديد الأسبوع تلقائياً من قبل الإدارة" />
             </div>
