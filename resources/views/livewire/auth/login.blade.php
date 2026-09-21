@@ -41,6 +41,9 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
 
         $this->ensureIsNotRateLimited();
 
+        $cleanPhone = preg_replace('/[^0-9]/', '', $this->phone);
+        $this->phone = $cleanPhone;
+
         $user = \App\Models\User::where('phone', $this->phone)->where('phone_key', $this->phone_key)->first();
 
         if (!$user) {
@@ -90,6 +93,9 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
         ]);
 
         $this->ensureIsNotRateLimited();
+
+        $cleanPhone = preg_replace('/[^0-9]/', '', $this->phone);
+        $this->phone = $cleanPhone;
 
         $user = \App\Models\User::where('phone', $this->phone)->where('phone_key', $this->phone_key)->first();
 
