@@ -32,7 +32,7 @@
         style="background-image: url('{{ asset('bg.png') }}'); background-size: cover; background-repeat: no-repeat; background-position: center;">
 
         <!-- Main Overlay Container -->
-        <div class="flex flex-col gap-2 w-full max-w-xl z-10 relative mt-8 md:mt-12">
+        <div class="flex flex-col gap-2 w-full max-w-xl z-10 relative mt-8 md:mt-4">
 
             <!-- 12 Weeks Badge (Floating) -->
             <div class="p-2 absolute -top-16 md:-top-20 -right-6 md:-right-20 rounded-full flex flex-col items-center justify-center shadow-2xl z-20 w-[110px] h-[110px] md:w-[130px] md:h-[130px]"
@@ -65,7 +65,7 @@
             </div>
 
             <!-- Bottom Banner -->
-            <div class="mt-10 text-center pb-8">
+            <div class="mt-4 text-center pb-8">
                 <div class="inline-flex items-center justify-center px-5 md:px-8 py-3 rounded-full font-bold text-sm md:text-lg shadow-xl w-full max-w-[95%]"
                     style="background-color: #51258c; border: 3px solid #d4a85a; color: white;">
                     <span class="mx-2 text-xl" style="color: #d4a85a;">✦</span>

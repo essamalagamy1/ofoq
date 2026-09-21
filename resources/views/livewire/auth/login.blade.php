@@ -236,7 +236,7 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
         </div>
 
         <!-- Badges -->
-        <div class="mt-8 border-t-[3px] border-dashed border-[#d4a85a]/50 pt-8">
+        <div class="mt-8 border-t-[3px] border-dashed border-[#d4a85a]/50 pt-2">
             <h3 class="text-center text-xl font-extrabold mb-6 flex items-center justify-center gap-2 drop-shadow-sm"
                 style="color: #0b1c38;">
                 <span class="text-sm" style="color: #d4a85a;">✦</span> أوسمة الإنجاز <span class="text-sm"
