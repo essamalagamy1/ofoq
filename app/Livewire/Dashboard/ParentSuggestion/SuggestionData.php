@@ -54,14 +54,17 @@ class SuggestionData extends Component
         $suggestions = Question::query()
             ->where('is_parent_suggestion', true)
             ->when($user->hasRole('teacher'), function (Builder $query) use ($user) {
-                $query->where('subject', $user->assigned_subject);
+                $query->where('subject', $user->assigned_subject)
+                      ->where('grade', $user->assigned_grade);
             })
             ->with(['cycle', 'creator'])
             ->latest()
             ->paginate(20);
 
         $stats = [
-            'total' => Question::where('is_parent_suggestion', true)->when($user->hasRole('teacher'), fn($q) => $q->where('subject', $user->assigned_subject))->count(),
+            'total' => Question::where('is_parent_suggestion', true)
+                        ->when($user->hasRole('teacher'), fn($q) => $q->where('subject', $user->assigned_subject)->where('grade', $user->assigned_grade))
+                        ->count(),
         ];
 
         return view('livewire.dashboard.parent-suggestion.suggestion-data', [
