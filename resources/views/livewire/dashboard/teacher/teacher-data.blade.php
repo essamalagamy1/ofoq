@@ -2,6 +2,8 @@
     <x-header title="{{ __('lang.teachers') ?? 'المعلمين' }}" separator>
         <x-slot:actions>
             <div class="flex items-center gap-2 sm:gap-4">
+                <x-button icon="o-arrow-up-tray" class="btn-success btn-sm sm:btn-md"
+                    wire:click="$set('import_modal', true)">{{ __('lang.import') ?? 'استيراد' }}</x-button>
                 <x-button icon="o-plus" class="btn-primary btn-sm sm:btn-md"
                     wire:click="$dispatch('open-create-modal')">{{ __('lang.add') ?? 'إضافة' }}</x-button>
             </div>
@@ -119,4 +121,35 @@
 
     @livewire('dashboard.teacher.create-teacher')
     @livewire('dashboard.teacher.update-teacher')
+
+    <!-- Import Modal -->
+    <x-modal wire:model="import_modal" title="{{ __('lang.import_teachers') ?? 'استيراد المعلمات' }}" separator>
+        <x-form wire:submit="importData">
+            <x-file wire:model="import_file" label="{{ __('lang.select_excel_file') ?? 'اختر ملف Excel' }}"
+                accept=".xlsx,.xls,.csv" required />
+
+            <div class="text-sm text-gray-500 mt-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <div class="font-bold mb-2">الأعمدة المطلوبة في الملف:</div>
+                <div class="mb-4" dir="ltr">
+                    <code class="bg-gray-200 px-2 py-1 rounded">name</code>,
+                    <code class="bg-gray-200 px-2 py-1 rounded">phone</code>,
+                    <code class="bg-gray-200 px-2 py-1 rounded">subject</code>,
+                    <code class="bg-gray-200 px-2 py-1 rounded">grade</code>,
+                    <code class="bg-gray-200 px-2 py-1 rounded">is_substitute</code>
+                </div>
+                <ul class="list-disc list-inside space-y-1">
+                    <li>عمود <span class="font-bold text-error">name</span> مطلوب.</li>
+                    <li>قيم <span class="font-bold">subject</span>: science, math, arabic</li>
+                    <li>قيم <span class="font-bold">grade</span>: 3, 4, 5, 6</li>
+                    <li>قيم <span class="font-bold">is_substitute</span>: 1 للبديلة، 0 للعادية أو يمكن تركه فارغاً</li>
+                </ul>
+            </div>
+
+            <x-slot:actions>
+                <x-button label="{{ __('lang.cancel') ?? 'إلغاء' }}" @click="$wire.import_modal = false" />
+                <x-button label="{{ __('lang.import') ?? 'استيراد' }}" class="btn-primary" type="submit"
+                    spinner="importData" />
+            </x-slot:actions>
+        </x-form>
+    </x-modal>
 </div>

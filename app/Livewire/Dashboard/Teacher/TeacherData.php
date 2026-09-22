@@ -11,13 +11,19 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\TeachersImport;
 use Mary\Traits\Toast;
 
 #[Title('teachers')]
 #[Lazy]
 class TeacherData extends Component
 {
-    use Toast, WithPagination;
+    use Toast, WithPagination, WithFileUploads;
+
+    public bool $import_modal = false;
+    public $import_file;
 
     public function placeholder(): View
     {
@@ -92,6 +98,23 @@ class TeacherData extends Component
         if ($user->type === 'teacher') {
             $user->delete();
             $this->success(__('lang.deleted_successfully', ['attribute' => __('lang.teacher') ?? 'المعلم']));
+        }
+    }
+
+    public function importData(): void
+    {
+        $this->validate([
+            'import_file' => 'required|mimes:xlsx,xls,csv|max:10240',
+        ]);
+
+        try {
+            Excel::import(new TeachersImport, $this->import_file->getRealPath());
+
+            $this->success(__('lang.imported_successfully') ?? 'تم استيراد المعلمين بنجاح');
+            $this->import_modal = false;
+            $this->import_file = null;
+        } catch (\Exception $e) {
+            $this->error(__('lang.import_error').$e->getMessage());
         }
     }
 }

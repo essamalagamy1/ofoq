@@ -42,9 +42,8 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
         $this->ensureIsNotRateLimited();
 
         $cleanPhone = preg_replace('/[^0-9]/', '', $this->phone);
-        $this->phone = $cleanPhone;
 
-        $user = \App\Models\User::where('phone', $this->phone)->where('phone_key', $this->phone_key)->first();
+        $user = \App\Models\User::where('phone', $cleanPhone)->where('phone_key', $this->phone_key)->first();
 
         if (!$user) {
             $student = \App\Models\Student::where(function ($query) {
@@ -68,6 +67,7 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
             }
         }
 
+        $this->phone = $cleanPhone;
         $this->phone_checked = true;
 
         if ($user->requires_password) {
@@ -95,9 +95,8 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
         $this->ensureIsNotRateLimited();
 
         $cleanPhone = preg_replace('/[^0-9]/', '', $this->phone);
-        $this->phone = $cleanPhone;
 
-        $user = \App\Models\User::where('phone', $this->phone)->where('phone_key', $this->phone_key)->first();
+        $user = \App\Models\User::where('phone', $cleanPhone)->where('phone_key', $this->phone_key)->first();
 
         if (!$user || !\Illuminate\Support\Facades\Hash::check($this->password, $user->password)) {
             RateLimiter::hit($this->throttleKey());
@@ -106,6 +105,7 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
             ]);
         }
 
+        $this->phone = $cleanPhone;
         Auth::login($user, $this->remember);
         RateLimiter::clear($this->throttleKey());
         Session::regenerate();
