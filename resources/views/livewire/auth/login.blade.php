@@ -46,14 +46,16 @@ new #[Layout('components.layouts.auth', ['title' => 'login'])] class extends Com
         $user = \App\Models\User::where('phone', $cleanPhone)->where('phone_key', $this->phone_key)->first();
 
         if (!$user) {
-            $student = \App\Models\Student::where(function ($query) {
-                $query->where('parent_mobile_1', $this->phone)->where('parent_mobile_1_key', $this->phone_key)->orWhere('parent_mobile_2', $this->phone)->where('parent_mobile_2_key', $this->phone_key)->orWhere('parent_mobile_3', $this->phone)->where('parent_mobile_3_key', $this->phone_key);
+            $student = \App\Models\Student::where(function ($query) use ($cleanPhone) {
+                $query->where('parent_mobile_1', $cleanPhone)->where('parent_mobile_1_key', $this->phone_key)
+                      ->orWhere('parent_mobile_2', $cleanPhone)->where('parent_mobile_2_key', $this->phone_key)
+                      ->orWhere('parent_mobile_3', $cleanPhone)->where('parent_mobile_3_key', $this->phone_key);
             })->first();
 
             if ($student) {
                 $user = \App\Models\User::create([
                     'name' => 'ولي أمر ' . $student->name,
-                    'phone' => $this->phone,
+                    'phone' => $cleanPhone,
                     'phone_key' => $this->phone_key,
                     'requires_password' => false,
                     'password' => \Illuminate\Support\Facades\Hash::make(\Illuminate\Support\Str::random(16)),

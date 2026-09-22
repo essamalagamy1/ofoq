@@ -55,7 +55,7 @@
                                     <span class="text-gray-500 text-sm">{{ __('lang.based_on_all_weeks') ?? 'بناءً على أداء جميع الأسابيع' }}</span>
                                 </div>
                             @else
-                                <span class="badge badge-ghost text-gray-500">{{ __('lang.no_badge') ?? 'لا توجد شارة' }}</span>
+                                <span class="badge badge-outline border-base-300 text-base-content/70">{{ __('lang.no_badge') ?? 'لا توجد شارة' }}</span>
                             @endif
                         </div>
                     </div>
@@ -150,7 +150,7 @@
                                     {{ $data['badge']['name'] }}
                                 </span>
                             @else
-                                <span class="badge badge-ghost mb-2 text-gray-500 text-xs">{{ __('lang.no_badge') ?? 'لا توجد شارة' }}</span>
+                                <span class="badge badge-outline border-base-300 mb-2 text-base-content/70 text-xs">{{ __('lang.no_badge') ?? 'لا توجد شارة' }}</span>
                             @endif
 
                             <div class="text-xs text-gray-500 flex flex-col gap-1">

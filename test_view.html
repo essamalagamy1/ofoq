@@ -1,0 +1,162 @@
+<div wire:snapshot="{&quot;data&quot;:{&quot;show_modal&quot;:false,&quot;student&quot;:null,&quot;cycles&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}],&quot;selected_cycle_id&quot;:null,&quot;weekly_progress&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}],&quot;overall_progress&quot;:null,&quot;active_cycle_id&quot;:null,&quot;active_cycle_week&quot;:null,&quot;selected_week&quot;:null,&quot;week_details&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}]},&quot;memo&quot;:{&quot;id&quot;:&quot;GD5ItP30b81l31c5ce5W&quot;,&quot;name&quot;:&quot;dashboard.student.student-progress&quot;,&quot;path&quot;:&quot;admin\/students&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;ar&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;91e2a091e960fbb1fa5d48451973c3626a569f7a4d88a2dc806b5fd3b5bd798f&quot;}" wire:effects="{&quot;listeners&quot;:[&quot;open-student-progress-modal&quot;]}" wire:id="GD5ItP30b81l31c5ce5W" wire:name="dashboard.student.student-progress">
+    <dialog
+    class="modal"
+
+            x-data="{open: window.Livewire.find('GD5ItP30b81l31c5ce5W').entangle('show_modal').live }"
+        x-init="$watch('open', value => { if (!value){ $dispatch('close') }else{ $dispatch('open') } })"
+        :class="{'modal-open !animate-none': open}"
+        :open="open"
+                    @keydown.escape.window = "$wire.show_modal = false"
+            
+            x-trap="open" x-bind:inert="!open"
+    >
+    <div class="modal-box max-w-6xl">
+        <!--[if BLOCK]><![endif]-->            <form method="dialog" tabindex="-1">
+                <!--[if BLOCK]><![endif]-->                    <!--[if BLOCK]><![endif]-->        <button
+    
+        wire:key="maryeb7dfc4cd6dac92d14eead70d278ee4b"
+        type="button" @click="$wire.show_modal = false" tabindex="-1"
+        class="btn btn-circle btn-sm btn-ghost absolute end-2 top-2 z-[999]" @click="$wire.show_modal = false" tabindex="-1"
+
+        
+        
+        
+            >
+
+        <!-- SPINNER LEFT -->
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+        <!-- ICON -->
+        <!--[if BLOCK]><![endif]-->            <span class="block" >
+                <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->        <svg class="inline flex-shrink-0 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+</svg>
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->            </span>
+        <!--[if ENDBLOCK]><![endif]-->
+        <!-- LABEL / SLOT -->
+        <!--[if BLOCK]><![endif]-->            
+        <!--[if ENDBLOCK]><![endif]-->
+        <!-- ICON RIGHT -->
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+        <!-- SPINNER RIGHT -->
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    <!--[if BLOCK]><![endif]-->        </button>
+    <!--[if ENDBLOCK]><![endif]-->                <!--[if ENDBLOCK]><![endif]-->            </form>
+        <!--[if ENDBLOCK]><![endif]-->
+        <!--[if BLOCK]><![endif]-->            <div id="tkdm-altalb" class="mb-10 !mb-5">
+    <div class="flex flex-wrap gap-5 justify-between items-center">
+        <div>
+            <div class="flex items-center text-xl font-extrabold " >
+                <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+                <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+                <span class="">تقدم الطالبة - </span>
+
+                <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->            </div>
+
+            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->        </div>
+
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->    </div>
+
+    <!--[if BLOCK]><![endif]-->        <hr class="border-t-[length:var(--border)] border-base-content/10 mt-3" />
+
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->    <!--[if ENDBLOCK]><![endif]--></div>        <!--[if ENDBLOCK]><![endif]-->
+        <div>
+            <div class="mb-6 bg-base-200 p-4 rounded-lg flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->        <svg class="inline flex-shrink-0 w-8 h-8 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/>
+</svg>
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                <div>
+                    <h3 class="font-bold text-lg">تتبع الأوسمة</h3>
+                    <p class="text-sm text-gray-500">تُحسب الشارة بناءً على نسبة الإجابات الصحيحة في كل أسبوع.</p>
+                </div>
+            </div>
+            
+            <!--[if BLOCK]><![endif]-->                <div class="w-64">
+                    <div>
+    
+    <fieldset class="fieldset py-0">
+        
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+        <label class="">
+            
+            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+            <div class="w-full">
+                
+                <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+                
+                <label
+                    class="select w-full"
+                 >
+
+                    
+                    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+                    
+                    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+                    
+                    <select id="mary2e99292e7cd8440efd26ae1a2dd6889fselected_cycle_id" wire:model.live="selected_cycle_id">
+                        <!--[if BLOCK]><![endif]-->                            <option value="">اختر الدورة...</option>
+                        <!--[if ENDBLOCK]><![endif]-->
+                        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                    </select>
+
+                    
+                    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+                    
+                    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                </label>
+
+                
+                <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->            </div>
+        </label>
+
+        
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+        
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->    </fieldset>
+</div>                </div>
+            <!--[if ENDBLOCK]><![endif]-->        </div>
+
+        <!--[if BLOCK]><![endif]-->            <div class="py-12 text-center text-gray-500">
+                <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->        <svg class="inline flex-shrink-0 w-12 h-12 mx-auto text-gray-300 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H6.911a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661Z"/>
+</svg>
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                <p>لا توجد دورات أكاديمية متاحة لعرض التقدم.</p>
+            </div>
+        <!--[if ENDBLOCK]><![endif]-->
+        </div>
+
+        <!--[if BLOCK]><![endif]-->            <hr class="border-t-[length:var(--border)] border-base-content/10 mt-5" />
+        <!--[if ENDBLOCK]><![endif]-->
+        <!--[if BLOCK]><![endif]-->            <div class="modal-action">
+                <!--[if BLOCK]><![endif]-->        <button
+    
+        wire:key="mary0089085f5b2c3a30142ddbb4cc494dd0"
+        type="button" @click="$wire.show_modal = false"
+        class="btn" @click="$wire.show_modal = false"
+
+        
+        
+        
+            >
+
+        <!-- SPINNER LEFT -->
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+        <!-- ICON -->
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+        <!-- LABEL / SLOT -->
+        <!--[if BLOCK]><![endif]-->            <span class="">
+                إغلاق
+            </span>
+            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->        <!--[if ENDBLOCK]><![endif]-->
+        <!-- ICON RIGHT -->
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+        <!-- SPINNER RIGHT -->
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    <!--[if BLOCK]><![endif]-->        </button>
+    <!--[if ENDBLOCK]><![endif]-->
+            </div>
+        <!--[if ENDBLOCK]><![endif]-->    </div>
+
+    <!--[if BLOCK]><![endif]-->        <form class="modal-backdrop" method="dialog">
+            <!--[if BLOCK]><![endif]-->                <button @click="$wire.show_modal = false" type="button">close</button>
+            <!--[if ENDBLOCK]><![endif]-->        </form>
+    <!--[if ENDBLOCK]><![endif]--></dialog></div>

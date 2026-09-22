@@ -71,11 +71,11 @@ class StudentProgress extends Component
             
         // Calculate Overall Progress
         $totalAll = $answers->count();
+        $correctAll = $totalAll > 0 ? $answers->where('is_correct', true)->count() : 0;
+        $percentageAll = $totalAll > 0 ? round(($correctAll / $totalAll) * 100) : 0;
+        
+        $overallBadge = null;
         if ($totalAll > 0) {
-            $correctAll = $answers->where('is_correct', true)->count();
-            $percentageAll = round(($correctAll / $totalAll) * 100);
-            
-            $overallBadge = null;
             foreach ($allBadges as $badge) {
                 if ($percentageAll >= $badge->min_percentage && $percentageAll <= $badge->max_percentage) {
                     $overallBadge = [
@@ -86,16 +86,14 @@ class StudentProgress extends Component
                     break;
                 }
             }
-            
-            $this->overall_progress = [
-                'percentage' => $percentageAll,
-                'badge' => $overallBadge,
-                'total_answered' => $totalAll,
-                'correct_answers' => $correctAll
-            ];
-        } else {
-            $this->overall_progress = null;
         }
+        
+        $this->overall_progress = [
+            'percentage' => $percentageAll,
+            'badge' => $overallBadge,
+            'total_answered' => $totalAll,
+            'correct_answers' => $correctAll
+        ];
 
         // Loop over weeks 1 to 12
         for ($week = 1; $week <= 12; $week++) {
