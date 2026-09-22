@@ -5,19 +5,19 @@
             <div class="mb-6">
                 <h3 class="text-lg font-semibold mb-3">{{ __('lang.basic_info') }}</h3>
                 <div class="grid grid-cols-1 gap-3">
-                    <x-input label="{{ __('lang.name') }}" wire:model="name_ar"/>
-                    <x-textarea label="{{ __('lang.description') }}" wire:model="description_ar" rows="3"/>
+                    <x-input label="{{ __('lang.name') }}" wire:model="name_ar" />
+                    {{-- <x-textarea label="{{ __('lang.description') }}" wire:model="description_ar" rows="3"/> --}}
                 </div>
             </div>
 
             @can('edit_login_message')
-            {{-- Login Message --}}
-            <div class="mb-6">
-                <h3 class="text-lg font-semibold mb-3">{{ __('lang.login_message') }}</h3>
-                <div class="grid grid-cols-1 gap-3">
-                    <x-textarea label="{{ __('lang.login_message') }}" wire:model="login_message_ar" rows="3"/>
+                {{-- Login Message --}}
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold mb-3">{{ __('lang.login_message') }}</h3>
+                    <div class="grid grid-cols-1 gap-3">
+                        <x-textarea label="{{ __('lang.login_message') }}" wire:model="login_message_ar" rows="3" />
+                    </div>
                 </div>
-            </div>
             @endcan
 
             <div class="flex justify-end">
