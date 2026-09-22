@@ -924,4 +924,6 @@ return [
     'enter_comment_here' => 'اكتب تعليقك ليظهر لولي الأمر...',
     'comment_saved' => 'تم حفظ التعليق بنجاح',
     'import_teachers' => 'استيراد المعلمات',
+    'actions' => 'الإجراءات',
+    'save_changes' => 'حفظ التعديلات',
 ];

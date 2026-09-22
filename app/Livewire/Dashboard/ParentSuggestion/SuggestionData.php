@@ -102,4 +102,11 @@ class SuggestionData extends Component
         $this->comment_modal = false;
         $this->selected_suggestion = null;
     }
+
+    public function delete(Question $suggestion): void
+    {
+        abort_if(!auth()->user()->hasRole('super_admin'), 403);
+        $suggestion->delete();
+        $this->success(__('lang.suggestion_deleted') ?? 'تم الحذف بنجاح');
+    }
 }

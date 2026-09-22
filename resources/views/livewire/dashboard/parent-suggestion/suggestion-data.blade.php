@@ -33,6 +33,9 @@
                                 <div class="flex items-center justify-center gap-2">
                                     <x-button icon="o-chat-bubble-bottom-center-text" class="btn-sm btn-info text-white" wire:click="openCommentModal({{ $suggestion->id }})" tooltip="{{ __('lang.add_comment') ?? 'إضافة تعليق' }}" spinner />
                                     <x-button icon="o-plus-circle" class="btn-sm btn-success text-white" wire:click="addToQuestions({{ $suggestion->id }})" tooltip="{{ __('lang.add_to_questions') ?? 'إضافة لأسئلة الطلاب' }}" spinner />
+                                    @if(auth()->user()->hasRole('super_admin'))
+                                        <x-button icon="o-trash" class="btn-sm btn-error text-white" wire:click="delete({{ $suggestion->id }})" wire:confirm="{{ __('lang.confirm_delete') ?? 'هل أنت متأكد من الحذف؟' }}" tooltip="{{ __('lang.delete') ?? 'حذف' }}" spinner />
+                                    @endif
                                 </div>
                             </td>
                         </tr>

@@ -53,6 +53,7 @@ Route::middleware(['web-language'])->group(function () {
         Route::middleware(['check.parent.eligibility'])->group(function () {
             Route::livewire('opinion', ParentSuggestionList::class)->name('opinion');
             Route::livewire('opinion/create', ParentCreateSuggestion::class)->name('opinion.create');
+            Route::livewire('opinion/{question}/edit', \App\Livewire\Dashboard\ShareOpinion\UpdateSuggestion::class)->name('opinion.edit');
         });
     });
 

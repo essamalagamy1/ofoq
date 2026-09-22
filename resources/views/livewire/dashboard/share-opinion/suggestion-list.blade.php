@@ -17,6 +17,7 @@
                         <th class="py-3 px-4 text-center">{{ __('lang.subject') ?? 'المادة' }}</th>
                         <th class="py-3 px-4 text-center">{{ __('lang.grade') ?? 'الصف' }}</th>
                         <th class="py-3 px-4">{{ __('lang.teacher_comment') ?? 'رد المعلم' }}</th>
+                        <th class="py-3 px-4 text-center">{{ __('lang.actions') ?? 'إجراءات' }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,10 +44,20 @@
                                     <span class="text-xs text-gray-400">{{ __('lang.no_comment') ?? 'لا يوجد رد' }}</span>
                                 @endif
                             </td>
+                            <td class="py-3 px-4 text-center">
+                                @if($suggestion->status === 'pending')
+                                    <div class="flex items-center justify-center gap-2">
+                                        <x-button icon="o-pencil" link="{{ route('parent.opinion.edit', $suggestion->id) }}" class="btn-ghost btn-sm text-primary" tooltip="{{ __('lang.edit') ?? 'تعديل' }}" />
+                                        <x-button icon="o-trash" wire:click="delete({{ $suggestion->id }})" wire:confirm="{{ __('lang.confirm_delete') ?? 'هل أنت متأكد من الحذف؟' }}" class="btn-ghost btn-sm text-error" tooltip="{{ __('lang.delete') ?? 'حذف' }}" />
+                                    </div>
+                                @else
+                                    <span class="badge badge-success badge-sm">{{ __('lang.approved') ?? 'معتمد' }}</span>
+                                @endif
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="py-8 text-center text-gray-500">
+                            <td colspan="6" class="py-8 text-center text-gray-500">
                                 {{ __('lang.no_suggestions_yet') ?? 'لم تقم بتقديم أي مقترحات بعد.' }}
                             </td>
                         </tr>
