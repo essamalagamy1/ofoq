@@ -78,7 +78,6 @@ class SuggestionData extends Component
         $activeCycle = \App\Models\AcademicCycle::where('is_active', true)->first();
         
         $suggestion->update([
-            'is_parent_suggestion' => false,
             'status' => 'approved',
             'week' => $activeCycle ? $activeCycle->active_week : 1,
             'cycle_id' => $activeCycle ? $activeCycle->id : $suggestion->cycle_id,

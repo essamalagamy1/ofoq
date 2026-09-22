@@ -31,8 +31,12 @@
                             <td class="py-3 px-4 text-center">{{ $suggestion->grade }}</td>
                             <td class="py-3 px-4 text-center">
                                 <div class="flex items-center justify-center gap-2">
-                                    <x-button icon="o-chat-bubble-bottom-center-text" class="btn-sm btn-info text-white" wire:click="openCommentModal({{ $suggestion->id }})" tooltip="{{ __('lang.add_comment') ?? 'إضافة تعليق' }}" spinner />
-                                    <x-button icon="o-plus-circle" class="btn-sm btn-success text-white" wire:click="addToQuestions({{ $suggestion->id }})" tooltip="{{ __('lang.add_to_questions') ?? 'إضافة لأسئلة الطلاب' }}" spinner />
+                                    @if($suggestion->status === 'pending')
+                                        <x-button icon="o-chat-bubble-bottom-center-text" class="btn-sm btn-info text-white" wire:click="openCommentModal({{ $suggestion->id }})" tooltip="{{ __('lang.add_comment') ?? 'إضافة تعليق' }}" spinner />
+                                        <x-button icon="o-plus-circle" class="btn-sm btn-success text-white" wire:click="addToQuestions({{ $suggestion->id }})" tooltip="{{ __('lang.add_to_questions') ?? 'إضافة لأسئلة الطلاب' }}" spinner />
+                                    @else
+                                        <span class="badge badge-success text-white">{{ __('lang.approved') ?? 'تم القبول' }}</span>
+                                    @endif
                                     @if(auth()->user()->hasRole('super_admin'))
                                         <x-button icon="o-trash" class="btn-sm btn-error text-white" wire:click="delete({{ $suggestion->id }})" wire:confirm="{{ __('lang.confirm_delete') ?? 'هل أنت متأكد من الحذف؟' }}" tooltip="{{ __('lang.delete') ?? 'حذف' }}" spinner />
                                     @endif

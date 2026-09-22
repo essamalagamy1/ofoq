@@ -926,4 +926,6 @@ return [
     'import_teachers' => 'استيراد المعلمات',
     'actions' => 'الإجراءات',
     'save_changes' => 'حفظ التعديلات',
+    'suggestion_added_to_questions' => 'تم إضافة السؤال لأسئلة الطلاب بنجاح',
+    'add_to_questions' => 'إضافة لأسئلة الطلاب',
 ];

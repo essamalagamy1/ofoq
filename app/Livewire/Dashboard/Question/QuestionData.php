@@ -72,7 +72,15 @@ class QuestionData extends Component
 
         $user = auth()->user();
         if ($user->hasRole('teacher') && !$user->is_substitute) {
-            $query->where('user_id', $user->id);
+            $query->where(function (Builder $q) use ($user) {
+                $q->where('user_id', $user->id)
+                  ->orWhere(function (Builder $q2) use ($user) {
+                      $q2->where('is_parent_suggestion', true)
+                         ->where('status', 'approved')
+                         ->where('subject', $user->assigned_subject)
+                         ->where('grade', $user->assigned_grade);
+                  });
+            });
         }
 
         $query->when($this->search_content, fn (Builder $q) => $q->where('content', 'like', "%{$this->search_content}%"))
