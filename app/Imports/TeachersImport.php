@@ -16,10 +16,16 @@ class TeachersImport implements ToCollection, WithHeadingRow
                 continue;
             }
 
+            $cleanPhone = $this->cleanPhone($row['phone'] ?? null);
+
+            if (empty($cleanPhone) || User::where('phone', $cleanPhone)->exists()) {
+                continue;
+            }
+
             $user = clone User::create([
                 'name' => $row['name'],
                 'phone_key' => '+966',
-                'phone' => $this->cleanPhone($row['phone'] ?? null),
+                'phone' => $cleanPhone,
                 'assigned_subject' => !empty($row['subject']) ? $row['subject'] : null,
                 'assigned_grade' => !empty($row['grade']) ? $row['grade'] : null,
                 'is_substitute' => (bool) ($row['is_substitute'] ?? false),

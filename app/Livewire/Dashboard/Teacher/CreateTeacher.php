@@ -57,9 +57,14 @@ class CreateTeacher extends Component
 
     public function create(): void
     {
-        $this->phone = preg_replace('/[^0-9]/', '', $this->phone);
+        $cleanPhone = preg_replace('/[^0-9]/', '', $this->phone);
         
-        $validated = $this->validate();
+        $validated = \Illuminate\Support\Facades\Validator::make(
+            array_merge($this->all(), ['phone' => $cleanPhone]),
+            $this->rules()
+        )->validate();
+
+        $this->phone = $cleanPhone;
 
         $user = clone User::create([
             'name' => $this->name,

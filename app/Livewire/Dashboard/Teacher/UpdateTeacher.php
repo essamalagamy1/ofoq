@@ -64,9 +64,14 @@ class UpdateTeacher extends Component
 
     public function update(): void
     {
-        $this->phone = preg_replace('/[^0-9]/', '', $this->phone);
+        $cleanPhone = preg_replace('/[^0-9]/', '', $this->phone);
         
-        $validated = $this->validate();
+        $validated = \Illuminate\Support\Facades\Validator::make(
+            array_merge($this->all(), ['phone' => $cleanPhone]),
+            $this->rules()
+        )->validate();
+
+        $this->phone = $cleanPhone;
 
         if ($this->requires_password && $this->password) {
             $validated['password'] = Hash::make($this->password);
