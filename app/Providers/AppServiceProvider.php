@@ -24,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('super_admin') ? true : null;
+        });
+
         Gate::define('viewLogViewer', function (User $user): bool {
             return (auth()->check() && auth()->user()->email === 'superadmin@admin.com') || app()->environment('local');
         });
