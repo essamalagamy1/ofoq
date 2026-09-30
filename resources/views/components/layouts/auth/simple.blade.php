@@ -29,11 +29,14 @@
 	</div>
 </div> --}}
     <div style="background-color: #0b1c38;"
-        class="w-full flex items-center justify-between px-6 md:px-12 py-3 md:py-4 shadow-lg border-b-2 border-[#d4a85a]/30 z-20 relative">
-        <div style="color: #d4a85a;" class="font-bold text-sm md:text-xl drop-shadow-md">
-            نكتب قصة نجاح
+        class="w-full flex items-center justify-between px-6 md:px-12 py-3 md:py-4 shadow-lg border-b-2 border-[#d4a85a]/30 z-20 relative text-center">
+        <div style="color: #d4a85a;" class="font-bold text-xs sm:text-sm md:text-xl drop-shadow-md flex-1 text-right">
+            وزارة التعليم
         </div>
-        <div style="color: #d4a85a;" class="font-bold text-sm md:text-xl drop-shadow-md">
+        <div style="color: #d4a85a;" class="font-bold text-xs sm:text-sm md:text-xl drop-shadow-md flex-1 text-center">
+            إدارة تعليم جدة
+        </div>
+        <div style="color: #d4a85a;" class="font-bold text-xs sm:text-sm md:text-xl drop-shadow-md flex-1 text-left">
             الابتدائية الرابعة والتسعون
         </div>
     </div>
