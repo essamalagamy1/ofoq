@@ -19,8 +19,16 @@ class SuggestionData extends Component
     use Toast, WithPagination;
 
     public bool $comment_modal = false;
+    public bool $view_modal = false;
     public ?Question $selected_suggestion = null;
     public string $teacher_comment = '';
+
+    public string $edit_content = '';
+    public string $edit_option_a = '';
+    public string $edit_option_b = '';
+    public string $edit_option_c = '';
+    public string $edit_option_d = '';
+    public string $edit_correct_option = '';
 
     public function placeholder(): View
     {
@@ -93,6 +101,43 @@ class SuggestionData extends Component
         $this->comment_modal = true;
     }
 
+    public function openViewModal(Question $suggestion): void
+    {
+        $this->selected_suggestion = $suggestion;
+        $this->edit_content = $suggestion->content ?? '';
+        $this->edit_option_a = $suggestion->option_a ?? '';
+        $this->edit_option_b = $suggestion->option_b ?? '';
+        $this->edit_option_c = $suggestion->option_c ?? '';
+        $this->edit_option_d = $suggestion->option_d ?? '';
+        $this->edit_correct_option = $suggestion->correct_option ?? '';
+        $this->view_modal = true;
+    }
+
+    public function saveQuestion(): void
+    {
+        $this->validate([
+            'edit_content' => 'required|string',
+            'edit_option_a' => 'required|string',
+            'edit_option_b' => 'required|string',
+            'edit_option_c' => 'required|string',
+            'edit_option_d' => 'required|string',
+            'edit_correct_option' => 'required|in:A,B,C,D,a,b,c,d',
+        ]);
+
+        if ($this->selected_suggestion) {
+            $this->selected_suggestion->update([
+                'content' => $this->edit_content,
+                'option_a' => $this->edit_option_a,
+                'option_b' => $this->edit_option_b,
+                'option_c' => $this->edit_option_c,
+                'option_d' => $this->edit_option_d,
+                'correct_option' => strtoupper($this->edit_correct_option),
+            ]);
+            $this->success(__('lang.updated_successfully', ['attribute' => __('lang.suggestion') ?? 'المقترح']));
+            $this->view_modal = false;
+        }
+    }
+
     public function saveComment(): void
     {
         if ($this->selected_suggestion) {
@@ -109,6 +154,6 @@ class SuggestionData extends Component
     {
         abort_if(!auth()->user()->hasRole('super_admin'), 403);
         $suggestion->delete();
-        $this->success(__('lang.suggestion_deleted') ?? 'تم الحذف بنجاح');
+        $this->success(__('lang.deleted_successfully', ['attribute' => __('lang.suggestion') ?? 'المقترح']));
     }
 }

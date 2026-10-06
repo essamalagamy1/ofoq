@@ -50,8 +50,6 @@
                                         <x-button icon="o-pencil" link="{{ route('parent.opinion.edit', $suggestion->id) }}" class="btn-ghost btn-sm text-primary" tooltip="{{ __('lang.edit') ?? 'تعديل' }}" />
                                         <x-button icon="o-trash" wire:click="delete({{ $suggestion->id }})" wire:confirm="{{ __('lang.confirm_delete') ?? 'هل أنت متأكد من الحذف؟' }}" class="btn-ghost btn-sm text-error" tooltip="{{ __('lang.delete') ?? 'حذف' }}" />
                                     </div>
-                                @else
-                                    <span class="badge badge-success badge-sm">{{ __('lang.approved') ?? 'معتمد' }}</span>
                                 @endif
                             </td>
                         </tr>
