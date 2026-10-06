@@ -46,31 +46,12 @@ class StudentData extends Component
         return view('livewire.placeholders.page-loading');
     }
 
-    public $search_student_id;
-
-    public $all_students = [];
+    public $search_student;
+    public $filter_grade;
+    public $filter_semester;
 
     public function mount(): void
     {
-        $this->all_students = Student::get([
-            'id', 'name',
-            'parent_mobile_1', 'parent_mobile_1_key',
-            'parent_mobile_2', 'parent_mobile_2_key',
-            'parent_mobile_3', 'parent_mobile_3_key',
-        ])->map(function ($item): array {
-            $phones = collect([
-                $item->parent_mobile_1 ? ltrim($item->parent_mobile_1_key, '+').$item->parent_mobile_1 : null,
-                $item->parent_mobile_2 ? ltrim($item->parent_mobile_2_key, '+').$item->parent_mobile_2 : null,
-                $item->parent_mobile_3 ? ltrim($item->parent_mobile_3_key, '+').$item->parent_mobile_3 : null,
-            ])->filter()->implode(' - ');
-
-            return [
-                'id' => $item->id,
-                'name' => $item->name,
-                'sub_label' => "{$item->id} | ".$phones,
-            ];
-        })->toArray();
-
         view()->share('breadcrumbs', $this->breadcrumbs());
     }
 
@@ -91,7 +72,14 @@ class StudentData extends Component
         $activeCycleId = $activeCycle ? $activeCycle->id : null;
 
         $query = Student::query()
-            ->when($this->search_student_id, fn (Builder $query) => $query->where('id', $this->search_student_id));
+            ->when($this->search_student, function (Builder $query) {
+                $search = $this->search_student;
+                $query->where('id', $search)
+                      ->orWhere('name', 'like', "%{$search}%")
+                      ->orWhere('parent_mobile_1', 'like', "%{$search}%");
+            })
+            ->when($this->filter_grade, fn (Builder $query) => $query->where('grade', $this->filter_grade))
+            ->when($this->filter_semester, fn (Builder $query) => $query->where('semester', $this->filter_semester));
 
         if ($activeCycleId) {
             $query->withAvg(['answers' => fn ($q) => $q->where('cycle_id', $activeCycleId)], 'is_correct');
@@ -107,6 +95,12 @@ class StudentData extends Component
 
         $data['students'] = $query->paginate(20);
         $data['allBadges'] = BadgeSetting::all();
+
+        $data['stats_total'] = Student::count();
+        $data['stats_grades'] = Student::select('grade', \Illuminate\Support\Facades\DB::raw('count(*) as total'))
+                                ->groupBy('grade')
+                                ->orderBy('grade')
+                                ->pluck('total', 'grade')->toArray();
 
         return view('livewire.dashboard.student.student-data', $data);
     }

@@ -10,11 +10,37 @@
         </x-slot:actions>
     </x-header>
 
-    <div class="gap-4 mb-4">
-        <x-ui.choices-advanced-search wire:model.live="search_student_id" :options="$all_students" option-label="name"
-            option-sub-label="sub_label"
-            placeholder="{{ __('lang.search_by_name') ?? 'بحث بالاسم' }} / {{ __('lang.search_by_id') ?? 'بحث بالرقم' }}"
-            icon="o-magnifying-glass" clearable single searchable />
+    <!-- Stats Section -->
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-6">
+        <div class="bg-primary/10 border border-primary/20 rounded-xl p-4 flex flex-col items-center justify-center shadow-sm">
+            <span class="text-primary font-bold text-lg">{{ __('lang.total_students') ?? 'إجمالي الطلاب' }}</span>
+            <span class="text-2xl font-black text-primary mt-1">{{ $stats_total }}</span>
+        </div>
+        @foreach($stats_grades as $grade => $count)
+        <div class="bg-base-100 border border-base-200 rounded-xl p-4 flex flex-col items-center justify-center shadow-sm hover:border-primary/30 transition-colors">
+            <span class="text-gray-600 font-bold">{{ __('lang.grade') ?? 'الصف' }} {{ $grade }}</span>
+            <span class="text-xl font-black text-gray-800 mt-1">{{ $count }}</span>
+        </div>
+        @endforeach
+    </div>
+
+    <!-- Filters Section -->
+    <div class="flex flex-col sm:flex-row gap-4 mb-4">
+        <div class="flex-1">
+            <x-input wire:model.live.debounce.500ms="search_student"
+                placeholder="{{ __('lang.search_by_name') ?? 'بحث بالاسم' }} / {{ __('lang.search_by_id') ?? 'بحث بالرقم' }}"
+                icon="o-magnifying-glass" clearable />
+        </div>
+        <div class="w-full sm:w-48">
+            <x-select wire:model.live="filter_grade" 
+                :options="[['id' => '3', 'name' => 'الثالث'], ['id' => '4', 'name' => 'الرابع'], ['id' => '5', 'name' => 'الخامس'], ['id' => '6', 'name' => 'السادس']]" 
+                placeholder="جميع الصفوف" option-value="id" option-label="name" />
+        </div>
+        <div class="w-full sm:w-48">
+            <x-select wire:model.live="filter_semester" 
+                :options="[['id' => 'الفصل الأول', 'name' => 'الفصل الأول'], ['id' => 'الفصل الثاني', 'name' => 'الفصل الثاني'], ['id' => 'الفصل الثالث', 'name' => 'الفصل الثالث']]" 
+                placeholder="جميع الفصول" option-value="id" option-label="name" />
+        </div>
     </div>
 
     <div class="bg-base-100 rounded-lg shadow-sm border border-base-200">
