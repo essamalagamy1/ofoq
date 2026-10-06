@@ -95,10 +95,17 @@ class StudentProgress extends Component
             'correct_answers' => $correctAll
         ];
 
+        $isParent = auth()->user()->hasRole('parent');
+
         // Loop over weeks 1 to 12
         for ($week = 1; $week <= 12; $week++) {
             $weekAnswers = $answers->where('week', $week);
             $total = $weekAnswers->count();
+            
+            // Hide current and future weeks for parents
+            if ($isParent && $this->selected_cycle_id === $this->active_cycle_id && $this->active_cycle_week && $week >= $this->active_cycle_week) {
+                $total = 0; // Force it to show as no answers
+            }
             
             if ($total == 0) {
                 $this->weekly_progress[$week] = [
