@@ -90,7 +90,7 @@
                         </div>
                         <div x-show="!isFullscreen"></div>
                     </div>
-                    <h2 class="font-bold leading-relaxed text-base-content whitespace-pre-wrap break-all w-full"
+                    <h2 class="font-bold leading-relaxed text-base-content whitespace-pre-wrap break-words w-full"
                         :class="isFullscreen ? 'mb-12' : 'text-3xl mb-6'"
                         :style="isFullscreen ? `font-size: ${fontSize}px; line-height: 1.6;` : ''">
                         {{ $question->content }}</h2>
@@ -110,7 +110,7 @@
                             :class="showAnswer && 'A'
                             === '{{ $question->correct_option }}' ? 'text-success' : 'text-primary', isFullscreen ?
                                 'text-4xl' : ''">A</span>
-                        <span class="break-all whitespace-pre-wrap w-full">{{ $question->option_a }}</span>
+                        <span class="break-words whitespace-pre-wrap w-full">{{ $question->option_a }}</span>
                     </div>
                     <div class="p-4 rounded-xl border flex items-center gap-4 text-xl transition-all duration-300"
                         :class="{
@@ -125,7 +125,7 @@
                             :class="showAnswer && 'B'
                             === '{{ $question->correct_option }}' ? 'text-success' : 'text-primary', isFullscreen ?
                                 'text-4xl' : ''">B</span>
-                        <span class="break-all whitespace-pre-wrap w-full">{{ $question->option_b }}</span>
+                        <span class="break-words whitespace-pre-wrap w-full">{{ $question->option_b }}</span>
                     </div>
                     <div class="p-4 rounded-xl border flex items-center gap-4 text-xl transition-all duration-300"
                         :class="{
@@ -140,7 +140,7 @@
                             :class="showAnswer && 'C'
                             === '{{ $question->correct_option }}' ? 'text-success' : 'text-primary', isFullscreen ?
                                 'text-4xl' : ''">C</span>
-                        <span class="break-all whitespace-pre-wrap w-full">{{ $question->option_c }}</span>
+                        <span class="break-words whitespace-pre-wrap w-full">{{ $question->option_c }}</span>
                     </div>
                     <div class="p-4 rounded-xl border flex items-center gap-4 text-xl transition-all duration-300"
                         :class="{
@@ -155,7 +155,7 @@
                             :class="showAnswer && 'D'
                             === '{{ $question->correct_option }}' ? 'text-success' : 'text-primary', isFullscreen ?
                                 'text-4xl' : ''">D</span>
-                        <span class="break-all whitespace-pre-wrap w-full">{{ $question->option_d }}</span>
+                        <span class="break-words whitespace-pre-wrap w-full">{{ $question->option_d }}</span>
                     </div>
                 </div>
             </div>
