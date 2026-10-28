@@ -3,6 +3,11 @@
         Options -MultiViews -Indexes
     </IfModule>
 
+    # Disable LiteSpeed Cache for dynamic Laravel / Livewire requests
+    <IfModule LiteSpeed>
+        CacheLookup off
+    </IfModule>
+
     RewriteEngine On
 
     # Handle Authorization Header

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CheckParentEligibility;
 use App\Http\Middleware\LanguageMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -17,15 +18,16 @@ return Application::configure(basePath: dirname(__DIR__))
         apiPrefix: '/api/v1',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->trustProxies(at: '*');
         $middleware->api(prepend: [LanguageMiddleware::class]);
         $middleware->alias([
             'web-language' => LanguageMiddleware::class,
             'role' => RoleMiddleware::class,
             'permission' => PermissionMiddleware::class,
             'role_or_permission' => RoleOrPermissionMiddleware::class,
-            'check.parent.eligibility' => \App\Http\Middleware\CheckParentEligibility::class,
+            'check.parent.eligibility' => CheckParentEligibility::class,
         ]);
-        
+
         $middleware->redirectUsersTo(function () {
             if (auth()->check()) {
                 if (auth()->user()->hasRole('super_admin')) {
@@ -36,6 +38,7 @@ return Application::configure(basePath: dirname(__DIR__))
                     return route('parent.dashboard');
                 }
             }
+
             return '/';
         });
     })
