@@ -56,7 +56,7 @@
                 <h3 class="font-bold text-lg mb-2 text-center text-primary">{{ __('lang.questions_per_subject') ?? 'إجمالي الأسئلة لكل مادة' }}</h3>
                 <p class="text-sm text-center text-gray-500 mb-6">{{ __('lang.chart_x_subject_y_count') ?? 'المحور الأفقي: المواد | المحور الرأسي: عدد الأسئلة' }}</p>
                 <div class="h-[350px] w-full">
-                    <x-chart wire:model="questionsBySubjectChart" />
+                    <x-chart wire:model="questionsBySubjectChart" class="h-full w-full" />
                 </div>
             </div>
 
@@ -65,7 +65,7 @@
                 <h3 class="font-bold text-lg mb-2 text-center text-primary">{{ __('lang.questions_per_week') ?? 'الأسئلة في كل أسبوع' }}</h3>
                 <p class="text-sm text-center text-gray-500 mb-6">{{ __('lang.chart_x_week_y_count') ?? 'المحور الأفقي: أسابيع الدورة | المحور الرأسي: عدد الأسئلة' }}</p>
                 <div class="h-[350px] w-full">
-                    <x-chart wire:model="questionsByWeekChart" />
+                    <x-chart wire:model="questionsByWeekChart" class="h-full w-full" />
                 </div>
             </div>
             
@@ -74,7 +74,7 @@
                 <h3 class="font-bold text-lg mb-2 text-center text-primary">{{ __('lang.evaluations_per_week') ?? 'تقييم الطلاب في كل أسبوع' }}</h3>
                 <p class="text-sm text-center text-gray-500 mb-6">{{ __('lang.chart_x_week_y_eval') ?? 'المحور الأفقي: أسابيع الدورة | المحور الرأسي: عدد الإجابات' }}</p>
                 <div class="h-[400px] w-full">
-                    <x-chart wire:model="studentEvaluationsByWeekChart" />
+                    <x-chart wire:model="studentEvaluationsByWeekChart" class="h-full w-full" />
                 </div>
             </div>
 
@@ -83,7 +83,7 @@
                 <h3 class="font-bold text-lg mb-2 text-center text-primary">{{ __('lang.top_questions') ?? 'أكثر الأسئلة تفاعلاً' }}</h3>
                 <p class="text-sm text-center text-gray-500 mb-6">{{ __('lang.chart_x_count_y_question') ?? 'المحور الأفقي: عدد الإجابات | المحور الرأسي: الأسئلة' }}</p>
                 <div class="h-[400px] w-full">
-                    <x-chart wire:model="topQuestionsChart" />
+                    <x-chart wire:model="topQuestionsChart" class="h-full w-full" />
                 </div>
             </div>
 
@@ -92,7 +92,7 @@
                 <h3 class="font-bold text-lg mb-2 text-center text-primary">{{ __('lang.top_questions_current_week') ?? 'أكثر الأسئلة تفاعلاً (الأسبوع الحالي)' }}</h3>
                 <p class="text-sm text-center text-gray-500 mb-6">{{ __('lang.chart_x_count_y_question') ?? 'المحور الأفقي: عدد الإجابات | المحور الرأسي: الأسئلة' }}</p>
                 <div class="h-[400px] w-full">
-                    <x-chart wire:model="topQuestionsCurrentWeekChart" />
+                    <x-chart wire:model="topQuestionsCurrentWeekChart" class="h-full w-full" />
                 </div>
             </div>
         </div>
