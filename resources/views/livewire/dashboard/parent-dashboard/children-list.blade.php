@@ -4,7 +4,7 @@
         class="bg-gradient-to-r from-primary to-primary/80 rounded-xl p-6 text-primary-content shadow-lg flex items-center justify-between">
         <div>
             <h2 class="text-3xl font-bold mb-2">{{ __('lang.welcome_back') ?? 'مرحباً بك مجدداً' }}،
-                {{ $children?->first()->user->name ?? 'ولي الأمر' }}! 👋</h2>
+                {{ $children?->first()?->name ?? 'ولي الأمر' }}! 👋</h2>
             <p class="text-primary-content/80">
                 {{ __('lang.welcome_parent_msg') ?? 'نحن سعداء بمتابعتك لمستوى أبنائك وتفاعلك معنا.' }}</p>
         </div>
